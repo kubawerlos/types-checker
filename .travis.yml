@@ -5,9 +5,6 @@ cache:
 git:
     depth: 1
 
-before_install:
-    - phpenv config-rm xdebug.ini
-
 install:
     - composer require --dev phpunit/phpunit squizlabs/php_codesniffer
 
