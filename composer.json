@@ -1,0 +1,31 @@
+{
+    "name": "kubawerlos/types-checker",
+    "type": "library",
+    "description": "Library to find missing type declarations in PHP 7 code",
+    "keywords": [ "php7", "type declarations" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kuba Werłos",
+            "email": "werlos@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "KubaWerlos\\TypesChecker\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Stub\\": "tests/_stubs"
+        }
+    },
+    "require": {
+        "php": ">=7",
+        "symfony/console": ">=2.7",
+        "symfony/finder": ">=2.7"
+    },
+    "bin": [
+        "types-checker"
+    ]
+}
