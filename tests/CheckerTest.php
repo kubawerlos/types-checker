@@ -19,14 +19,14 @@ class CheckerTest extends TestCase
 
     public function testCorrectClass()
     {
-        $checker = new Checker(__DIR__.'/_stubs/Correct.php');
+        $checker = new Checker(__DIR__.'/_stubs/CorrectClass.php');
 
         $this->assertTrue($checker->check()->isProper());
     }
 
     public function testMissingParameterTypeClass()
     {
-        $checker = new Checker(__DIR__.'/_stubs/MissingParameterType.php');
+        $checker = new Checker(__DIR__.'/_stubs/MissingParameterTypeClass.php');
 
         $this->assertFalse($checker->check()->isProper());
     }
@@ -51,8 +51,8 @@ class CheckerTest extends TestCase
     public function testExcludingClass()
     {
         $checker = new Checker(__DIR__.'/_stubs');
-        $checker->excludeInstance('Tests\Stub\MissingParameterType');
-        $checker->excludeInstance('Tests\Stub\MissingReturnType');
+        $checker->excludeInstance('Tests\Stub\MissingParameterTypeClass');
+        $checker->excludeInstance('Tests\Stub\MissingReturnTypeClass');
 
         $this->assertTrue($checker->check()->isProper());
     }

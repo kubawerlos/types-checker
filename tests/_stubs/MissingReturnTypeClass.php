@@ -2,7 +2,7 @@
 
 namespace Tests\Stub;
 
-class MissingReturnType implements DummyInterface
+class MissingReturnTypeClass implements DummyInterface
 {
     public function test(bool $b)
     {

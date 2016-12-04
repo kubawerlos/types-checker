@@ -2,7 +2,7 @@
 
 namespace Tests\Stub;
 
-class Correct
+class CorrectClass
 {
     public function test(bool $b, float $f, int $i, string $s): bool
     {
