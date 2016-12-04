@@ -34,8 +34,7 @@ class Checker
                         ->filter(function (\SplFileInfo $file) {
                             return 'php' === $file->getExtension();
                         })
-                        ->in($path)
-                    )
+                        ->in($path))
                 );
             } else {
                 $this->files[] = $path;
@@ -65,6 +64,7 @@ class Checker
             foreach ($this->getClassesForFile($file) as $class) {
                 if ($this->isClassToCheck($class)) {
                     $this->checkClass($class);
+                    $this->report->incrementItemsCount();
                 }
             }
         }

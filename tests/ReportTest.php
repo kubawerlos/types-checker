@@ -15,6 +15,7 @@ class ReportTest extends TestCase
         $report = new Report();
 
         $this->assertTrue($report->isProper());
+        $this->assertSame(0, $report->getItemsCount());
     }
 
     public function testSingleError()
@@ -33,5 +34,15 @@ class ReportTest extends TestCase
         $report->addErrors('Baz', 'error');
 
         $this->assertCount(3, $report->getErrors());
+    }
+
+    public function testItemsCount()
+    {
+        $report = new Report();
+        $report->incrementItemsCount();
+        $report->incrementItemsCount();
+        $report->incrementItemsCount();
+
+        $this->assertSame(3, $report->getItemsCount());
     }
 }
