@@ -38,7 +38,7 @@ class Command extends \Symfony\Component\Console\Command\Command
         $checker = new Checker($input->getArgument('path'));
 
         foreach ($input->getOption('exclude-instance') as $name) {
-            $checker->excludeInstance($name);
+            $checker->exclude($name);
         }
 
         if ($input->getOption('skip-return-types')) {

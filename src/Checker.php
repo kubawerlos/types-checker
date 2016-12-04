@@ -45,7 +45,7 @@ class Checker
         $this->report = new Report();
     }
 
-    public function excludeInstance(string $name)
+    public function exclude(string $name)
     {
         $name = str_replace('\\\\', '\\', $name);
         if (!class_exists($name) && !interface_exists($name)) {

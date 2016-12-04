@@ -29,7 +29,7 @@ or from command line:
 ```
 
 ## Configuration
- $checker = new Checker(['src']);   | ./types-checker src    |                                                  |
- ---------------------------------- | ---------------------- | ------------------------------------------------ |
- $checker->excludeClass(Foo::class) | --exclude-instance Foo | Exclude class or interface instances from report |
- $checker->skipReturnTypes();       | --skip-return-types    | Do not report missing return types               |
+ $checker = new Checker(['src']);   | ./types-checker src |                                                  |
+ ---------------------------------- | ------------------- | ------------------------------------------------ |
+ $checker->excludeClass(Foo::class) | --exclude Foo       | Exclude class, interface or trait from report |
+ $checker->skipReturnTypes();       | --skip-return-types | Do not report missing return types               |

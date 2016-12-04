@@ -33,7 +33,7 @@ class CheckerTest extends TestCase
 
     public function testSkippingReturnTypes()
     {
-        $checker = new Checker([__DIR__.'/../src']);
+        $checker = new Checker([__DIR__.'/_stubs/MissingReturnTypeClass.php']);
         $checker->skipReturnTypes();
 
         $this->assertTrue($checker->check()->isProper());
@@ -45,14 +45,14 @@ class CheckerTest extends TestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $checker->excludeInstance('Nope\Nope\Nope');
+        $checker->exclude('Nope\Nope\Nope');
     }
 
     public function testExcludingClass()
     {
         $checker = new Checker([__DIR__.'/_stubs']);
-        $checker->excludeInstance('Tests\Stub\MissingParameterTypeClass');
-        $checker->excludeInstance('Tests\Stub\MissingReturnTypeClass');
+        $checker->exclude('Tests\Stub\MissingParameterTypeClass');
+        $checker->exclude('Tests\Stub\MissingReturnTypeClass');
 
         $this->assertTrue($checker->check()->isProper());
     }
@@ -60,7 +60,7 @@ class CheckerTest extends TestCase
     public function testExcludingInterface()
     {
         $checker = new Checker([__DIR__.'/_stubs']);
-        $checker->excludeInstance('Tests\Stub\DummyInterface');
+        $checker->exclude('Tests\Stub\DummyInterface');
 
         $this->assertTrue($checker->check()->isProper());
     }
