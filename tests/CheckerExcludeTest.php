@@ -10,14 +10,6 @@ use PHPUnit\Framework\TestCase;
  */
 class CheckerExcludeTest extends TestCase
 {
-    public function testSkippingReturnTypes()
-    {
-        $checker = new Checker([__DIR__.'/_stubs/MissingReturnTypeClass.php']);
-        $checker->skipReturnTypes();
-
-        $this->assertTrue($checker->check()->isProper());
-    }
-
     public function testExcludingNonExistentInstance()
     {
         $checker = new Checker([__DIR__.'/../src']);
