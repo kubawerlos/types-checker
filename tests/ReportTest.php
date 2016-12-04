@@ -10,17 +10,11 @@ use PHPUnit\Framework\TestCase;
  */
 class ReportTest extends TestCase
 {
-    public function testEmptyIsCorrect()
+    public function testEmpty()
     {
         $report = new Report();
 
         $this->assertTrue($report->isProper());
-    }
-
-    public function testInitialItemsCount()
-    {
-        $report = new Report();
-
         $this->assertSame(0, $report->getItemsCount());
     }
 
