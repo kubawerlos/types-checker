@@ -10,7 +10,7 @@ class Checker
     private $path;
 
     /** @var array */
-    private $excludedClasses = [];
+    private $excludedInstances = [];
 
     /** @var bool */
     private $checkReturnTypes = true;
@@ -26,12 +26,12 @@ class Checker
         $this->path = $path;
     }
 
-    public function excludeClass(string $className)
+    public function excludeInstance(string $name)
     {
-        if (!class_exists($className)) {
-            throw new \InvalidArgumentException(sprintf('Class "%s" does not exist.', $className));
+        if (!class_exists($name) && !interface_exists($name)) {
+            throw new \InvalidArgumentException(sprintf('Class or interface "%s" does not exist.', $name));
         }
-        $this->excludedClasses[] = $className;
+        $this->excludedInstances[] = $name;
     }
 
     public function skipReturnTypes()
@@ -59,7 +59,9 @@ class Checker
         }
 
         foreach ($classes as $class) {
-            if (!in_array($class, $this->excludedClasses, true)) {
+            if (count(array_filter($this->excludedInstances, function ($name) use ($class) {
+                return $name === $class || is_subclass_of($class, $name);
+            })) === 0) {
                 $this->testClass($class);
             }
         }

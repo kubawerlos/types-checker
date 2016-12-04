@@ -17,14 +17,14 @@ class Command extends \Symfony\Component\Console\Command\Command
         $this->setName(self::NAME)
             ->addArgument('path', InputArgument::REQUIRED)
             ->addOption(
-                'exclude-class',
-                null,
+                'exclude-instance',
+                'e',
                 InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
-                'Exclude class from report'
+                'Exclude class or interface instances from report'
             )
             ->addOption(
                 'skip-return-types',
-                null,
+                's',
                 InputOption::VALUE_NONE,
                 'Do not report missing return types'
             );
@@ -34,8 +34,8 @@ class Command extends \Symfony\Component\Console\Command\Command
     {
         $checker = new Checker($input->getArgument('path'));
 
-        foreach ($input->getOption('exclude-class') as $className) {
-            $checker->excludeClass($className);
+        foreach ($input->getOption('exclude-instance') as $name) {
+            $checker->excludeInstance($name);
         }
 
         if ($input->getOption('skip-return-types')) {

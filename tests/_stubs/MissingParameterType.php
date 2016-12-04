@@ -2,7 +2,7 @@
 
 namespace Tests\Stub;
 
-class MissingParameterType
+class MissingParameterType implements DummyInterface
 {
     public function test($x): bool
     {

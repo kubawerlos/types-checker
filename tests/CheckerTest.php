@@ -39,20 +39,28 @@ class CheckerTest extends TestCase
         $this->assertTrue($checker->check()->isProper());
     }
 
-    public function testExcludingNonExistentClass()
+    public function testExcludingNonExistentInstance()
     {
         $checker = new Checker(__DIR__.'/../src');
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $checker->excludeClass('Nope\Nope\Nope');
+        $checker->excludeInstance('Nope\Nope\Nope');
     }
 
     public function testExcludingClass()
     {
         $checker = new Checker(__DIR__.'/_stubs');
-        $checker->excludeClass('Tests\Stub\MissingParameterType');
-        $checker->excludeClass('Tests\Stub\MissingReturnType');
+        $checker->excludeInstance('Tests\Stub\MissingParameterType');
+        $checker->excludeInstance('Tests\Stub\MissingReturnType');
+
+        $this->assertTrue($checker->check()->isProper());
+    }
+
+    public function testExcludingInterface()
+    {
+        $checker = new Checker(__DIR__.'/_stubs');
+        $checker->excludeInstance('Tests\Stub\DummyInterface');
 
         $this->assertTrue($checker->check()->isProper());
     }
