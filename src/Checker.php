@@ -45,8 +45,8 @@ class Checker
     public function exclude(string $name)
     {
         $name = str_replace('\\\\', '\\', $name);
-        if (!class_exists($name) && !interface_exists($name)) {
-            throw new \InvalidArgumentException(sprintf('Class or interface "%s" does not exist.', $name));
+        if (!class_exists($name) && !interface_exists($name) && !trait_exists($name)) {
+            throw new \InvalidArgumentException(sprintf('Class, interface or trait "%s" does not exist.', $name));
         }
         $this->excludedInstances[] = $name;
     }

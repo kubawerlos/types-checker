@@ -19,18 +19,22 @@ class CheckerExcludeTest extends TestCase
         $checker->exclude('Nope\Nope\Nope');
     }
 
-    public function testExcludingClass()
+    public function excludingItselfProvider()
     {
-        $checker = new Checker([__DIR__.'/_stubs/CorrectClass.php']);
-        $checker->exclude('Tests\Stub\CorrectClass');
-
-        $this->assertSame(0, $checker->check()->getItemsCount());
+        return [
+            ['CorrectClass'],
+            ['CorrectInterface'],
+            ['CorrectTrait'],
+        ];
     }
 
-    public function testExcludingInterface()
+    /**
+     * @dataProvider excludingItselfProvider
+     */
+    public function testExcludingItself(string $class)
     {
-        $checker = new Checker([__DIR__.'/_stubs/CorrectInterface.php']);
-        $checker->exclude('Tests\Stub\CorrectInterface');
+        $checker = new Checker([__DIR__.'/_stubs/'.$class.'.php']);
+        $checker->exclude('Tests\Stub\\'.$class);
 
         $this->assertSame(0, $checker->check()->getItemsCount());
     }
