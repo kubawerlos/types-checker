@@ -2,7 +2,7 @@
 
 namespace Tests\Stub;
 
-class UsingMissingParameterTypeTraitClass implements DummyInterface
+class HavingTraitClass
 {
     use MissingParameterTypeTrait;
 }

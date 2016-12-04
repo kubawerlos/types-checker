@@ -20,6 +20,7 @@ class CheckerPathTest extends TestCase
     public function correctFileProvider()
     {
         return [
+            [__DIR__.'/_stubs/ChildClass.php'],
             [__DIR__.'/_stubs/CorrectClass.php'],
             [__DIR__.'/_stubs/CorrectInterface.php'],
             [__DIR__.'/_stubs/CorrectTrait.php'],
@@ -48,7 +49,6 @@ class CheckerPathTest extends TestCase
             [__DIR__.'/_stubs/MissingReturnTypeClass.php'],
             [__DIR__.'/_stubs/MissingReturnTypeInterface.php'],
             [__DIR__.'/_stubs/MissingReturnTypeTrait.php'],
-            [__DIR__.'/_stubs/UsingMissingParameterTypeTraitClass.php'],
         ];
     }
 
