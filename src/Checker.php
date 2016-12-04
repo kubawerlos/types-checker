@@ -89,7 +89,9 @@ class Checker
                     $namespace .= $tokens[$i++][1];
                 }
             }
-            if ($tokens[$i - 2][0] === T_CLASS && $tokens[$i - 1][0] === T_WHITESPACE && $tokens[$i][0] === T_STRING) {
+            if (in_array($tokens[$i - 2][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
+                && $tokens[$i - 1][0] === T_WHITESPACE
+                && $tokens[$i][0] === T_STRING) {
                 $className = $tokens[$i][1];
                 $classes[] = $namespace.'\\'.$className;
             }

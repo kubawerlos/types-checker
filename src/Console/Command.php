@@ -20,7 +20,7 @@ class Command extends \Symfony\Component\Console\Command\Command
                 InputArgument::IS_ARRAY
             )
             ->addOption(
-                'exclude-instance',
+                'exclude',
                 'e',
                 InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
                 'Exclude class or interface instances from report'
@@ -37,7 +37,7 @@ class Command extends \Symfony\Component\Console\Command\Command
     {
         $checker = new Checker($input->getArgument('path'));
 
-        foreach ($input->getOption('exclude-instance') as $name) {
+        foreach ($input->getOption('exclude') as $name) {
             $checker->exclude($name);
         }
 
@@ -47,7 +47,7 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         $report = $checker->check();
 
-        $output->writeln('Type declarations issues');
+        $output->writeln(sprintf('Types checker - %d items checked, issues:', $report->getItemsCount()));
         $output->writeln('');
 
         if ($report->isProper()) {
