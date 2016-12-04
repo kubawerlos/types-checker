@@ -28,7 +28,7 @@ class Checker
 
     public function excludeInstance(string $name)
     {
-        $name= str_replace('\\\\', '\\', $name);
+        $name = str_replace('\\\\', '\\', $name);
         if (!class_exists($name) && !interface_exists($name)) {
             throw new \InvalidArgumentException(sprintf('Class or interface "%s" does not exist.', $name));
         }
@@ -60,10 +60,8 @@ class Checker
         }
 
         foreach ($classes as $class) {
-            if (count(array_filter($this->excludedInstances, function ($name) use ($class) {
-                return $name === $class || is_subclass_of($class, $name);
-            })) === 0) {
-                $this->testClass($class);
+            if ($this->isClassToCheck($class)) {
+                $this->checkClass($class);
             }
         }
 
@@ -96,12 +94,19 @@ class Checker
         return $classes;
     }
 
-    private function testClass(string $class)
+    private function isClassToCheck(string $name): bool
+    {
+        return count(array_filter($this->excludedInstances, function ($excluded) use ($name) {
+            return $excluded === $name || is_subclass_of($name, $excluded);
+        })) === 0;
+    }
+
+    private function checkClass(string $class)
     {
         $reflection = new \ReflectionClass($class);
 
         foreach ($reflection->getMethods() as $method) {
-            if ($method->class === $class) {
+            if ($this->isMethodToCheck($method->getName()) && $method->class === $class) {
                 foreach ($method->getParameters() as $parameter) {
                     if ($parameter->getType() === null) {
                         $this->report->addErrors(
@@ -115,5 +120,10 @@ class Checker
                 }
             }
         }
+    }
+
+    private function isMethodToCheck(string $class)
+    {
+        return !in_array($class, ['__construct', '__destruct', '__clone'], true);
     }
 }
