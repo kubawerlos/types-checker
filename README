@@ -15,22 +15,19 @@ A tool to find missing type declarations in PHP 7 code.
 ## Usage
 ```php
     <?php
-    
+
     use KubaWerlos\TypesChecker\Checker;
-    
+
     $checker = new Checker(__DIR__.'/../src');
-    
-    // to disable checking return types
-    $checker->skipReturnTypes();
-    
+
     $report = $checker->check();
-    
+
     $report->isProper();
 ```
 
 or from command line:
 ```bash
-    ./types-checker --skip-return-types src
+    ./types-checker src
 ```
 
 ## Configuration
