@@ -44,4 +44,14 @@ class ConsoleTest extends TestCase
 
         $this->assertContains('nothing found', $this->commandTester->getDisplay());
     }
+
+    public function testRunWithExcludedClass()
+    {
+        $this->commandTester->execute([
+            'path' => __DIR__.'/_stubs',
+            '--exclude-class' => ['Tests\Stub\MissingParameterType', 'Tests\Stub\MissingReturnType'],
+        ]);
+
+        $this->assertContains('nothing found', $this->commandTester->getDisplay());
+    }
 }

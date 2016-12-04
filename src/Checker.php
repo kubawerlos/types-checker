@@ -9,6 +9,9 @@ class Checker
     /** @var string */
     private $path;
 
+    /** @var array */
+    private $excludedClasses = [];
+
     /** @var bool */
     private $checkReturnTypes = true;
 
@@ -21,6 +24,14 @@ class Checker
             throw new \InvalidArgumentException(sprintf('Path "%s" does not exist.', $path));
         }
         $this->path = $path;
+    }
+
+    public function excludeClass(string $className)
+    {
+        if (!class_exists($className)) {
+            throw new \InvalidArgumentException(sprintf('Class "%s" does not exist.', $className));
+        }
+        $this->excludedClasses[] = $className;
     }
 
     public function skipReturnTypes()
@@ -48,7 +59,9 @@ class Checker
         }
 
         foreach ($classes as $class) {
-            $this->testClass($class);
+            if (!in_array($class, $this->excludedClasses, true)) {
+                $this->testClass($class);
+            }
         }
 
         return $this->report;

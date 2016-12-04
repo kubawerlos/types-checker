@@ -16,12 +16,27 @@ class Command extends \Symfony\Component\Console\Command\Command
     {
         $this->setName(self::NAME)
             ->addArgument('path', InputArgument::REQUIRED)
-            ->addOption('skip-return-types', null, InputOption::VALUE_NONE, 'Do not report missing return types');
+            ->addOption(
+                'exclude-class',
+                null,
+                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
+                'Exclude class from report'
+            )
+            ->addOption(
+                'skip-return-types',
+                null,
+                InputOption::VALUE_NONE,
+                'Do not report missing return types'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $checker = new Checker($input->getArgument('path'));
+
+        foreach ($input->getOption('exclude-class') as $className) {
+            $checker->excludeClass($className);
+        }
 
         if ($input->getOption('skip-return-types')) {
             $checker->skipReturnTypes();
@@ -34,6 +49,7 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         if ($report->isProper()) {
             $output->writeln(' * nothing found');
+
             return 0;
         } else {
             foreach ($report->getErrors() as $class => $errors) {
@@ -42,6 +58,7 @@ class Command extends \Symfony\Component\Console\Command\Command
                     $output->writeln(sprintf('   - %s', $error));
                 }
             }
+
             return 1;
         }
     }

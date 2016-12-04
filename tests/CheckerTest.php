@@ -17,14 +17,6 @@ class CheckerTest extends TestCase
         new Checker(__DIR__.'/nope/nope/nope');
     }
 
-    public function testSrcDirectory()
-    {
-        $checker = new Checker(__DIR__.'/../src');
-        $checker->skipReturnTypes();
-
-        $this->assertTrue($checker->check()->isProper());
-    }
-
     public function testCorrectClass()
     {
         $checker = new Checker(__DIR__.'/_stubs/Correct.php');
@@ -37,5 +29,31 @@ class CheckerTest extends TestCase
         $checker = new Checker(__DIR__.'/_stubs/MissingParameterType.php');
 
         $this->assertFalse($checker->check()->isProper());
+    }
+
+    public function testSkippingReturnTypes()
+    {
+        $checker = new Checker(__DIR__.'/../src');
+        $checker->skipReturnTypes();
+
+        $this->assertTrue($checker->check()->isProper());
+    }
+
+    public function testExcludingNonExistentClass()
+    {
+        $checker = new Checker(__DIR__.'/../src');
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $checker->excludeClass('Nope\Nope\Nope');
+    }
+
+    public function testExcludingClass()
+    {
+        $checker = new Checker(__DIR__.'/_stubs');
+        $checker->excludeClass('Tests\Stub\MissingParameterType');
+        $checker->excludeClass('Tests\Stub\MissingReturnType');
+
+        $this->assertTrue($checker->check()->isProper());
     }
 }
