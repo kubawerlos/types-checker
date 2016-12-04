@@ -2,6 +2,12 @@ cache:
     directories:
         - $HOME/.composer/cache
 
+git:
+    depth: 1
+
+before_install:
+    - phpenv config-rm xdebug.ini
+
 install:
     - composer require --dev phpunit/phpunit squizlabs/php_codesniffer
 
@@ -17,6 +23,6 @@ php:
 
 script:
     - ./vendor/bin/phpcs --report-full --standard=PSR2 src/ tests/
-    - ./vendor/bin/phpunit
+    - phpdbg -qrr ./vendor/phpunit/phpunit/phpunit
 
 sudo: false
