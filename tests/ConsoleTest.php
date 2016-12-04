@@ -29,7 +29,7 @@ class ConsoleTest extends TestCase
     public function testRun()
     {
         $this->commandTester->execute([
-            'path' => 'src',
+            'path' => ['src'],
         ]);
 
         $this->assertContains('missing return type', $this->commandTester->getDisplay());
@@ -38,7 +38,7 @@ class ConsoleTest extends TestCase
     public function testRunWithoutReturnTypes()
     {
         $this->commandTester->execute([
-            'path' => 'src',
+            'path' => ['src'],
             '--skip-return-types' => true,
         ]);
 
@@ -48,7 +48,7 @@ class ConsoleTest extends TestCase
     public function testRunWithExcludedClass()
     {
         $this->commandTester->execute([
-            'path' => __DIR__.'/_stubs',
+            'path' => [__DIR__.'/_stubs'],
             '--exclude-instance' => ['Tests\Stub\MissingParameterTypeClass', 'Tests\Stub\MissingReturnTypeClass'],
         ]);
 

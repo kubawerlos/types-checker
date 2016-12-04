@@ -14,26 +14,26 @@ class CheckerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        new Checker(__DIR__.'/nope/nope/nope');
+        new Checker([__DIR__.'/nope/nope/nope']);
     }
 
     public function testCorrectClass()
     {
-        $checker = new Checker(__DIR__.'/_stubs/CorrectClass.php');
+        $checker = new Checker([__DIR__.'/_stubs/CorrectClass.php']);
 
         $this->assertTrue($checker->check()->isProper());
     }
 
     public function testMissingParameterTypeClass()
     {
-        $checker = new Checker(__DIR__.'/_stubs/MissingParameterTypeClass.php');
+        $checker = new Checker([__DIR__.'/_stubs/MissingParameterTypeClass.php']);
 
         $this->assertFalse($checker->check()->isProper());
     }
 
     public function testSkippingReturnTypes()
     {
-        $checker = new Checker(__DIR__.'/../src');
+        $checker = new Checker([__DIR__.'/../src']);
         $checker->skipReturnTypes();
 
         $this->assertTrue($checker->check()->isProper());
@@ -41,7 +41,7 @@ class CheckerTest extends TestCase
 
     public function testExcludingNonExistentInstance()
     {
-        $checker = new Checker(__DIR__.'/../src');
+        $checker = new Checker([__DIR__.'/../src']);
 
         $this->expectException(\InvalidArgumentException::class);
 
@@ -50,7 +50,7 @@ class CheckerTest extends TestCase
 
     public function testExcludingClass()
     {
-        $checker = new Checker(__DIR__.'/_stubs');
+        $checker = new Checker([__DIR__.'/_stubs']);
         $checker->excludeInstance('Tests\Stub\MissingParameterTypeClass');
         $checker->excludeInstance('Tests\Stub\MissingReturnTypeClass');
 
@@ -59,7 +59,7 @@ class CheckerTest extends TestCase
 
     public function testExcludingInterface()
     {
-        $checker = new Checker(__DIR__.'/_stubs');
+        $checker = new Checker([__DIR__.'/_stubs']);
         $checker->excludeInstance('Tests\Stub\DummyInterface');
 
         $this->assertTrue($checker->check()->isProper());

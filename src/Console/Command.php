@@ -15,7 +15,10 @@ class Command extends \Symfony\Component\Console\Command\Command
     protected function configure()
     {
         $this->setName(self::NAME)
-            ->addArgument('path', InputArgument::REQUIRED)
+            ->addArgument(
+                'path',
+                InputArgument::IS_ARRAY
+            )
             ->addOption(
                 'exclude-instance',
                 'e',

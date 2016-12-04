@@ -16,9 +16,7 @@ A tool to find missing type declarations in PHP 7 code.
 ```php
     <?php
 
-    use KubaWerlos\TypesChecker\Checker;
-
-    $checker = new Checker(__DIR__.'/../src');
+    $checker = new \KubaWerlos\TypesChecker\Checker(['src', 'tests']);
 
     $report = $checker->check();
 
@@ -27,11 +25,11 @@ A tool to find missing type declarations in PHP 7 code.
 
 or from command line:
 ```bash
-    ./types-checker src
+    ./types-checker src tests
 ```
 
 ## Configuration
- $checker = new Checker('src');     | ./types-checker src    |                                                  |
+ $checker = new Checker(['src']);   | ./types-checker src    |                                                  |
  ---------------------------------- | ---------------------- | ------------------------------------------------ |
  $checker->excludeClass(Foo::class) | --exclude-instance Foo | Exclude class or interface instances from report |
  $checker->skipReturnTypes();       | --skip-return-types    | Do not report missing return types               |
