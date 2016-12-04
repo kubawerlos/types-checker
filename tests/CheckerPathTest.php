@@ -33,7 +33,10 @@ class CheckerPathTest extends TestCase
     {
         $checker = new Checker([$path]);
 
-        $this->assertTrue($checker->check()->isProper());
+        $report = $checker->check();
+
+        $this->assertTrue($report->isProper());
+        $this->assertSame(1, $report->getItemsCount());
     }
 
     public function incorrectFileProvider()
@@ -56,6 +59,9 @@ class CheckerPathTest extends TestCase
     {
         $checker = new Checker([$path]);
 
-        $this->assertFalse($checker->check()->isProper());
+        $report = $checker->check();
+
+        $this->assertFalse($report->isProper());
+        $this->assertSame(1, $report->getItemsCount());
     }
 }

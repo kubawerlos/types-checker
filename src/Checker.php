@@ -40,8 +40,6 @@ class Checker
                 $this->files[] = $path;
             }
         }
-
-        $this->report = new Report();
     }
 
     public function exclude(string $name)
@@ -60,6 +58,8 @@ class Checker
 
     public function check(): Report
     {
+        $this->report = new Report();
+
         foreach ($this->files as $file) {
             foreach ($this->getClassesForFile($file) as $class) {
                 if ($this->isClassToCheck($class)) {
