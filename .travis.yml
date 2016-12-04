@@ -1,3 +1,7 @@
+cache:
+    directories:
+        - $HOME/.composer/cache
+
 install:
     - composer require --dev phpunit/phpunit squizlabs/php_codesniffer
 
