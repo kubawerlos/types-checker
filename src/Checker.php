@@ -28,6 +28,7 @@ class Checker
 
     public function excludeInstance(string $name)
     {
+        $name= str_replace('\\\\', '\\', $name);
         if (!class_exists($name) && !interface_exists($name)) {
             throw new \InvalidArgumentException(sprintf('Class or interface "%s" does not exist.', $name));
         }
