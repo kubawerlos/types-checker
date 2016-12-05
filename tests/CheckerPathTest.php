@@ -6,7 +6,9 @@ use KubaWerlos\TypesChecker\Checker;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Checker
+ * @covers \KubaWerlos\TypesChecker\Checker::__construct
+ * @covers \KubaWerlos\TypesChecker\Checker::check
+ * @covers \KubaWerlos\TypesChecker\Checker::<private>
  */
 class CheckerPathTest extends TestCase
 {
@@ -76,5 +78,13 @@ class CheckerPathTest extends TestCase
         $report = $checker->check();
 
         $this->assertSame(3, $report->getItemsCount());
+    }
+
+    public function testSrcDirectory()
+    {
+        $checker = new Checker([__DIR__.'/../src']);
+        $checker->skipReturnTypes();
+
+        $this->assertTrue($checker->check()->isProper());
     }
 }

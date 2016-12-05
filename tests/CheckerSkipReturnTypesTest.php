@@ -6,7 +6,7 @@ use KubaWerlos\TypesChecker\Checker;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Checker
+ * @covers \KubaWerlos\TypesChecker\Checker::skipReturnTypes
  */
 class CheckerSkipReturnTypesTest extends TestCase
 {

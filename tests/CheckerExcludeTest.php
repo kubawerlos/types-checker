@@ -6,7 +6,8 @@ use KubaWerlos\TypesChecker\Checker;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Checker
+ * @covers \KubaWerlos\TypesChecker\Checker::exclude
+ * @covers \KubaWerlos\TypesChecker\Checker::<private>
  */
 class CheckerExcludeTest extends TestCase
 {

@@ -26,7 +26,6 @@ class Checker
                 throw new \InvalidArgumentException(sprintf('Path "%s" does not exist.', $path));
             }
             if (is_dir($realPath)) {
-                // check
                 $this->files = array_merge(
                     $this->files,
                     iterator_to_array((new Finder())
