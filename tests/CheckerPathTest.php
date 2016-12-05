@@ -17,20 +17,20 @@ class CheckerPathTest extends TestCase
         new Checker([__DIR__.'/nope/nope/nope']);
     }
 
-    public function correctFileProvider()
+    public function properFilesProvider()
     {
         return [
             [__DIR__.'/_stubs/ChildClass.php'],
-            [__DIR__.'/_stubs/CorrectClass.php'],
-            [__DIR__.'/_stubs/CorrectInterface.php'],
-            [__DIR__.'/_stubs/CorrectTrait.php'],
+            [__DIR__.'/_stubs/ProperClass.php'],
+            [__DIR__.'/_stubs/ProperInterface.php'],
+            [__DIR__.'/_stubs/ProperTrait.php'],
         ];
     }
 
     /**
-     * @dataProvider correctFileProvider
+     * @dataProvider properFilesProvider
      */
-    public function testCorrectFile(string $path)
+    public function testProperFile(string $path)
     {
         $checker = new Checker([$path]);
 
@@ -40,7 +40,7 @@ class CheckerPathTest extends TestCase
         $this->assertSame(1, $report->getItemsCount());
     }
 
-    public function incorrectFileProvider()
+    public function improperFilesProvider()
     {
         return [
             [__DIR__.'/_stubs/MissingParameterTypeClass.php'],
@@ -53,9 +53,9 @@ class CheckerPathTest extends TestCase
     }
 
     /**
-     * @dataProvider incorrectFileProvider
+     * @dataProvider improperFilesProvider
      */
-    public function testIncorrectFile(string $path)
+    public function testImproperFile(string $path)
     {
         $checker = new Checker([$path]);
 

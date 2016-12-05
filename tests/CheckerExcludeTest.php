@@ -22,9 +22,9 @@ class CheckerExcludeTest extends TestCase
     public function excludingItselfProvider()
     {
         return [
-            ['CorrectClass'],
-            ['CorrectInterface'],
-            ['CorrectTrait'],
+            ['ProperClass'],
+            ['ProperInterface'],
+            ['ProperTrait'],
         ];
     }
 
@@ -49,8 +49,8 @@ class CheckerExcludeTest extends TestCase
 
     public function testExcludingInterface()
     {
-        $checker = new Checker([__DIR__.'/_stubs/CorrectClass.php']);
-        $checker->exclude('Tests\Stub\CorrectInterface');
+        $checker = new Checker([__DIR__.'/_stubs/ProperClass.php']);
+        $checker->exclude('Tests\Stub\ProperInterface');
 
         $this->assertSame(0, $checker->check()->getItemsCount());
     }
