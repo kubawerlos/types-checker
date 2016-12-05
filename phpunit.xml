@@ -3,7 +3,6 @@
          backupStaticAttributes='false'
          beStrictAboutTestsThatDoNotTestAnything='true'
          bootstrap='vendor/autoload.php'
-         colors=''
          convertErrorsToExceptions='true'
          convertNoticesToExceptions='true'
          convertWarningsToExceptions='true'
