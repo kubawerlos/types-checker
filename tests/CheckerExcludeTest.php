@@ -54,4 +54,21 @@ class CheckerExcludeTest extends TestCase
 
         $this->assertSame(0, $checker->check()->getItemsCount());
     }
+
+    public function testExcludingTrait()
+    {
+        $checker = new Checker([__DIR__.'/_stubs/ProperClass.php', __DIR__.'/_stubs/ProperTrait.php']);
+        $checker->exclude('Tests\Stub\ProperTrait');
+
+        $this->assertSame(1, $checker->check()->getItemsCount());
+    }
+
+    public function testExcludingTraitInTheSameFile()
+    {
+        $checker = new Checker([__DIR__.'/_stubs/ClassInTheSameFileWithTrait.php']);
+        $checker->exclude('Tests\Stub\ClassInTheSameFileWithTrait');
+        $checker->exclude('Tests\Stub\AnotherTrait');
+
+        $this->assertSame(1, $checker->check()->getItemsCount());
+    }
 }

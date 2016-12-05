@@ -21,11 +21,11 @@ class Checker
     public function __construct(array $paths)
     {
         foreach ($paths as $path) {
-            $path = realpath($path);
-            if (!file_exists($path)) {
+            $realPath = realpath($path);
+            if ($realPath === false) {
                 throw new \InvalidArgumentException(sprintf('Path "%s" does not exist.', $path));
             }
-            if (is_dir($path)) {
+            if (is_dir($realPath)) {
                 // check
                 $this->files = array_merge(
                     $this->files,
@@ -34,10 +34,10 @@ class Checker
                         ->filter(function (\SplFileInfo $file) {
                             return 'php' === $file->getExtension();
                         })
-                        ->in($path))
+                        ->in($realPath))
                 );
             } else {
-                $this->files[] = $path;
+                $this->files[] = $realPath;
             }
         }
     }
@@ -109,27 +109,35 @@ class Checker
 
     private function checkClass(string $class)
     {
-        $reflection = new \ReflectionClass($class);
+        $class = new \ReflectionClass($class);
 
-        foreach ($reflection->getMethods() as $method) {
-            if ($this->isMethodToCheck($method->getName()) && $method->class === $class) {
+        foreach ($class->getMethods() as $method) {
+            if ($this->isMethodToCheck($class, $method)) {
                 foreach ($method->getParameters() as $parameter) {
                     if ($parameter->getType() === null) {
                         $this->report->addErrors(
-                            $reflection,
+                            $class,
                             sprintf('%s - parameter $%s is missing type', $method->getName(), $parameter->getName())
                         );
                     }
                 }
                 if ($this->checkReturnTypes && $method->getReturnType() === null) {
-                    $this->report->addErrors($reflection, "{$method->getName()} is missing return type");
+                    $this->report->addErrors($class, "{$method->getName()} is missing return type");
                 }
             }
         }
     }
 
-    private function isMethodToCheck(string $class)
+    private function isMethodToCheck(\ReflectionClass $class, \ReflectionMethod $method): bool
     {
-        return !in_array($class, ['__construct', '__destruct', '__clone'], true);
+        if ($class->getFileName() !== $method->getFileName()) {
+            return false;
+        }
+
+        if ($method->getStartLine() <= $class->getStartLine() || $class->getEndLine() <= $method->getEndLine()) {
+            return false;
+        }
+
+        return !in_array($method->getName(), ['__construct', '__destruct', '__clone'], true);
     }
 }

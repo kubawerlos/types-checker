@@ -24,6 +24,8 @@ class CheckerPathTest extends TestCase
             [__DIR__.'/_stubs/ProperClass.php'],
             [__DIR__.'/_stubs/ProperInterface.php'],
             [__DIR__.'/_stubs/ProperTrait.php'],
+            [__DIR__.'/_stubs/HavingImproperTraitProperClass.php'],
+            [__DIR__.'/_stubs/HavingImproperTraitProperOverridingClass.php'],
         ];
     }
 
@@ -43,6 +45,8 @@ class CheckerPathTest extends TestCase
     public function improperFilesProvider()
     {
         return [
+            [__DIR__.'/_stubs/HavingProperTraitImproperClass.php'],
+            [__DIR__.'/_stubs/HavingProperTraitImproperOverridingClass.php'],
             [__DIR__.'/_stubs/MissingParameterTypeClass.php'],
             [__DIR__.'/_stubs/MissingParameterTypeInterface.php'],
             [__DIR__.'/_stubs/MissingParameterTypeTrait.php'],
@@ -63,5 +67,14 @@ class CheckerPathTest extends TestCase
 
         $this->assertFalse($report->isProper());
         $this->assertSame(1, $report->getItemsCount());
+    }
+
+    public function testClassInTheSameFileWithTrait()
+    {
+        $checker = new Checker([__DIR__.'/_stubs/ClassInTheSameFileWithTrait.php']);
+
+        $report = $checker->check();
+
+        $this->assertSame(3, $report->getItemsCount());
     }
 }

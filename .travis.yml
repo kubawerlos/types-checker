@@ -19,7 +19,7 @@ php:
     - 'nightly'
 
 script:
-    - ./vendor/bin/phpcs --ignore=TraitIntTheSameFileTrait.php --report-full --standard=PSR2 src/ tests/
+    - ./vendor/bin/phpcs --ignore=ClassInTheSameFileWithTrait.php --report-full --standard=PSR2 src/ tests/
     - phpdbg -qrr ./vendor/phpunit/phpunit/phpunit
 
 sudo: false
