@@ -51,14 +51,17 @@ class Command extends \Symfony\Component\Console\Command\Command
         $output->writeln('');
 
         if ($report->isProper()) {
-            $output->writeln(' * nothing found');
+            $output->writeln('Nothing found!');
 
             return 0;
         } else {
-            foreach ($report->getErrors() as $class => $errors) {
-                $output->writeln(sprintf(' * %s:', $class));
-                foreach ($errors as $error) {
-                    $output->writeln(sprintf('   - %s', $error));
+            foreach ($report->getErrors() as $class => $functions) {
+                $output->writeln(sprintf(' - %s:', $class));
+                foreach ($functions as $function => $errors) {
+                    $output->writeln(sprintf('   - %s:', $function));
+                    foreach ($errors as $error) {
+                        $output->writeln(sprintf('     - %s', $error));
+                    }
                 }
             }
 

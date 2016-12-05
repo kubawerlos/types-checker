@@ -8,15 +8,15 @@ class Report
 
     private $itemsCount = 0;
 
-    public function addErrors(\ReflectionClass $class, string $error)
+    public function addErrors(\ReflectionMethod $method, string $error)
     {
-        $key = $this->getKey($class);
+        $key = $this->getKey($method->getDeclaringClass());
 
-        if (!isset($this->errors[$key])) {
-            $this->errors[$key] = [];
+        if (!isset($this->errors[$key][$method->getName()])) {
+            $this->errors[$key][$method->getName()] = [];
         }
 
-        $this->errors[$key][] = $error;
+        $this->errors[$key][$method->getName()][] = $error;
     }
 
     public function incrementItemsCount()
@@ -53,6 +53,6 @@ class Report
                 break;
         }
 
-        return $type.' '.$class->getName();
+        return sprintf('%s %s', $type, $class->getName());
     }
 }

@@ -92,7 +92,7 @@ class Checker
                 && $tokens[$i - 1][0] === T_WHITESPACE
                 && $tokens[$i][0] === T_STRING) {
                 $className = $tokens[$i][1];
-                $classes[] = $namespace.'\\'.$className;
+                $classes[] = sprintf('%s\\%s', $namespace, $className);
             }
         }
 
@@ -112,16 +112,16 @@ class Checker
 
         foreach ($class->getMethods() as $method) {
             if ($this->isMethodToCheck($class, $method)) {
+                if ($this->checkReturnTypes && $method->getReturnType() === null) {
+                    $this->report->addErrors($method, 'missing return type');
+                }
                 foreach ($method->getParameters() as $parameter) {
                     if ($parameter->getType() === null) {
                         $this->report->addErrors(
-                            $class,
-                            sprintf('%s - parameter $%s is missing type', $method->getName(), $parameter->getName())
+                            $method,
+                            sprintf('parameter $%s is missing type', $parameter->getName())
                         );
                     }
-                }
-                if ($this->checkReturnTypes && $method->getReturnType() === null) {
-                    $this->report->addErrors($class, "{$method->getName()} is missing return type");
                 }
             }
         }

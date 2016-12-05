@@ -24,7 +24,7 @@ class ReportTest extends TestCase
     public function testSingleError()
     {
         $report = new Report();
-        $report->addErrors(new \ReflectionClass(\stdClass::class), 'error');
+        $report->addErrors(new \ReflectionMethod(ProperClass::class, 'test'), 'error');
 
         $this->assertFalse($report->isProper());
     }
@@ -32,9 +32,9 @@ class ReportTest extends TestCase
     public function testThreeClasses()
     {
         $report = new Report();
-        $report->addErrors(new \ReflectionClass(ProperInterface::class), 'error');
-        $report->addErrors(new \ReflectionClass(ProperTrait::class), 'error');
-        $report->addErrors(new \ReflectionClass(ProperClass::class), 'error');
+        $report->addErrors(new \ReflectionMethod(ProperInterface::class, 'test'), 'error');
+        $report->addErrors(new \ReflectionMethod(ProperTrait::class, 'test'), 'error');
+        $report->addErrors(new \ReflectionMethod(ProperClass::class, 'test'), 'error');
 
         $this->assertInternalType('array', $report->getErrors());
         $this->assertCount(3, $report->getErrors());
