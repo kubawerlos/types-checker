@@ -1,25 +1,35 @@
+git:
+    depth: 1
+
 cache:
     directories:
         - $HOME/.composer/cache
 
-git:
-    depth: 1
-
-install:
-    - composer require --dev phpunit/phpunit squizlabs/php_codesniffer
+sudo: false
 
 language: php
 
 notifications:
     email: false
 
-php:
-    - '7.0'
-    - '7.1'
-    - 'nightly'
+matrix:
+    include:
+        - php: '7.0'
+        - php: '7.0'
+          env:
+              - COMPOSER_FLAGS='--prefer-lowest'
+        - php: '7.1'
+        - php: 'nightly'
+
+install:
+    - composer require --dev phpunit/phpunit squizlabs/php_codesniffer
+
+before_install:
+    - composer self-update
+
+install:
+    - composer install $COMPOSER_FLAGS
 
 script:
     - ./vendor/bin/phpcs --ignore=ClassInTheSameFileWithTrait.php --report-full --standard=PSR2 src/ tests/
     - phpdbg -qrr ./vendor/phpunit/phpunit/phpunit
-
-sudo: false
