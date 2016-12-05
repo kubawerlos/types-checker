@@ -130,14 +130,9 @@ class Checker
 
     private function isMethodToCheck(\ReflectionClass $class, \ReflectionMethod $method): bool
     {
-        if ($class->getFileName() !== $method->getFileName()) {
-            return false;
-        }
-
-        if ($method->getStartLine() <= $class->getStartLine() || $class->getEndLine() <= $method->getEndLine()) {
-            return false;
-        }
-
-        return !in_array($method->getName(), ['__construct', '__destruct', '__clone'], true);
+        return $method->getFileName() === $class->getFileName()
+            && $method->getStartLine() > $class->getStartLine()
+            && $method->getEndLine() < $class->getEndLine()
+            && !in_array($method->getName(), ['__construct', '__destruct', '__clone'], true);
     }
 }
