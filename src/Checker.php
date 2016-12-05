@@ -116,13 +116,13 @@ class Checker
                 foreach ($method->getParameters() as $parameter) {
                     if ($parameter->getType() === null) {
                         $this->report->addErrors(
-                            $class,
+                            $reflection,
                             sprintf('%s - parameter $%s is missing type', $method->getName(), $parameter->getName())
                         );
                     }
                 }
                 if ($this->checkReturnTypes && $method->getReturnType() === null) {
-                    $this->report->addErrors($class, "{$method->getName()} is missing return type");
+                    $this->report->addErrors($reflection, "{$method->getName()} is missing return type");
                 }
             }
         }

@@ -4,6 +4,9 @@ namespace Tests;
 
 use KubaWerlos\TypesChecker\Report;
 use PHPUnit\Framework\TestCase;
+use Tests\Stub\ProperClass;
+use Tests\Stub\ProperInterface;
+use Tests\Stub\ProperTrait;
 
 /**
  * @covers \KubaWerlos\TypesChecker\Report
@@ -21,7 +24,7 @@ class ReportTest extends TestCase
     public function testSingleError()
     {
         $report = new Report();
-        $report->addErrors('Foo', 'error');
+        $report->addErrors(new \ReflectionClass(\stdClass::class), 'error');
 
         $this->assertFalse($report->isProper());
     }
@@ -29,11 +32,15 @@ class ReportTest extends TestCase
     public function testThreeClasses()
     {
         $report = new Report();
-        $report->addErrors('Foo', 'error');
-        $report->addErrors('Bar', 'error');
-        $report->addErrors('Baz', 'error');
+        $report->addErrors(new \ReflectionClass(ProperInterface::class), 'error');
+        $report->addErrors(new \ReflectionClass(ProperTrait::class), 'error');
+        $report->addErrors(new \ReflectionClass(ProperClass::class), 'error');
 
+        $this->assertInternalType('array', $report->getErrors());
         $this->assertCount(3, $report->getErrors());
+        $this->assertArrayHasKey('Interface '.ProperInterface::class, $report->getErrors());
+        $this->assertArrayHasKey('Trait '.ProperTrait::class, $report->getErrors());
+        $this->assertArrayHasKey('Class '.ProperClass::class, $report->getErrors());
     }
 
     public function testItemsCount()

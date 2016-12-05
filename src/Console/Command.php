@@ -56,7 +56,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             return 0;
         } else {
             foreach ($report->getErrors() as $class => $errors) {
-                $output->writeln(sprintf(' * class %s:', $class));
+                $output->writeln(sprintf(' * %s:', $class));
                 foreach ($errors as $error) {
                     $output->writeln(sprintf('   - %s', $error));
                 }

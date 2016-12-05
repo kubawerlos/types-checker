@@ -8,13 +8,15 @@ class Report
 
     private $itemsCount = 0;
 
-    public function addErrors(string $class, string $error)
+    public function addErrors(\ReflectionClass $class, string $error)
     {
-        if (!isset($this->errors[$class])) {
-            $this->errors[$class] = [];
+        $key = $this->getKey($class);
+
+        if (!isset($this->errors[$key])) {
+            $this->errors[$key] = [];
         }
 
-        $this->errors[$class][] = $error;
+        $this->errors[$key][] = $error;
     }
 
     public function incrementItemsCount()
@@ -35,5 +37,22 @@ class Report
     public function getItemsCount(): int
     {
         return $this->itemsCount;
+    }
+
+    private function getKey(\ReflectionClass $class): string
+    {
+        switch (true) {
+            case $class->isInterface():
+                $type = 'Interface';
+                break;
+            case $class->isTrait():
+                $type = 'Trait';
+                break;
+            default:
+                $type = 'Class';
+                break;
+        }
+
+        return $type.' '.$class->getName();
     }
 }
