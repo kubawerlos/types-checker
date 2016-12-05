@@ -2,7 +2,7 @@
 
 namespace Tests\Stub;
 
-class CorrectClass implements CorrectInterface
+class ProperClass implements ProperInterface
 {
     public function test(bool $b, float $f, int $i, string $s): bool
     {

@@ -2,7 +2,7 @@
 
 namespace Tests\Stub;
 
-class HavingTraitClass
+class HavingImproperTraitProperClass
 {
     use MissingParameterTypeTrait;
 }

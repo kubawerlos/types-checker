@@ -2,7 +2,7 @@
 
 namespace Tests\Stub;
 
-interface CorrectInterface
+interface ProperInterface
 {
     public function test(bool $b, float $f, int $i, string $s): bool;
 }
