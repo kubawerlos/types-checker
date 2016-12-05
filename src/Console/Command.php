@@ -54,18 +54,18 @@ class Command extends \Symfony\Component\Console\Command\Command
             $output->writeln('Nothing found!');
 
             return 0;
-        } else {
-            foreach ($report->getErrors() as $class => $functions) {
-                $output->writeln(sprintf(' - %s:', $class));
-                foreach ($functions as $function => $errors) {
-                    $output->writeln(sprintf('   - %s:', $function));
-                    foreach ($errors as $error) {
-                        $output->writeln(sprintf('     - %s', $error));
-                    }
+        }
+
+        foreach ($report->getErrors() as $class => $functions) {
+            $output->writeln(sprintf(' - %s:', $class));
+            foreach ($functions as $function => $errors) {
+                $output->writeln(sprintf('   - %s:', $function));
+                foreach ($errors as $error) {
+                    $output->writeln(sprintf('     - %s', $error));
                 }
             }
-
-            return 1;
         }
+
+        return 1;
     }
 }
