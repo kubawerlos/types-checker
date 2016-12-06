@@ -3,9 +3,8 @@
 namespace Tests;
 
 use KubaWerlos\TypesChecker\Console\Application;
-use KubaWerlos\TypesChecker\Console\Command;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Console\Tester\ApplicationTester;
 
 /**
  * @covers \KubaWerlos\TypesChecker\Console\Application
@@ -13,45 +12,44 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class ConsoleTest extends TestCase
 {
-    /** @var CommandTester */
-    private $commandTester;
+    /** @var ApplicationTester */
+    private $tester;
 
     protected function setUp()
     {
         $application = new Application();
+        $application->setAutoExit(false);
+        $application->setCatchExceptions(false);
 
-        $application->add(new Command());
-
-        $command = $application->find('types-checker');
-        $this->commandTester = new CommandTester($command);
+        $this->tester = new ApplicationTester($application);
     }
 
     public function testRun()
     {
-        $this->commandTester->execute([
+        $this->tester->run([
             'path' => ['src'],
         ]);
 
-        $this->assertContains('missing return type', $this->commandTester->getDisplay());
+        $this->assertContains('missing return type', $this->tester->getDisplay());
     }
 
     public function testRunWithoutReturnTypes()
     {
-        $this->commandTester->execute([
+        $this->tester->run([
             'path' => ['src'],
             '--skip-return-types' => true,
         ]);
 
-        $this->assertContains('Nothing found', $this->commandTester->getDisplay());
+        $this->assertContains('Nothing found', $this->tester->getDisplay());
     }
 
     public function testRunWithExcludedClass()
     {
-        $this->commandTester->execute([
+        $this->tester->run([
             'path' => [__DIR__.'/_stubs/MissingParameterTypeClass.php'],
             '--exclude' => ['Tests\Stub\MissingParameterTypeClass'],
         ]);
 
-        $this->assertContains('0 items checked', $this->commandTester->getDisplay());
+        $this->assertContains('0 items checked', $this->tester->getDisplay());
     }
 }

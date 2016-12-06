@@ -29,5 +29,6 @@ install:
     - composer require --dev phpunit/phpunit squizlabs/php_codesniffer $COMPOSER_FLAGS
 
 script:
-    - ./vendor/bin/phpcs --ignore=ClassInTheSameFileWithTrait.php --report-full --standard=PSR2 src/ tests/
-    - phpdbg -qrr ./vendor/phpunit/phpunit/phpunit
+    - ./vendor/bin/phpcs --ignore=ClassInTheSameFileWithTrait.php --report-full --standard=PSR2 src tests
+    - ./types-checker --skip-return-types src
+    - phpdbg -qrr ./vendor/bin/phpunit
