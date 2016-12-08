@@ -31,4 +31,4 @@ install:
 script:
     - vendor/bin/phpcs --ignore=ClassInTheSameFileWithTrait.php --report-full --standard=PSR2 src tests
     - bin/types-checker --skip-return-types src
-    - phpdbg -qrr ./vendor/bin/phpunit
+    - phpdbg -qrr vendor/bin/phpunit -c tests/phpunit.xml
