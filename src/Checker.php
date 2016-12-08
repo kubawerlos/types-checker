@@ -81,19 +81,21 @@ class Checker
 
         $count = count($tokens);
 
-        for ($i = 2; $i < $count; ++$i) {
+        $i = 1;
+
+        while ($i < $count) {
             if (T_NAMESPACE === $tokens[$i][0]) {
                 $i += 2;
                 while (isset($tokens[$i]) && is_array($tokens[$i])) {
                     $namespace .= $tokens[$i++][1];
                 }
             }
-            if (in_array($tokens[$i - 2][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
-                && $tokens[$i - 1][0] === T_WHITESPACE
-                && $tokens[$i][0] === T_STRING) {
-                $className = $tokens[$i][1];
-                $classes[] = sprintf('%s\\%s', $namespace, $className);
+            if (in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
+                && $tokens[$i + 1][0] === T_WHITESPACE
+                && $tokens[$i + 2][0] === T_STRING) {
+                $classes[] = sprintf('%s\\%s', $namespace, $tokens[$i + 2][1]);
             }
+            ++$i;
         }
 
         return $classes;
