@@ -10,6 +10,11 @@
             "email": "werlos@gmail.com"
         }
     ],
+    "require": {
+        "php": ">=7",
+        "symfony/console": "^2.7 | ^3",
+        "symfony/finder": "^2.7 | ^3"
+    },
     "autoload": {
         "psr-4": {
             "KubaWerlos\\TypesChecker\\": "src/"
@@ -20,12 +25,7 @@
             "Tests\\Stub\\": "tests/_stubs"
         }
     },
-    "require": {
-        "php": ">=7",
-        "symfony/console": "^2.7 | ^3",
-        "symfony/finder": "^2.7 | ^3"
-    },
     "bin": [
-        "types-checker"
+        "bin/types-checker"
     ]
 }

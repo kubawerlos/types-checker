@@ -23,11 +23,11 @@ A tool to find missing type declarations in PHP 7 code.
 
 or from command line:
 ```bash
-    ./types-checker src tests
+    vendor/bin/types-checker src tests
 ```
 
 ## Configuration
- $checker = new Checker(['src']);   | ./types-checker src |                                                  |
- ---------------------------------- | ------------------- | ------------------------------------------------ |
+ php                                | console             |                                               |
+ ---------------------------------- | ------------------- | --------------------------------------------- |
  $checker->excludeClass(Foo::class) | --exclude Foo       | Exclude class, interface or trait from report |
- $checker->skipReturnTypes();       | --skip-return-types | Do not report missing return types               |
+ $checker->skipReturnTypes();       | --skip-return-types | Do not report missing return types            |
