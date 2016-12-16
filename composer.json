@@ -26,6 +26,6 @@
         }
     },
     "bin": [
-        "bin/types-checker"
+        "types-checker"
     ]
 }
