@@ -2,6 +2,7 @@
 
 namespace KubaWerlos\TypesChecker;
 
+use KubaWerlos\TypesChecker\Report\Report;
 use Symfony\Component\Finder\Finder;
 
 class Checker
@@ -63,7 +64,6 @@ class Checker
             foreach ($this->getClassesForFile($file) as $class) {
                 if ($this->isClassToCheck($class)) {
                     $this->checkClass($class);
-                    $this->report->incrementItemsCount();
                 }
             }
         }
@@ -111,15 +111,16 @@ class Checker
     private function checkClass(string $class)
     {
         $class = new \ReflectionClass($class);
+        $this->report->addClass($class);
 
         foreach ($class->getMethods() as $method) {
             if ($this->isMethodToCheck($class, $method)) {
                 if ($this->checkReturnTypes && $method->getReturnType() === null) {
-                    $this->report->addErrors($method, 'missing return type');
+                    $this->report->addIssue($method, 'missing return type');
                 }
                 foreach ($method->getParameters() as $parameter) {
                     if ($parameter->getType() === null) {
-                        $this->report->addErrors(
+                        $this->report->addIssue(
                             $method,
                             sprintf('parameter $%s is missing type', $parameter->getName())
                         );

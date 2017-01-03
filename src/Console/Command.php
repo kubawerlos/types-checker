@@ -47,21 +47,25 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         $report = $checker->check();
 
-        $output->writeln(sprintf('Types checker - %d items checked, issues:', $report->getItemsCount()));
+        $output->writeln(sprintf('Types checker - %d items checked, issues:', $report->getNumberOfClasses()));
         $output->writeln('');
 
-        if ($report->isProper()) {
+        if (!$report->hasIssues()) {
             $output->writeln('Nothing found!');
 
             return 0;
         }
 
-        foreach ($report->getErrors() as $class => $functions) {
-            $output->writeln(sprintf(' - %s:', $class));
-            foreach ($functions as $function => $errors) {
-                $output->writeln(sprintf('   - %s:', $function));
-                foreach ($errors as $error) {
-                    $output->writeln(sprintf('     - %s', $error));
+        $count = 0;
+        foreach ($report->getClasses() as $class) {
+            if ($class->hasIssues()) {
+                $output->writeln(sprintf(' - %s:', $class->getName()));
+                foreach ($class->getMethods() as $method) {
+                    $output->writeln(sprintf('   - %s:', $method->getName()));
+                    foreach ($method->getIssues() as $issue) {
+                        $output->writeln(sprintf('     - %s', $issue));
+                        ++$count;
+                    }
                 }
             }
         }

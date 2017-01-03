@@ -37,7 +37,7 @@ class CheckerExcludeTest extends TestCase
         $checker = new Checker([__DIR__.'/_stubs/'.$class.'.php']);
         $checker->exclude('Tests\Stub\\'.$class);
 
-        $this->assertSame(0, $checker->check()->getItemsCount());
+        $this->assertSame(0, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingParentClass()
@@ -45,7 +45,7 @@ class CheckerExcludeTest extends TestCase
         $checker = new Checker([__DIR__.'/_stubs/ChildClass.php']);
         $checker->exclude('Tests\Stub\MissingParameterTypeClass');
 
-        $this->assertSame(0, $checker->check()->getItemsCount());
+        $this->assertSame(0, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingInterface()
@@ -53,7 +53,7 @@ class CheckerExcludeTest extends TestCase
         $checker = new Checker([__DIR__.'/_stubs/ProperClass.php']);
         $checker->exclude('Tests\Stub\ProperInterface');
 
-        $this->assertSame(0, $checker->check()->getItemsCount());
+        $this->assertSame(0, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingTrait()
@@ -61,7 +61,7 @@ class CheckerExcludeTest extends TestCase
         $checker = new Checker([__DIR__.'/_stubs/ProperClass.php', __DIR__.'/_stubs/ProperTrait.php']);
         $checker->exclude('Tests\Stub\ProperTrait');
 
-        $this->assertSame(1, $checker->check()->getItemsCount());
+        $this->assertSame(1, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingTraitInTheSameFile()
@@ -70,6 +70,6 @@ class CheckerExcludeTest extends TestCase
         $checker->exclude('Tests\Stub\ClassInTheSameFileWithTrait');
         $checker->exclude('Tests\Stub\AnotherTrait');
 
-        $this->assertSame(1, $checker->check()->getItemsCount());
+        $this->assertSame(1, $checker->check()->getNumberOfItems());
     }
 }

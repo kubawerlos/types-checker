@@ -2,6 +2,7 @@
 
 namespace KubaWerlos\TypesChecker\Console;
 
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 
 class Application extends \Symfony\Component\Console\Application
@@ -11,7 +12,7 @@ class Application extends \Symfony\Component\Console\Application
         parent::__construct(Command::NAME);
     }
 
-    protected function getCommandName(InputInterface $input)
+    protected function getCommandName(InputInterface $input): string
     {
         return Command::NAME;
     }
@@ -21,7 +22,7 @@ class Application extends \Symfony\Component\Console\Application
         return array_merge(parent::getDefaultCommands(), [new Command()]);
     }
 
-    public function getDefinition()
+    public function getDefinition(): InputDefinition
     {
         $definition = parent::getDefinition();
         $definition->setArguments();

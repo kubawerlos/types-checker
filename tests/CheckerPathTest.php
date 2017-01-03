@@ -40,8 +40,8 @@ class CheckerPathTest extends TestCase
 
         $report = $checker->check();
 
-        $this->assertTrue($report->isProper());
-        $this->assertSame(1, $report->getItemsCount());
+        $this->assertFalse($report->hasIssues());
+        $this->assertSame(1, $report->getNumberOfItems());
     }
 
     public function improperFilesProvider()
@@ -67,8 +67,8 @@ class CheckerPathTest extends TestCase
 
         $report = $checker->check();
 
-        $this->assertFalse($report->isProper());
-        $this->assertSame(1, $report->getItemsCount());
+        $this->assertTrue($report->hasIssues());
+        $this->assertSame(1, $report->getNumberOfItems());
     }
 
     public function testClassInTheSameFileWithTrait()
@@ -77,7 +77,7 @@ class CheckerPathTest extends TestCase
 
         $report = $checker->check();
 
-        $this->assertSame(3, $report->getItemsCount());
+        $this->assertSame(3, $report->getNumberOfItems());
     }
 
     public function testSrcDirectory()
@@ -85,6 +85,6 @@ class CheckerPathTest extends TestCase
         $checker = new Checker([__DIR__.'/../src']);
         $checker->skipReturnTypes();
 
-        $this->assertTrue($checker->check()->isProper());
+        $this->assertFalse($checker->check()->hasIssues());
     }
 }

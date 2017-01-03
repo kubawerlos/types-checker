@@ -15,6 +15,6 @@ class Php71Test extends TestCase
     {
         $checker = new Checker([__DIR__.'/_stubs/Php71Class.php']);
 
-        $this->assertTrue($checker->check()->isProper());
+        $this->assertFalse($checker->check()->hasIssues());
     }
 }

@@ -21,7 +21,7 @@ class CheckerSkipReturnTypesTest extends TestCase
 
         $report = $checker->check();
 
-        $this->assertTrue($report->isProper());
-        $this->assertSame(3, $report->getItemsCount());
+        $this->assertFalse($report->hasIssues());
+        $this->assertSame(3, $report->getNumberOfItems());
     }
 }
