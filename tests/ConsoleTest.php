@@ -52,4 +52,57 @@ class ConsoleTest extends TestCase
 
         $this->assertContains('0 items checked', $this->tester->getDisplay());
     }
+
+    public function testRunOnlyForOneClass()
+    {
+        $this->tester->run([
+            'path' => [__DIR__.'/_stubs/ProperClass.php'],
+        ]);
+
+        $this->assertContains('1 class', $this->tester->getDisplay());
+        $this->assertNotContains('item', $this->tester->getDisplay());
+        $this->assertNotContains('classes', $this->tester->getDisplay());
+        $this->assertNotContains('interface', $this->tester->getDisplay());
+        $this->assertNotContains('trait', $this->tester->getDisplay());
+    }
+
+    public function testRunOnlyForOneInterface()
+    {
+        $this->tester->run([
+            'path' => [__DIR__.'/_stubs/ProperInterface.php'],
+        ]);
+
+        $this->assertContains('1 interface', $this->tester->getDisplay());
+        $this->assertNotContains('item', $this->tester->getDisplay());
+        $this->assertNotContains('interfaces', $this->tester->getDisplay());
+        $this->assertNotContains('class', $this->tester->getDisplay());
+        $this->assertNotContains('trait', $this->tester->getDisplay());
+    }
+
+    public function testRunOnlyForOneTrait()
+    {
+        $this->tester->run([
+            'path' => [__DIR__.'/_stubs/ProperTrait.php'],
+        ]);
+
+        $this->assertContains('1 trait', $this->tester->getDisplay());
+        $this->assertNotContains('item', $this->tester->getDisplay());
+        $this->assertNotContains('traits', $this->tester->getDisplay());
+        $this->assertNotContains('classes', $this->tester->getDisplay());
+        $this->assertNotContains('interface', $this->tester->getDisplay());
+    }
+
+    public function testRunOnlyForOneClassAndInterface()
+    {
+        $this->tester->run([
+            'path' => [__DIR__.'/_stubs/ProperClass.php', __DIR__.'/_stubs/ProperInterface.php'],
+        ]);
+
+        $this->assertContains('2 items', $this->tester->getDisplay());
+        $this->assertContains('1 class', $this->tester->getDisplay());
+        $this->assertContains('1 interface', $this->tester->getDisplay());
+        $this->assertNotContains('classes', $this->tester->getDisplay());
+        $this->assertNotContains('interfaces', $this->tester->getDisplay());
+        $this->assertNotContains('trait', $this->tester->getDisplay());
+    }
 }

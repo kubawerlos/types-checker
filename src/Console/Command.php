@@ -3,6 +3,7 @@
 namespace KubaWerlos\TypesChecker\Console;
 
 use KubaWerlos\TypesChecker\Checker;
+use KubaWerlos\TypesChecker\Report\Report;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -47,16 +48,35 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         $report = $checker->check();
 
-        $output->writeln(sprintf('Types checker - %d items checked, issues:', $report->getNumberOfClasses()));
+        $output->writeln('');
+
+        $whatWasChecked = $this->getWhatWasChecked($report);
+        if (mb_strpos($whatWasChecked, 'item') !== false) {
+            $output->writeln(sprintf('Types checker - %s checked:', $whatWasChecked));
+            if ($report->getNumberOfClasses() > 0) {
+                $output->writeln(sprintf(' - %s', $this->pluralize($report->getNumberOfClasses(), 'class')));
+            }
+            if ($report->getNumberOfInterfaces() > 0) {
+                $output->writeln(sprintf(' - %s', $this->pluralize($report->getNumberOfInterfaces(), 'interface')));
+            }
+            if ($report->getNumberOfTraits() > 0) {
+                $output->writeln(sprintf(' - %s', $this->pluralize($report->getNumberOfTraits(), 'trait')));
+            }
+        } else {
+            $output->writeln(sprintf('Types checker - %s checked.', $whatWasChecked));
+        }
+
         $output->writeln('');
 
         if (!$report->hasIssues()) {
             $output->writeln('Nothing found!');
+            $output->writeln('');
 
             return 0;
         }
 
-        $count = 0;
+        $output->writeln(sprintf('%s found:', $this->pluralize($report->getNumberOfIssues(), 'issue')));
+
         foreach ($report->getClasses() as $class) {
             if ($class->hasIssues()) {
                 $output->writeln(sprintf(' - %s:', $class->getName()));
@@ -64,12 +84,37 @@ class Command extends \Symfony\Component\Console\Command\Command
                     $output->writeln(sprintf('   - %s:', $method->getName()));
                     foreach ($method->getIssues() as $issue) {
                         $output->writeln(sprintf('     - %s', $issue));
-                        ++$count;
                     }
                 }
             }
         }
 
+        $output->writeln('');
+
         return 1;
+    }
+
+    private function getWhatWasChecked(Report $report): string
+    {
+        if ($report->getNumberOfItems() > 0) {
+            if ($report->getNumberOfItems() === $report->getNumberOfClasses()) {
+                return $this->pluralize($report->getNumberOfClasses(), 'class');
+            } elseif ($report->getNumberOfItems() === $report->getNumberOfInterfaces()) {
+                return $this->pluralize($report->getNumberOfInterfaces(), 'interface');
+            } elseif ($report->getNumberOfItems() === $report->getNumberOfTraits()) {
+                return $this->pluralize($report->getNumberOfTraits(), 'trait');
+            }
+        }
+
+        return $this->pluralize($report->getNumberOfItems(), 'item');
+    }
+
+    private function pluralize(int $count, string $name): string
+    {
+        if ($count !== 1) {
+            $name .= mb_substr($name, -1) === 's' ? 'es' : 's';
+        }
+
+        return sprintf('%d %s', $count, $name);
     }
 }

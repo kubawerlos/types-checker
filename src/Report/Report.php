@@ -60,6 +60,13 @@ class Report
         }));
     }
 
+    public function getNumberOfIssues(): int
+    {
+        return array_sum(array_map(function (ClassReport $class): int {
+            return $class->getNumberOfIssues();
+        }, $this->classes));
+    }
+
     public function hasIssues(): bool
     {
         foreach ($this->classes as $class) {

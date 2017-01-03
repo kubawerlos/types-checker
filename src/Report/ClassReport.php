@@ -49,6 +49,13 @@ class ClassReport
         return $this->methods;
     }
 
+    public function getNumberOfIssues(): int
+    {
+        return array_sum(array_map(function (MethodReport $method): int {
+            return count($method->getIssues());
+        }, $this->methods));
+    }
+
     public function hasIssues(): bool
     {
         return !empty($this->methods);

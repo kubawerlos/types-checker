@@ -18,6 +18,7 @@ class ClassReportTest extends TestCase
         $report = new ClassReport(new \ReflectionClass(ProperClass::class));
 
         $this->assertCount(0, $report->getMethods());
+        $this->assertSame(0, $report->getNumberOfIssues());
         $this->assertFalse($report->hasIssues());
     }
 
@@ -28,6 +29,7 @@ class ClassReportTest extends TestCase
         $report->addIssue(new \ReflectionMethod(ProperClass::class, 'test'), 'an issue');
 
         $this->assertTrue($report->hasIssues());
+        $this->assertSame(1, $report->getNumberOfIssues());
     }
 
     public function testBeingClasses()

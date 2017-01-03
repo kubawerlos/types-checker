@@ -22,6 +22,7 @@ class ReportTest extends TestCase
 
         $this->assertCount(1, $report->getClasses());
         $this->assertSame(1, $report->getNumberOfItems());
+        $this->assertSame(2, $report->getNumberOfIssues());
         $this->assertTrue($report->hasIssues());
     }
 
