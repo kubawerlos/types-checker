@@ -69,13 +69,13 @@ class Command extends \Symfony\Component\Console\Command\Command
         $output->writeln('');
 
         if (!$report->hasIssues()) {
-            $output->writeln('Nothing found!');
+            $output->writeln('  No issues found.');
             $output->writeln('');
 
             return 0;
         }
 
-        $output->writeln(sprintf('%s found:', $this->pluralize($report->getNumberOfIssues(), 'issue')));
+        $output->writeln('Issues found:');
 
         foreach ($report->getClasses() as $class) {
             if ($class->hasIssues()) {
@@ -88,7 +88,9 @@ class Command extends \Symfony\Component\Console\Command\Command
                 }
             }
         }
+        $output->writeln('');
 
+        $output->writeln(sprintf('  %s', $this->pluralize($report->getNumberOfIssues(), 'issue')));
         $output->writeln('');
 
         return 1;

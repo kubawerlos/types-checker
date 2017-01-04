@@ -40,7 +40,7 @@ class ConsoleTest extends TestCase
             '--skip-return-types' => true,
         ]);
 
-        $this->assertContains('Nothing found', $this->tester->getDisplay());
+        $this->assertContains('No issues found', $this->tester->getDisplay());
     }
 
     public function testRunWithExcludedClass()
