@@ -7,7 +7,7 @@ use KubaWerlos\TypesChecker\Report\Report;
 class Checker
 {
     /** @var array */
-    private $excludedInstances = [];
+    private $excluded = [];
 
     /** @var bool */
     private $checkReturnTypes = true;
@@ -30,7 +30,7 @@ class Checker
         if (!class_exists($name) && !interface_exists($name) && !trait_exists($name)) {
             throw new \InvalidArgumentException(sprintf('Class, interface or trait "%s" does not exist.', $name));
         }
-        $this->excludedInstances[] = $name;
+        $this->excluded[] = ltrim($name, '\\');
     }
 
     public function skipReturnTypes()
@@ -49,11 +49,11 @@ class Checker
         return $this->report;
     }
 
-    private function isClassToCheck(string $name): bool
+    private function isClassToCheck(string $class): bool
     {
-        return count(array_filter($this->excludedInstances, function ($excluded) use ($name) {
-            return $excluded === $name || is_subclass_of($name, $excluded);
-        })) === 0;
+        return 0 === count(array_filter($this->excluded, function (string $excluded) use ($class): bool {
+            return $excluded === $class || is_subclass_of($class, $excluded);
+        }));
     }
 
     private function checkClass(string $class)
@@ -63,17 +63,7 @@ class Checker
 
         foreach ($class->getMethods() as $method) {
             if ($this->isMethodToCheck($class, $method)) {
-                if ($this->checkReturnTypes && $method->getReturnType() === null) {
-                    $this->report->addIssue($method, 'missing return type');
-                }
-                foreach ($method->getParameters() as $parameter) {
-                    if ($parameter->getType() === null) {
-                        $this->report->addIssue(
-                            $method,
-                            sprintf('parameter $%s is missing type', $parameter->getName())
-                        );
-                    }
-                }
+                $this->checkMethod($method);
             }
         }
     }
@@ -82,7 +72,24 @@ class Checker
     {
         return $method->getFileName() === $class->getFileName()
             && $method->getStartLine() > $class->getStartLine()
-            && $method->getEndLine() < $class->getEndLine()
-            && !in_array($method->getName(), ['__construct', '__destruct', '__clone'], true);
+            && $method->getEndLine() < $class->getEndLine();
+    }
+
+    private function checkMethod(\ReflectionMethod $method)
+    {
+        if ($this->isMethodToCheckForReturnType($method) && $method->getReturnType() === null) {
+            $this->report->addIssue($method, 'missing return type');
+        }
+
+        foreach ($method->getParameters() as $parameter) {
+            if ($parameter->getType() === null) {
+                $this->report->addIssue($method, sprintf('parameter $%s is missing type', $parameter->getName()));
+            }
+        }
+    }
+
+    private function isMethodToCheckForReturnType(\ReflectionMethod $method): bool
+    {
+        return $this->checkReturnTypes && !in_array($method->getName(), ['__construct', '__destruct', '__clone'], true);
     }
 }

@@ -35,6 +35,6 @@ class ClassCollectorTest extends TestCase
     {
         new ClassCollector([__DIR__.'/../tests/_stubs']);
 
-        $this->assertTrue(class_exists('IForgotPsr4'));
+        $this->assertTrue(class_exists('Tests\Stub\IForgotPsr4'));
     }
 }

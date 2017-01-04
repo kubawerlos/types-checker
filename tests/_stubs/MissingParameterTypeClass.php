@@ -4,7 +4,7 @@ namespace Tests\Stub;
 
 class MissingParameterTypeClass
 {
-    public function test($x): bool
+    public function __construct($x)
     {
     }
 }
