@@ -3,43 +3,25 @@
 namespace KubaWerlos\TypesChecker;
 
 use KubaWerlos\TypesChecker\Report\Report;
-use Symfony\Component\Finder\Finder;
 
 class Checker
 {
-    /** @var array */
-    private $files = [];
-
     /** @var array */
     private $excludedInstances = [];
 
     /** @var bool */
     private $checkReturnTypes = true;
 
+    /** @var ClassCollector */
+    private $classCollector;
+
     /** @var Report */
     private $report;
 
     public function __construct(array $paths)
     {
-        foreach ($paths as $path) {
-            $realPath = realpath($path);
-            if ($realPath === false) {
-                throw new \InvalidArgumentException(sprintf('Path "%s" does not exist.', $path));
-            }
-            if (is_dir($realPath)) {
-                $this->files = array_merge(
-                    $this->files,
-                    iterator_to_array((new Finder())
-                        ->files()
-                        ->filter(function (\SplFileInfo $file) {
-                            return 'php' === $file->getExtension();
-                        })
-                        ->in($realPath))
-                );
-            } else {
-                $this->files[] = $realPath;
-            }
-        }
+        $this->classCollector = new ClassCollector($paths);
+        $this->report = new Report();
     }
 
     public function exclude(string $name)
@@ -58,47 +40,13 @@ class Checker
 
     public function check(): Report
     {
-        $this->report = new Report();
-
-        foreach ($this->files as $file) {
-            foreach ($this->getClassesForFile($file) as $class) {
-                if ($this->isClassToCheck($class)) {
-                    $this->checkClass($class);
-                }
+        foreach ($this->classCollector->getClasses() as $class) {
+            if ($this->isClassToCheck($class)) {
+                $this->checkClass($class);
             }
         }
 
         return $this->report;
-    }
-
-    private function getClassesForFile(string $path): array
-    {
-        $tokens = token_get_all(file_get_contents($path));
-
-        $classes = [];
-
-        $namespace = '';
-
-        $count = count($tokens);
-
-        $i = 1;
-
-        while ($i < $count) {
-            if (T_NAMESPACE === $tokens[$i][0]) {
-                $i += 2;
-                while (isset($tokens[$i]) && is_array($tokens[$i])) {
-                    $namespace .= $tokens[$i++][1];
-                }
-            }
-            if (in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
-                && $tokens[$i + 1][0] === T_WHITESPACE
-                && $tokens[$i + 2][0] === T_STRING) {
-                $classes[] = sprintf('%s\\%s', $namespace, $tokens[$i + 2][1]);
-            }
-            ++$i;
-        }
-
-        return $classes;
     }
 
     private function isClassToCheck(string $name): bool
