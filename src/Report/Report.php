@@ -31,7 +31,9 @@ class Report
      */
     public function getClasses(): array
     {
-        return $this->classes;
+        return array_filter($this->classes, function (ClassReport $class): bool {
+            return $class->hasIssues();
+        });
     }
 
     public function getNumberOfItems(): int

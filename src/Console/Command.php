@@ -78,13 +78,11 @@ class Command extends \Symfony\Component\Console\Command\Command
         $output->writeln('Issues found:');
 
         foreach ($report->getClasses() as $class) {
-            if ($class->hasIssues()) {
-                $output->writeln(sprintf(' - %s:', $class->getName()));
-                foreach ($class->getMethods() as $method) {
-                    $output->writeln(sprintf('   - %s:', $method->getName()));
-                    foreach ($method->getIssues() as $issue) {
-                        $output->writeln(sprintf('     - %s', $issue));
-                    }
+            $output->writeln(sprintf(' - %s:', $class->getName()));
+            foreach ($class->getMethods() as $method) {
+                $output->writeln(sprintf('   - %s:', $method->getName()));
+                foreach ($method->getIssues() as $issue) {
+                    $output->writeln(sprintf('     - %s', $issue));
                 }
             }
         }
