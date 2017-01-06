@@ -26,7 +26,7 @@ Console:
 PHP:
 
 ```php
-    $checker = new KubaWerlos\TypesChecker\Checker(['src', 'tests']);
+    $checker = new \KubaWerlos\TypesChecker\Checker(['src', 'tests']);
 
     $report = $checker->check();
 
@@ -38,7 +38,7 @@ PHP:
 
 ## Configuration
 
- console             | PHP                                |                                               |
+ Console             | PHP                                |                                               |
  ------------------- | ---------------------------------- | --------------------------------------------- |
  --exclude Foo       | $checker->excludeClass(Foo::class) | Exclude class, interface or trait from report |
  --skip-return-types | $checker->skipReturnTypes();       | Do not report missing return types            |
