@@ -17,31 +17,17 @@ A tool to find missing type declarations in PHP 7 code.
 
 ## Usage
 
-Console:
-
 ```bash
     vendor/bin/types-checker src tests
-```
-
-PHP:
-
-```php
-    $checker = new \KubaWerlos\TypesChecker\Checker(['src', 'tests']);
-
-    $report = $checker->check();
-
-    if ($report->hasIssues()) {
-        print_r($report->getClasses());
-    }
 ```
 
 
 ## Configuration
 
- Console             | PHP                                |                                               |
- ------------------- | ---------------------------------- | --------------------------------------------- |
- --exclude Foo       | $checker->excludeClass(Foo::class) | Exclude class, interface or trait from report |
- --skip-return-types | $checker->skipReturnTypes();       | Do not report missing return types            |
+                     |                                               |
+ ------------------- | --------------------------------------------- |
+ --exclude Foo       | Exclude class, interface or trait from report |
+ --skip-return-types | Do not report missing return types            |
 
 
 ## Example
