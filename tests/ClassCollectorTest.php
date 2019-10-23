@@ -37,4 +37,11 @@ class ClassCollectorTest extends TestCase
 
         $this->assertTrue(class_exists('Tests\Stub\IForgotPsr4'));
     }
+
+    public function testClassWithWhitespaces()
+    {
+        $classCollector = new ClassCollector([__DIR__.'/../tests/_stubs/WhitespacesOverdose.php']);
+
+        $this->assertSame(['Tests\\Stub\\WhitespacesOverdose'], $classCollector->getClasses());
+    }
 }
