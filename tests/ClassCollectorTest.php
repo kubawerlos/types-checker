@@ -41,4 +41,11 @@ final class ClassCollectorTest extends TestCase
 
         static::assertTrue(\class_exists('Tests\Stub\IForgotPsr4'));
     }
+
+    public function testClassWithWhitespaces(): void
+    {
+        $classCollector = new ClassCollector([__DIR__ . '/../tests/_stubs/WhitespacesOverdose.php']);
+
+        static::assertSame(['Tests\\Stub\\WhitespacesOverdose'], $classCollector->getClasses());
+    }
 }

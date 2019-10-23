@@ -68,7 +68,10 @@ final class ClassCollector
             if ($tokens[$i][0] === T_NAMESPACE) {
                 $i += 2;
                 while (isset($tokens[$i]) && \is_array($tokens[$i])) {
-                    $namespace .= $tokens[$i++][1];
+                    if (\in_array($tokens[$i][0], [T_NS_SEPARATOR, T_STRING], true)) {
+                        $namespace .= $tokens[$i][1];
+                    }
+                    $i++;
                 }
             }
             if (\in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
