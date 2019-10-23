@@ -1,7 +1,7 @@
 {
     "name": "kubawerlos/types-checker",
-    "description": "A tool to find missing type declarations in PHP 7 code",
     "type": "library",
+    "description": "A tool to find missing type declarations in PHP 7 code",
     "keywords": [
         "php7",
         "type declarations"
@@ -17,6 +17,11 @@
         "php": ">=7",
         "symfony/console": "^2.7 || ^3 || ^4",
         "symfony/finder": "^2.7 || ^3 || ^4"
+    },
+    "config": {
+        "platform": {
+            "php": "7.0.33"
+        }
     },
     "autoload": {
         "psr-4": {
