@@ -2,10 +2,6 @@
     "name": "kubawerlos/types-checker",
     "type": "library",
     "description": "A tool to find missing type declarations in PHP 7 code",
-    "keywords": [
-        "php7",
-        "type declarations"
-    ],
     "license": "MIT",
     "authors": [
         {
@@ -14,23 +10,13 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "symfony/console": "^2.7 || ^3 || ^4",
         "symfony/finder": "^2.7 || ^3 || ^4"
-    },
-    "config": {
-        "platform": {
-            "php": "7.0.33"
-        }
     },
     "autoload": {
         "psr-4": {
             "KubaWerlos\\TypesChecker\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\Stub\\": "tests/_stubs/"
         }
     },
     "bin": [
@@ -42,7 +28,8 @@
             "composer validate --strict",
             "composer normalize --dry-run --working-dir=./dev-tools ./../composer.json",
             "./dev-tools/vendor/bin/phpcs --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ./src ./tests",
-            "PHP_CS_FIXER_FUTURE_MODE=1 ./dev-tools/vendor/bin/php-cs-fixer fix --ansi --diff --dry-run --verbose"
+            "PHP_CS_FIXER_FUTURE_MODE=1 ./dev-tools/vendor/bin/php-cs-fixer fix --ansi --diff --dry-run --verbose",
+            "./types-checker --skip-return-types src"
         ],
         "fix": [
             "composer normalize --working-dir=./dev-tools ./../composer.json",

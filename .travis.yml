@@ -12,10 +12,9 @@ notifications:
 
 matrix:
     include:
-        - php: '7.0'
+        - php: '7.1'
           env:
               - COMPOSER_FLAGS='--prefer-lowest'
-        - php: '7.0'
         - php: '7.1'
         - php: '7.2'
         - php: '7.3'
@@ -27,6 +26,4 @@ before_install:
 
 install: composer update $COMPOSER_FLAGS
 
-script:
-    - composer verify
-    - ./types-checker --skip-return-types src
+script: composer verify
