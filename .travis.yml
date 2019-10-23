@@ -13,12 +13,12 @@ notifications:
 matrix:
     include:
         - php: '7.1'
-          env:
-              - COMPOSER_FLAGS='--prefer-lowest'
+          env: COMPOSER_FLAGS='--prefer-lowest'
         - php: '7.1'
         - php: '7.2'
         - php: '7.3'
         - php: '7.4snapshot'
+          env: COMPOSER_FLAGS="--ignore-platform-reqs" PHP_CS_FIXER_IGNORE_ENV=1
 
 before_install:
     - phpenv config-rm xdebug.ini || return 0
