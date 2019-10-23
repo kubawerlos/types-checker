@@ -9,7 +9,10 @@ return PhpCsFixer\Config::create()
             ->in(__DIR__ . '/src')
             ->in(__DIR__ . '/tests')
             ->notPath('_stubs')
-            ->append([__FILE__])
+            ->append([
+                __FILE__,
+                __DIR__ . '/types-checker',
+            ])
     )
     ->setRiskyAllowed(true)
     ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())

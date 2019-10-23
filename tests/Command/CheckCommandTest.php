@@ -21,6 +21,8 @@ final class CheckCommandTest extends TestCase
 
     protected function setUp(): void
     {
+        require_once __DIR__ . '/../../dev-tools/vendor/autoload.php';
+
         $application = new Application();
         $application->setAutoExit(false);
         $application->setCatchExceptions(false);
@@ -40,7 +42,7 @@ final class CheckCommandTest extends TestCase
             'path' => ['src'],
         ]);
 
-        static::assertStringContainsString('missing return type', $this->tester->getDisplay());
+        static::assertStringNotContainsString('missing return type', $this->tester->getDisplay());
     }
 
     public function testRunWithoutReturnTypes(): void
@@ -114,5 +116,14 @@ final class CheckCommandTest extends TestCase
         static::assertStringNotContainsString('classes', $this->tester->getDisplay());
         static::assertStringNotContainsString('interfaces', $this->tester->getDisplay());
         static::assertStringNotContainsString('trait', $this->tester->getDisplay());
+    }
+
+    public function testRunWithMissingType(): void
+    {
+        $this->tester->run([
+            'path' => [__DIR__ . '/../_stubs/MissingReturnTypeClass.php'],
+        ]);
+
+        static::assertStringContainsString('missing return type', $this->tester->getDisplay());
     }
 }
