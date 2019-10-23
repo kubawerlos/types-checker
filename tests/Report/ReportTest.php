@@ -4,14 +4,14 @@ declare(strict_types = 1);
 
 namespace Tests\Report;
 
-use KubaWerlos\TypesChecker\Report\Report;
 use PHPUnit\Framework\TestCase;
 use Tests\Stub\ProperClass;
 use Tests\Stub\ProperInterface;
 use Tests\Stub\ProperTrait;
+use TypesChecker\Report\Report;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Report\Report
+ * @covers \TypesChecker\Report\Report
  *
  * @internal
  */

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace KubaWerlos\TypesChecker\Report;
+namespace TypesChecker\Report;
 
 final class Report
 {

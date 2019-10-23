@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace Tests;
 
-use KubaWerlos\TypesChecker\Checker;
 use PHPUnit\Framework\TestCase;
+use TypesChecker\Checker;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Checker
+ * @covers \TypesChecker\Checker
  *
  * @internal
  */

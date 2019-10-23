@@ -2,22 +2,23 @@
 
 declare(strict_types = 1);
 
-namespace KubaWerlos\TypesChecker\Console;
+namespace TypesChecker\Command;
 
-use KubaWerlos\TypesChecker\Checker;
-use KubaWerlos\TypesChecker\Report\Report;
+use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TypesChecker\Checker;
+use TypesChecker\Report\Report;
 
-final class Command extends \Symfony\Component\Console\Command\Command
+final class CheckCommand extends BaseCommand
 {
-    public const NAME = 'types-checker';
+    protected static $defaultName = 'types-checker';
 
     protected function configure(): void
     {
-        $this->setName(self::NAME)
+        $this
             ->addArgument(
                 'path',
                 InputArgument::IS_ARRAY

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace KubaWerlos\TypesChecker;
+namespace TypesChecker;
 
-use KubaWerlos\TypesChecker\Report\Report;
+use TypesChecker\Report\Report;
 
 final class Checker
 {

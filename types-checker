@@ -1,12 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-foreach ([__DIR__.'/../../autoload.php', __DIR__.'/vendor/autoload.php'] as $file) {
-    if (file_exists($file)) {
-        require_once $file;
-        break;
-    }
-}
+require_once __DIR__ . '/vendor/autoload.php';
 
-$application = new KubaWerlos\TypesChecker\Console\Application();
+$application = new Symfony\Component\Console\Application();
+$command = new TypesChecker\Command\CheckCommand();
+
+$application->add($command);
+
+$application->setDefaultCommand($command->getName(), true);
 $application->run();

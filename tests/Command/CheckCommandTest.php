@@ -2,19 +2,19 @@
 
 declare(strict_types = 1);
 
-namespace Tests;
+namespace Tests\Command;
 
-use KubaWerlos\TypesChecker\Console\Application;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\ApplicationTester;
+use TypesChecker\Command\CheckCommand;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Console\Application
- * @covers \KubaWerlos\TypesChecker\Console\Command
+ * @covers \TypesChecker\Command\CheckCommand
  *
  * @internal
  */
-final class ConsoleTest extends TestCase
+final class CheckCommandTest extends TestCase
 {
     /** @var ApplicationTester */
     private $tester;
@@ -24,6 +24,12 @@ final class ConsoleTest extends TestCase
         $application = new Application();
         $application->setAutoExit(false);
         $application->setCatchExceptions(false);
+
+        $command = new CheckCommand();
+
+        $application->add($command);
+
+        $application->setDefaultCommand($command->getName(), true);
 
         $this->tester = new ApplicationTester($application);
     }
@@ -50,7 +56,7 @@ final class ConsoleTest extends TestCase
     public function testRunWithExcludedClass(): void
     {
         $this->tester->run([
-            'path' => [__DIR__ . '/_stubs/MissingParameterTypeClass.php'],
+            'path' => [__DIR__ . '/../_stubs/MissingParameterTypeClass.php'],
             '--exclude' => ['Tests\Stub\MissingParameterTypeClass'],
         ]);
 
@@ -60,7 +66,7 @@ final class ConsoleTest extends TestCase
     public function testRunOnlyForOneClass(): void
     {
         $this->tester->run([
-            'path' => [__DIR__ . '/_stubs/ProperClass.php'],
+            'path' => [__DIR__ . '/../_stubs/ProperClass.php'],
         ]);
 
         static::assertStringContainsString('1 class', $this->tester->getDisplay());
@@ -73,7 +79,7 @@ final class ConsoleTest extends TestCase
     public function testRunOnlyForOneInterface(): void
     {
         $this->tester->run([
-            'path' => [__DIR__ . '/_stubs/ProperInterface.php'],
+            'path' => [__DIR__ . '/../_stubs/ProperInterface.php'],
         ]);
 
         static::assertStringContainsString('1 interface', $this->tester->getDisplay());
@@ -86,7 +92,7 @@ final class ConsoleTest extends TestCase
     public function testRunOnlyForOneTrait(): void
     {
         $this->tester->run([
-            'path' => [__DIR__ . '/_stubs/ProperTrait.php'],
+            'path' => [__DIR__ . '/../_stubs/ProperTrait.php'],
         ]);
 
         static::assertStringContainsString('1 trait', $this->tester->getDisplay());
@@ -99,7 +105,7 @@ final class ConsoleTest extends TestCase
     public function testRunOnlyForOneClassAndInterface(): void
     {
         $this->tester->run([
-            'path' => [__DIR__ . '/_stubs/ProperClass.php', __DIR__ . '/_stubs/ProperInterface.php'],
+            'path' => [__DIR__ . '/../_stubs/ProperClass.php', __DIR__ . '/../_stubs/ProperInterface.php'],
         ]);
 
         static::assertStringContainsString('2 items', $this->tester->getDisplay());

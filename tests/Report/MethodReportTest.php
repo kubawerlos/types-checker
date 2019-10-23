@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 namespace Tests\Report;
 
-use KubaWerlos\TypesChecker\Report\MethodReport;
 use PHPUnit\Framework\TestCase;
 use Tests\Stub\ProperClass;
+use TypesChecker\Report\MethodReport;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Report\MethodReport
+ * @covers \TypesChecker\Report\MethodReport
  *
  * @internal
  */
