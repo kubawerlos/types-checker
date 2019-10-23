@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests;
 
 use KubaWerlos\TypesChecker\Checker;
@@ -7,88 +9,90 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \KubaWerlos\TypesChecker\Checker
+ *
+ * @internal
  */
-class CheckerTest extends TestCase
+final class CheckerTest extends TestCase
 {
-    public function properFilesProvider()
+    public function provideProperFileCases(): iterable
     {
         return [
-            [__DIR__.'/_stubs/ChildClass.php'],
-            [__DIR__.'/_stubs/ProperClass.php'],
-            [__DIR__.'/_stubs/ProperInterface.php'],
-            [__DIR__.'/_stubs/ProperTrait.php'],
-            [__DIR__.'/_stubs/HavingImproperTraitProperClass.php'],
-            [__DIR__.'/_stubs/HavingImproperTraitProperOverridingClass.php'],
+            [__DIR__ . '/_stubs/ChildClass.php'],
+            [__DIR__ . '/_stubs/ProperClass.php'],
+            [__DIR__ . '/_stubs/ProperInterface.php'],
+            [__DIR__ . '/_stubs/ProperTrait.php'],
+            [__DIR__ . '/_stubs/HavingImproperTraitProperClass.php'],
+            [__DIR__ . '/_stubs/HavingImproperTraitProperOverridingClass.php'],
         ];
     }
 
     /**
-     * @dataProvider properFilesProvider
+     * @dataProvider provideProperFileCases
      */
-    public function testProperFile(string $path)
+    public function testProperFile(string $path): void
     {
         $checker = new Checker([$path]);
 
         $report = $checker->check();
 
-        $this->assertFalse($report->hasIssues());
-        $this->assertSame(1, $report->getNumberOfItems());
+        static::assertFalse($report->hasIssues());
+        static::assertSame(1, $report->getNumberOfItems());
     }
 
-    public function improperFilesProvider()
+    public function provideImproperFileCases(): iterable
     {
         return [
-            [__DIR__.'/_stubs/HavingProperTraitImproperClass.php'],
-            [__DIR__.'/_stubs/HavingProperTraitImproperOverridingClass.php'],
-            [__DIR__.'/_stubs/MissingParameterTypeClass.php'],
-            [__DIR__.'/_stubs/MissingParameterTypeInterface.php'],
-            [__DIR__.'/_stubs/MissingParameterTypeTrait.php'],
-            [__DIR__.'/_stubs/MissingReturnTypeClass.php'],
-            [__DIR__.'/_stubs/MissingReturnTypeInterface.php'],
-            [__DIR__.'/_stubs/MissingReturnTypeTrait.php'],
+            [__DIR__ . '/_stubs/HavingProperTraitImproperClass.php'],
+            [__DIR__ . '/_stubs/HavingProperTraitImproperOverridingClass.php'],
+            [__DIR__ . '/_stubs/MissingParameterTypeClass.php'],
+            [__DIR__ . '/_stubs/MissingParameterTypeInterface.php'],
+            [__DIR__ . '/_stubs/MissingParameterTypeTrait.php'],
+            [__DIR__ . '/_stubs/MissingReturnTypeClass.php'],
+            [__DIR__ . '/_stubs/MissingReturnTypeInterface.php'],
+            [__DIR__ . '/_stubs/MissingReturnTypeTrait.php'],
         ];
     }
 
     /**
-     * @dataProvider improperFilesProvider
+     * @dataProvider provideImproperFileCases
      */
-    public function testImproperFile(string $path)
+    public function testImproperFile(string $path): void
     {
         $checker = new Checker([$path]);
 
         $report = $checker->check();
 
-        $this->assertTrue($report->hasIssues());
-        $this->assertSame(1, $report->getNumberOfItems());
+        static::assertTrue($report->hasIssues());
+        static::assertSame(1, $report->getNumberOfItems());
     }
 
-    public function testClassInTheSameFileWithTrait()
+    public function testClassInTheSameFileWithTrait(): void
     {
-        $checker = new Checker([__DIR__.'/_stubs/ClassInTheSameFileWithTrait.php']);
+        $checker = new Checker([__DIR__ . '/_stubs/ClassInTheSameFileWithTrait.php']);
 
         $report = $checker->check();
 
-        $this->assertSame(3, $report->getNumberOfItems());
+        static::assertSame(3, $report->getNumberOfItems());
     }
 
-    public function testSrcDirectory()
+    public function testSrcDirectory(): void
     {
-        $checker = new Checker([__DIR__.'/../src']);
+        $checker = new Checker([__DIR__ . '/../src']);
         $checker->skipReturnTypes();
 
-        $this->assertFalse($checker->check()->hasIssues());
+        static::assertFalse($checker->check()->hasIssues());
     }
 
-    public function testExcludingNonExistentInstance()
+    public function testExcludingNonExistentInstance(): void
     {
-        $checker = new Checker([__DIR__.'/../src']);
+        $checker = new Checker([__DIR__ . '/../src']);
 
         $this->expectException(\InvalidArgumentException::class);
 
         $checker->exclude('Nope\Nope\Nope');
     }
 
-    public function excludingItselfProvider()
+    public function provideExcludingItselfCases(): iterable
     {
         return [
             ['ProperClass'],
@@ -98,72 +102,72 @@ class CheckerTest extends TestCase
     }
 
     /**
-     * @dataProvider excludingItselfProvider
+     * @dataProvider provideExcludingItselfCases
      */
-    public function testExcludingItself(string $class)
+    public function testExcludingItself(string $class): void
     {
-        $checker = new Checker([__DIR__.'/_stubs/'.$class.'.php']);
-        $checker->exclude('Tests\Stub\\'.$class);
+        $checker = new Checker([__DIR__ . '/_stubs/' . $class . '.php']);
+        $checker->exclude('Tests\Stub\\' . $class);
 
-        $this->assertSame(0, $checker->check()->getNumberOfItems());
+        static::assertSame(0, $checker->check()->getNumberOfItems());
     }
 
-    public function testExcludingParentClass()
+    public function testExcludingParentClass(): void
     {
-        $checker = new Checker([__DIR__.'/_stubs/ChildClass.php']);
+        $checker = new Checker([__DIR__ . '/_stubs/ChildClass.php']);
         $checker->exclude('Tests\Stub\MissingParameterTypeClass');
 
-        $this->assertSame(0, $checker->check()->getNumberOfItems());
+        static::assertSame(0, $checker->check()->getNumberOfItems());
     }
 
-    public function testExcludingInterface()
+    public function testExcludingInterface(): void
     {
-        $checker = new Checker([__DIR__.'/_stubs/ProperClass.php']);
+        $checker = new Checker([__DIR__ . '/_stubs/ProperClass.php']);
         $checker->exclude('Tests\Stub\ProperInterface');
 
-        $this->assertSame(0, $checker->check()->getNumberOfItems());
+        static::assertSame(0, $checker->check()->getNumberOfItems());
     }
 
-    public function testExcludingTrait()
+    public function testExcludingTrait(): void
     {
-        $checker = new Checker([__DIR__.'/_stubs/ProperClass.php', __DIR__.'/_stubs/ProperTrait.php']);
+        $checker = new Checker([__DIR__ . '/_stubs/ProperClass.php', __DIR__ . '/_stubs/ProperTrait.php']);
         $checker->exclude('Tests\Stub\ProperTrait');
 
-        $this->assertSame(1, $checker->check()->getNumberOfItems());
+        static::assertSame(1, $checker->check()->getNumberOfItems());
     }
 
-    public function testExcludingTraitInTheSameFile()
+    public function testExcludingTraitInTheSameFile(): void
     {
-        $checker = new Checker([__DIR__.'/_stubs/ClassInTheSameFileWithTrait.php']);
+        $checker = new Checker([__DIR__ . '/_stubs/ClassInTheSameFileWithTrait.php']);
         $checker->exclude('Tests\Stub\ClassInTheSameFileWithTrait');
         $checker->exclude('Tests\Stub\AnotherTrait');
 
-        $this->assertSame(1, $checker->check()->getNumberOfItems());
+        static::assertSame(1, $checker->check()->getNumberOfItems());
     }
 
-    public function testSkippingReturnTypes()
+    public function testSkippingReturnTypes(): void
     {
         $checker = new Checker([
-            __DIR__.'/_stubs/MissingReturnTypeClass.php',
-            __DIR__.'/_stubs/MissingReturnTypeInterface.php',
-            __DIR__.'/_stubs/MissingReturnTypeTrait.php',
+            __DIR__ . '/_stubs/MissingReturnTypeClass.php',
+            __DIR__ . '/_stubs/MissingReturnTypeInterface.php',
+            __DIR__ . '/_stubs/MissingReturnTypeTrait.php',
         ]);
         $checker->skipReturnTypes();
 
         $report = $checker->check();
 
-        $this->assertFalse($report->hasIssues());
-        $this->assertSame(3, $report->getNumberOfItems());
+        static::assertFalse($report->hasIssues());
+        static::assertSame(3, $report->getNumberOfItems());
     }
 
     /**
      * @coversNothing
      * @requires PHP 7.1
      */
-    public function testPhp71Features()
+    public function testPhp71Features(): void
     {
-        $checker = new Checker([__DIR__.'/_stubs/Php71Class.php']);
+        $checker = new Checker([__DIR__ . '/_stubs/Php71Class.php']);
 
-        $this->assertFalse($checker->check()->hasIssues());
+        static::assertFalse($checker->check()->hasIssues());
     }
 }

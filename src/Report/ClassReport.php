@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace KubaWerlos\TypesChecker\Report;
 
-class ClassReport
+final class ClassReport
 {
     /** @var \ReflectionClass */
     private $class;
@@ -15,7 +17,7 @@ class ClassReport
         $this->class = $class;
     }
 
-    public function addIssue(\ReflectionMethod $method, string $issue)
+    public function addIssue(\ReflectionMethod $method, string $issue): void
     {
         if (!isset($this->methods[$method->getName()])) {
             $this->methods[$method->getName()] = new MethodReport($method);
@@ -38,7 +40,7 @@ class ClassReport
                 break;
         }
 
-        return sprintf('%s %s', $type, $this->class->getName());
+        return \sprintf('%s %s', $type, $this->class->getName());
     }
 
     /**
@@ -51,8 +53,8 @@ class ClassReport
 
     public function getNumberOfIssues(): int
     {
-        return array_sum(array_map(function (MethodReport $method): int {
-            return count($method->getIssues());
+        return \array_sum(\array_map(static function (MethodReport $method): int {
+            return \count($method->getIssues());
         }, $this->methods));
     }
 

@@ -3,9 +3,7 @@ git:
 
 cache:
     directories:
-        - $HOME/.composer/cache
-
-sudo: false
+        - $HOME/.composer
 
 language: php
 
@@ -19,16 +17,16 @@ matrix:
               - COMPOSER_FLAGS='--prefer-lowest'
         - php: '7.0'
         - php: '7.1'
-        - php: 'nightly'
+        - php: '7.2'
+        - php: '7.3'
+        - php: '7.4snapshot'
 
 before_install:
-    - (phpenv config-rm xdebug.ini || exit 0)
-    - composer self-update
+    - phpenv config-rm xdebug.ini || return 0
+    - composer global outdated --strict hirak/prestissimo || composer global require hirak/prestissimo
 
-install:
-    - composer require --dev phpunit/phpunit squizlabs/php_codesniffer $COMPOSER_FLAGS
+install: composer update $COMPOSER_FLAGS
 
 script:
-    - vendor/bin/phpcs --ignore=ClassInTheSameFileWithTrait.php --report-full --standard=PSR2 src tests
+    - composer verify
     - ./types-checker --skip-return-types src
-    - phpdbg -qrr vendor/bin/phpunit -c tests/phpunit.xml

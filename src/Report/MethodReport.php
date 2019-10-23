@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace KubaWerlos\TypesChecker\Report;
 
-class MethodReport
+final class MethodReport
 {
     /** @var \ReflectionMethod */
     private $method;

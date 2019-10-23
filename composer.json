@@ -1,7 +1,7 @@
 {
     "name": "kubawerlos/types-checker",
-    "description": "A tool to find missing type declarations in PHP 7 code",
     "type": "library",
+    "description": "A tool to find missing type declarations in PHP 7 code",
     "keywords": [
         "php7",
         "type declarations"
@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": ">=7",
+        "php": "^7.0",
         "symfony/console": "^2.7 || ^3 || ^4",
         "symfony/finder": "^2.7 || ^3 || ^4"
     },
@@ -30,5 +30,26 @@
     },
     "bin": [
         "types-checker"
-    ]
+    ],
+    "scripts": {
+        "post-update-cmd": "composer --working-dir=./dev-tools update",
+        "analyse": [
+            "composer validate --strict",
+            "composer normalize --dry-run --working-dir=./dev-tools ./../composer.json",
+            "./dev-tools/vendor/bin/phpcs --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ./src ./tests",
+            "PHP_CS_FIXER_FUTURE_MODE=1 ./dev-tools/vendor/bin/php-cs-fixer fix --ansi --diff --dry-run --verbose"
+        ],
+        "fix": [
+            "composer normalize --working-dir=./dev-tools ./../composer.json",
+            "PHP_CS_FIXER_FUTURE_MODE=1 ./dev-tools/vendor/bin/php-cs-fixer fix --ansi --verbose",
+            "./dev-tools/vendor/bin/phpcbf --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ./src ./tests"
+        ],
+        "test": [
+            "./dev-tools/vendor/bin/phpunit --configuration=tests/phpunit.xml"
+        ],
+        "verify": [
+            "@analyse",
+            "@test"
+        ]
+    }
 }
