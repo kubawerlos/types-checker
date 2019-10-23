@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace KubaWerlos\TypesChecker;
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class ClassCollector
 {
@@ -22,12 +23,14 @@ final class ClassCollector
             if (\is_dir($realPath)) {
                 $files = \array_merge(
                     $files,
-                    \iterator_to_array((new Finder())
-                        ->files()
-                        ->filter(static function (\SplFileInfo $file) {
-                            return $file->getExtension() === 'php';
-                        })
-                        ->in($realPath))
+                    \iterator_to_array(
+                        (new Finder())
+                            ->files()
+                            ->filter(static function (\SplFileInfo $file) {
+                                return $file->getExtension() === 'php';
+                            })
+                            ->in($realPath)
+                    )
                 );
             } else {
                 $files[] = $realPath;
@@ -35,6 +38,9 @@ final class ClassCollector
         }
 
         foreach ($files as $file) {
+            if ($file instanceof SplFileInfo) {
+                $file = $file->getRealPath();
+            }
             foreach ($this->getClassesForFile($file) as $class) {
                 $this->classes[\ltrim($class, '\\')] = $file;
             }

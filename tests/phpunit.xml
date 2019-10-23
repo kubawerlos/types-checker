@@ -1,16 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<phpunit backupGlobals='false'
-         backupStaticAttributes='false'
-         beStrictAboutTestsThatDoNotTestAnything='true'
-         bootstrap='../vendor/autoload.php'
-         convertErrorsToExceptions='true'
-         convertNoticesToExceptions='true'
-         convertWarningsToExceptions='true'
-         stopOnError='false'
-         stopOnFailure='false'
-         stopOnIncomplete='false'
-         stopOnSkipped='false'
-         verbose='true'>
+
+<phpunit xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+         xsi:noNamespaceSchemaLocation='../dev-tools/vendor/phpunit/phpunit/phpunit.xsd'
+         colors='true'
+         forceCoversAnnotation='true'
+         verbose='true'
+>
 
     <php>
         <ini name='display_errors' value='1' />
@@ -20,7 +15,7 @@
     </php>
 
     <testsuites>
-        <testsuite name='main'>
+        <testsuite name='all'>
             <directory>.</directory>
         </testsuite>
     </testsuites>
