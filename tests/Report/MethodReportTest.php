@@ -1,29 +1,33 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Report;
 
-use KubaWerlos\TypesChecker\Report\MethodReport;
 use PHPUnit\Framework\TestCase;
 use Tests\Stub\ProperClass;
+use TypesChecker\Report\MethodReport;
 
 /**
- * @covers \KubaWerlos\TypesChecker\Report\MethodReport
+ * @covers \TypesChecker\Report\MethodReport
+ *
+ * @internal
  */
-class MethodReportTest extends TestCase
+final class MethodReportTest extends TestCase
 {
-    public function testGettingName()
+    public function testGettingName(): void
     {
         $report = new MethodReport(new \ReflectionMethod(ProperClass::class, 'test'));
 
-        $this->assertSame('test', $report->getName());
+        static::assertSame('test', $report->getName());
     }
 
-    public function testAddingIssue()
+    public function testAddingIssue(): void
     {
         $report = new MethodReport(new \ReflectionMethod(ProperClass::class, 'test'));
 
         $report->addIssue('an issue');
 
-        $this->assertCount(1, $report->getIssues());
+        static::assertCount(1, $report->getIssues());
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
-namespace KubaWerlos\TypesChecker;
+declare(strict_types = 1);
 
-use KubaWerlos\TypesChecker\Report\Report;
+namespace TypesChecker;
 
-class Checker
+use TypesChecker\Report\Report;
+
+final class Checker
 {
     /** @var array */
     private $excluded = [];
@@ -24,16 +26,16 @@ class Checker
         $this->report = new Report();
     }
 
-    public function exclude(string $name)
+    public function exclude(string $name): void
     {
-        $name = str_replace('\\\\', '\\', $name);
-        if (!class_exists($name) && !interface_exists($name) && !trait_exists($name)) {
-            throw new \InvalidArgumentException(sprintf('Class, interface or trait "%s" does not exist.', $name));
+        $name = \str_replace('\\\\', '\\', $name);
+        if (!\class_exists($name) && !\interface_exists($name) && !\trait_exists($name)) {
+            throw new \InvalidArgumentException(\sprintf('Class, interface or trait "%s" does not exist.', $name));
         }
-        $this->excluded[] = ltrim($name, '\\');
+        $this->excluded[] = \ltrim($name, '\\');
     }
 
-    public function skipReturnTypes()
+    public function skipReturnTypes(): void
     {
         $this->checkReturnTypes = false;
     }
@@ -51,12 +53,12 @@ class Checker
 
     private function isClassToCheck(string $class): bool
     {
-        return 0 === count(array_filter($this->excluded, function (string $excluded) use ($class): bool {
-            return $excluded === $class || is_subclass_of($class, $excluded);
-        }));
+        return \count(\array_filter($this->excluded, static function (string $excluded) use ($class): bool {
+            return $excluded === $class || \is_subclass_of($class, $excluded);
+        })) === 0;
     }
 
-    private function checkClass(string $class)
+    private function checkClass(string $class): void
     {
         $class = new \ReflectionClass($class);
         $this->report->addClass($class);
@@ -75,7 +77,7 @@ class Checker
             && $method->getEndLine() < $class->getEndLine();
     }
 
-    private function checkMethod(\ReflectionMethod $method)
+    private function checkMethod(\ReflectionMethod $method): void
     {
         if ($this->isMethodToCheckForReturnType($method) && $method->getReturnType() === null) {
             $this->report->addIssue($method, 'missing return type');
@@ -83,13 +85,13 @@ class Checker
 
         foreach ($method->getParameters() as $parameter) {
             if ($parameter->getType() === null) {
-                $this->report->addIssue($method, sprintf('parameter $%s is missing type', $parameter->getName()));
+                $this->report->addIssue($method, \sprintf('parameter $%s is missing type', $parameter->getName()));
             }
         }
     }
 
     private function isMethodToCheckForReturnType(\ReflectionMethod $method): bool
     {
-        return $this->checkReturnTypes && !in_array($method->getName(), ['__construct', '__destruct', '__clone'], true);
+        return $this->checkReturnTypes && !\in_array($method->getName(), ['__construct', '__destruct', '__clone'], true);
     }
 }

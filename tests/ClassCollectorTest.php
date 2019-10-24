@@ -1,47 +1,51 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests;
 
-use KubaWerlos\TypesChecker\ClassCollector;
 use PHPUnit\Framework\TestCase;
+use TypesChecker\ClassCollector;
 
 /**
- * @covers \KubaWerlos\TypesChecker\ClassCollector
+ * @covers \TypesChecker\ClassCollector
+ *
+ * @internal
  */
-class ClassCollectorTest extends TestCase
+final class ClassCollectorTest extends TestCase
 {
-    public function testWithIncorrectPath()
+    public function testWithIncorrectPath(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        new ClassCollector([__DIR__.'/nope/nope/nope']);
+        new ClassCollector([__DIR__ . '/nope/nope/nope']);
     }
 
-    public function testReadingDirectory()
+    public function testReadingDirectory(): void
     {
-        $classCollector = new ClassCollector([__DIR__.'/../src']);
+        $classCollector = new ClassCollector([__DIR__ . '/../src']);
 
-        $this->assertNotEmpty($classCollector->getClasses());
+        static::assertNotEmpty($classCollector->getClasses());
     }
 
-    public function testReadingFile()
+    public function testReadingFile(): void
     {
-        $classCollector = new ClassCollector([__DIR__.'/../src/Checker.php']);
+        $classCollector = new ClassCollector([__DIR__ . '/../src/Checker.php']);
 
-        $this->assertCount(1, $classCollector->getClasses());
+        static::assertCount(1, $classCollector->getClasses());
     }
 
-    public function testReadingNonPsr4Class()
+    public function testReadingNonPsr4Class(): void
     {
-        new ClassCollector([__DIR__.'/../tests/_stubs']);
+        new ClassCollector([__DIR__ . '/../tests/_stubs']);
 
-        $this->assertTrue(class_exists('Tests\Stub\IForgotPsr4'));
+        static::assertTrue(\class_exists('Tests\Stub\IForgotPsr4'));
     }
 
-    public function testClassWithWhitespaces()
+    public function testClassWithWhitespaces(): void
     {
-        $classCollector = new ClassCollector([__DIR__.'/../tests/_stubs/WhitespacesOverdose.php']);
+        $classCollector = new ClassCollector([__DIR__ . '/../tests/_stubs/WhitespacesOverdose.php']);
 
-        $this->assertSame(['Tests\\Stub\\WhitespacesOverdose'], $classCollector->getClasses());
+        static::assertSame(['Tests\\Stub\\WhitespacesOverdose'], $classCollector->getClasses());
     }
 }

@@ -1,2 +1,4 @@
+/tests/.phpunit.result.cache
 /vendor/
+/.php_cs.cache
 /composer.lock

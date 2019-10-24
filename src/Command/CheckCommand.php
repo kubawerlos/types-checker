@@ -1,21 +1,24 @@
 <?php
 
-namespace KubaWerlos\TypesChecker\Console;
+declare(strict_types = 1);
 
-use KubaWerlos\TypesChecker\Checker;
-use KubaWerlos\TypesChecker\Report\Report;
+namespace TypesChecker\Command;
+
+use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TypesChecker\Checker;
+use TypesChecker\Report\Report;
 
-class Command extends \Symfony\Component\Console\Command\Command
+final class CheckCommand extends BaseCommand
 {
-    const NAME = 'types-checker';
+    protected static $defaultName = 'types-checker';
 
-    protected function configure()
+    protected function configure(): void
     {
-        $this->setName(self::NAME)
+        $this
             ->addArgument(
                 'path',
                 InputArgument::IS_ARRAY
@@ -34,7 +37,7 @@ class Command extends \Symfony\Component\Console\Command\Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $checker = new Checker($input->getArgument('path'));
 
@@ -51,19 +54,19 @@ class Command extends \Symfony\Component\Console\Command\Command
         $output->writeln('');
 
         $whatWasChecked = $this->getWhatWasChecked($report);
-        if (mb_strpos($whatWasChecked, 'item') !== false) {
-            $output->writeln(sprintf('Types checker - %s checked:', $whatWasChecked));
+        if (\mb_strpos($whatWasChecked, 'item') !== false) {
+            $output->writeln(\sprintf('Types checker - %s checked:', $whatWasChecked));
             if ($report->getNumberOfClasses() > 0) {
-                $output->writeln(sprintf(' - %s', $this->pluralize($report->getNumberOfClasses(), 'class')));
+                $output->writeln(\sprintf(' - %s', $this->pluralize($report->getNumberOfClasses(), 'class')));
             }
             if ($report->getNumberOfInterfaces() > 0) {
-                $output->writeln(sprintf(' - %s', $this->pluralize($report->getNumberOfInterfaces(), 'interface')));
+                $output->writeln(\sprintf(' - %s', $this->pluralize($report->getNumberOfInterfaces(), 'interface')));
             }
             if ($report->getNumberOfTraits() > 0) {
-                $output->writeln(sprintf(' - %s', $this->pluralize($report->getNumberOfTraits(), 'trait')));
+                $output->writeln(\sprintf(' - %s', $this->pluralize($report->getNumberOfTraits(), 'trait')));
             }
         } else {
-            $output->writeln(sprintf('Types checker - %s checked.', $whatWasChecked));
+            $output->writeln(\sprintf('Types checker - %s checked.', $whatWasChecked));
         }
 
         $output->writeln('');
@@ -78,17 +81,17 @@ class Command extends \Symfony\Component\Console\Command\Command
         $output->writeln('Issues found:');
 
         foreach ($report->getClasses() as $class) {
-            $output->writeln(sprintf(' - %s:', $class->getName()));
+            $output->writeln(\sprintf(' - %s:', $class->getName()));
             foreach ($class->getMethods() as $method) {
-                $output->writeln(sprintf('   - %s:', $method->getName()));
+                $output->writeln(\sprintf('   - %s:', $method->getName()));
                 foreach ($method->getIssues() as $issue) {
-                    $output->writeln(sprintf('     - %s', $issue));
+                    $output->writeln(\sprintf('     - %s', $issue));
                 }
             }
         }
         $output->writeln('');
 
-        $output->writeln(sprintf('  %s', $this->pluralize($report->getNumberOfIssues(), 'issue')));
+        $output->writeln(\sprintf('  %s', $this->pluralize($report->getNumberOfIssues(), 'issue')));
         $output->writeln('');
 
         return 1;
@@ -99,9 +102,11 @@ class Command extends \Symfony\Component\Console\Command\Command
         if ($report->getNumberOfItems() > 0) {
             if ($report->getNumberOfItems() === $report->getNumberOfClasses()) {
                 return $this->pluralize($report->getNumberOfClasses(), 'class');
-            } elseif ($report->getNumberOfItems() === $report->getNumberOfInterfaces()) {
+            }
+            if ($report->getNumberOfItems() === $report->getNumberOfInterfaces()) {
                 return $this->pluralize($report->getNumberOfInterfaces(), 'interface');
-            } elseif ($report->getNumberOfItems() === $report->getNumberOfTraits()) {
+            }
+            if ($report->getNumberOfItems() === $report->getNumberOfTraits()) {
                 return $this->pluralize($report->getNumberOfTraits(), 'trait');
             }
         }
@@ -112,9 +117,9 @@ class Command extends \Symfony\Component\Console\Command\Command
     private function pluralize(int $count, string $name): string
     {
         if ($count !== 1) {
-            $name .= mb_substr($name, -1) === 's' ? 'es' : 's';
+            $name .= \mb_substr($name, -1) === 's' ? 'es' : 's';
         }
 
-        return sprintf('%d %s', $count, $name);
+        return \sprintf('%d %s', $count, $name);
     }
 }
