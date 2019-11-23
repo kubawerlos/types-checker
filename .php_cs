@@ -132,6 +132,20 @@ return PhpCsFixer\Config::create()
                 $carry[$fixer->getName()] = true;
             }
 
+            if ($fixer instanceof PhpCsFixerCustomFixers\Fixer\PhpdocOnlyAllowedAnnotationsFixer) {
+                $carry[$fixer->getName()] = ['elements' => [
+                    'covers',
+                    'coversNothing',
+                    'dataProvider',
+                    'deprecated',
+                    'internal',
+                    'param',
+                    'requires',
+                    'return',
+                    'var',
+                ]];
+            }
+
             return $carry;
         },
         []
