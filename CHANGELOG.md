@@ -2,6 +2,7 @@
 
 ## v2.0.0 - [Unreleased]
 - Drop PHP 7.1 support
+- Support macOS
 
 ## v1.2.0 - *2019-12-28*
 - Allow Symfony 5
