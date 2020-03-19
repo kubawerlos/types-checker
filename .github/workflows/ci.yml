@@ -24,6 +24,10 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         php-version: ['7.2', '7.3', '7.4']
+        include:
+          - os: ubuntu-latest
+            php-version: '7.2'
+            composer_flags: '--prefer-lowest'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
