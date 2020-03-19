@@ -59,7 +59,7 @@ jobs:
 
       - name: Collect coverage
         if: matrix.os == 'ubuntu-latest' && matrix.php-version == '7.4' && matrix.composer_flags == ''
-        run:
-          - composer require --dev php-coveralls/php-coveralls
-          - composer test -- --coverage-clover=./build/logs/clover.xml
-          - ./vendor/bin/php-coveralls
+        run: |
+          composer require --dev php-coveralls/php-coveralls
+          composer test -- --coverage-clover=./build/logs/clover.xml
+          ./vendor/bin/php-coveralls
