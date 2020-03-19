@@ -45,6 +45,9 @@ final class CheckCommandTest extends TestCase
         ]);
     }
 
+    /**
+     * @requires PHP 7.3
+     */
     public function testRunWithUnknownClass(): void
     {
         $this->expectException(\Error::class);
