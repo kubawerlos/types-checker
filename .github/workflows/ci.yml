@@ -22,7 +22,7 @@ jobs:
   test:
     strategy:
       matrix:
-        composer_flags: ''
+        composer_flags: ['']
         os: [ubuntu-latest]
         php-version: ['7.4']
         include:
