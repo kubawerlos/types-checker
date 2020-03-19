@@ -26,10 +26,8 @@ jobs:
         php-version: ['7.4']
         include:
           - os: ubuntu-latest
-            php-version: '7.1'
+            php-version: '7.2'
             composer_flags: '--prefer-lowest'
-          - os: ubuntu-latest
-            php-version: '7.1'
           - os: ubuntu-latest
             php-version: '7.2'
           - os: ubuntu-latest
