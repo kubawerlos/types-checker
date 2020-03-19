@@ -14,7 +14,7 @@ use TypesChecker\Checker;
  */
 final class CheckerTest extends TestCase
 {
-    public function provideProperFileCases(): iterable
+    public static function provideProperFileCases(): iterable
     {
         return [
             [__DIR__ . '/_stubs/ChildClass.php'],
@@ -39,7 +39,7 @@ final class CheckerTest extends TestCase
         static::assertSame(1, $report->getNumberOfItems());
     }
 
-    public function provideImproperFileCases(): iterable
+    public static function provideImproperFileCases(): iterable
     {
         return [
             [__DIR__ . '/_stubs/HavingProperTraitImproperClass.php'],
@@ -92,7 +92,7 @@ final class CheckerTest extends TestCase
         $checker->exclude('Nope\Nope\Nope');
     }
 
-    public function provideExcludingItselfCases(): iterable
+    public static function provideExcludingItselfCases(): iterable
     {
         return [
             ['ProperClass'],
