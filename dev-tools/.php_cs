@@ -3,19 +3,20 @@
 declare(strict_types = 1);
 
 return PhpCsFixer\Config::create()
+    ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
+    ->setRiskyAllowed(true)
+    ->setUsingCache(false)
     ->setFinder(
         PhpCsFixer\Finder::create()
             ->files()
-            ->in(__DIR__ . '/src')
-            ->in(__DIR__ . '/tests')
+            ->in(__DIR__ . '/../src')
+            ->in(__DIR__ . '/../tests')
             ->notPath('_stubs')
             ->append([
                 __FILE__,
-                __DIR__ . '/types-checker',
+                __DIR__ . '/../types-checker',
             ])
     )
-    ->setRiskyAllowed(true)
-    ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
     ->setRules([
         '@PHP71Migration' => true,
         '@PHP71Migration:risky' => true,
