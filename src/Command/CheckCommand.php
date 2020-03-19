@@ -19,28 +19,25 @@ final class CheckCommand extends BaseCommand
     protected function configure(): void
     {
         $this
-            ->addArgument(
-                'path',
-                InputArgument::IS_ARRAY
-            )
-            ->addOption(
-                'exclude',
-                'e',
-                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
-                'Exclude class or interface instances from report'
-            )
-            ->addOption(
-                'skip-return-types',
-                's',
-                InputOption::VALUE_NONE,
-                'Do not report missing return types'
-            );
+            ->addArgument('path', InputArgument::IS_ARRAY)
+            ->addOption('autoloader', 'a', InputOption::VALUE_REQUIRED, 'Add custom autoloader file')
+            ->addOption('exclude', 'e', InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Exclude class, interface or trait from report')
+            ->addOption('skip-return-types', 's', InputOption::VALUE_NONE, 'Do not report missing return types');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string[] $paths */
         $paths = $input->getArgument('path');
+
+        /** @var null|string $autoloader */
+        $autoloader = $input->getOption('autoloader');
+        if ($autoloader !== null) {
+            if (!\file_exists($autoloader)) {
+                throw new \InvalidArgumentException(\sprintf('File "%s" does not exist.', $autoloader));
+            }
+            require_once $autoloader;
+        }
 
         $checker = new Checker($paths);
 
