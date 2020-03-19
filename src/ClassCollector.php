@@ -9,7 +9,7 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class ClassCollector
 {
-    /** @var string[] */
+    /** @var array<string, string> */
     private $classes = [];
 
     /**
@@ -17,6 +17,7 @@ final class ClassCollector
      */
     public function __construct(array $paths)
     {
+        /** @var string[] $files */
         $files = [];
         foreach ($paths as $path) {
             $realPath = \realpath($path);
@@ -24,33 +25,28 @@ final class ClassCollector
                 throw new \InvalidArgumentException(\sprintf('Path "%s" does not exist.', $path));
             }
             if (\is_dir($realPath)) {
-                $files = \array_merge(
-                    $files,
-                    \iterator_to_array(
-                        (new Finder())
-                            ->files()
-                            ->filter(static function (\SplFileInfo $file): bool {
-                                return $file->getExtension() === 'php';
-                            })
-                            ->in($realPath)
-                    )
-                );
+                $finder = Finder::create()
+                    ->files()
+                    ->name('*.php')
+                    ->in($realPath);
+                /** @var SplFileInfo $file */
+                foreach ($finder as $file) {
+                    /** @var string $path */
+                    $path = $file->getRealPath();
+                    $files[] = $path;
+                }
             } else {
                 $files[] = $realPath;
             }
         }
 
         foreach ($files as $file) {
-            if ($file instanceof SplFileInfo) {
-                /** @var string $file */
-                $file = $file->getRealPath();
-            }
             foreach ($this->getClassesForFile($file) as $class) {
                 $this->classes[\ltrim($class, '\\')] = $file;
             }
         }
 
-        \spl_autoload_register(function ($class): void {
+        \spl_autoload_register(function (string $class): void {
             if (isset($this->classes[$class])) {
                 require_once $this->classes[$class];
             }

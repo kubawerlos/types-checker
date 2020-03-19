@@ -44,7 +44,7 @@ final class CheckCommand extends BaseCommand
 
         $checker = new Checker($paths);
 
-        /** @var string [] $excludes */
+        /** @var string[] $excludes */
         $excludes = $input->getOption('exclude');
         foreach ($excludes as $name) {
             $checker->exclude($name);

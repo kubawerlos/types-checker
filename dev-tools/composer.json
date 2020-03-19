@@ -6,7 +6,8 @@
         "maglnet/composer-require-checker": "^2.1.0",
         "phpstan/phpstan": "^0.12.17",
         "phpstan/phpstan-strict-rules": "^0.12.2",
-        "squizlabs/php_codesniffer": "^3.5.4"
+        "squizlabs/php_codesniffer": "^3.5.4",
+        "vimeo/psalm": "^3.9.5"
     },
     "scripts": {
         "analyse": [
@@ -15,7 +16,8 @@
             "composer-require-checker check ../composer.json",
             "phpcs --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ../src ../tests",
             "php-cs-fixer fix --ansi --diff --dry-run --verbose",
-            "phpstan analyse --no-progress"
+            "phpstan analyse --no-progress",
+            "psalm --no-progress --shepherd"
         ],
         "fix": [
             "composer normalize --working-dir=..",
