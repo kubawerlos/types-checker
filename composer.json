@@ -47,7 +47,7 @@
             "composer --working-dir=./dev-tools install"
         ],
         "test": [
-            "phpunit"
+            "phpunit -v"
         ],
         "verify": [
             "@analyse",
