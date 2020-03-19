@@ -1,7 +1,7 @@
 # types checker
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/kubawerlos/types-checker.svg)](https://packagist.org/packages/kubawerlos/types-checker)
-[![PHP Version](https://img.shields.io/badge/php-%3E%3D%207-8892BF.svg)](https://php.net)
+[![PHP version](https://img.shields.io/packagist/php-v/kubawerlos/types-checker.svg)](https://php.net)
 [![License](https://img.shields.io/github/license/kubawerlos/types-checker.svg)](https://packagist.org/packages/kubawerlos/types-checker)
 [![CI Status](https://github.com/kubawerlos/types-checker/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/kubawerlos/types-checker/actions)
 
