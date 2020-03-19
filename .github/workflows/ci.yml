@@ -27,7 +27,6 @@ jobs:
         include:
           - os: ubuntu-latest
             php-version: '7.1'
-            composer_flags: '--prefer-lowest'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
