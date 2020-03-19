@@ -25,9 +25,16 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
-        php-version: ['7.2', '7.3', '7.4']
-        composer_flags: ['', '--prefer-lowest']
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        php-version: ['7.4']
+        include:
+          - os: ubuntu-latest
+            php-version: '7.1'
+            composer_flags: '--prefer-lowest'
+          - os: ubuntu-latest
+            php-version: '7.2'
+          - os: ubuntu-latest
+            php-version: '7.3'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
