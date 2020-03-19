@@ -28,8 +28,6 @@ jobs:
           - os: ubuntu-latest
             php-version: '7.1'
             composer_flags: '--prefer-lowest'
-          - os: ubuntu-latest
-            php-version: '7.3'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
