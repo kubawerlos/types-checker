@@ -63,4 +63,4 @@ jobs:
 
       - name: Collect coverage
         if: matrix.os == 'ubuntu-latest' && matrix.php-version == '7.4' && matrix.composer_flags == ''
-        run: ./vendor/bin/php-coveralls -v
+        run: COVERALLS_RUN_LOCALLY=1 ./vendor/bin/php-coveralls -v
