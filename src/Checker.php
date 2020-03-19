@@ -8,7 +8,7 @@ use TypesChecker\Report\Report;
 
 final class Checker
 {
-    /** @var array */
+    /** @var string[] */
     private $excluded = [];
 
     /** @var bool */
@@ -20,6 +20,9 @@ final class Checker
     /** @var Report */
     private $report;
 
+    /**
+     * @param string[] $paths
+     */
     public function __construct(array $paths)
     {
         $this->classCollector = new ClassCollector($paths);
