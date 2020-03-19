@@ -39,13 +39,20 @@ final class CheckCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $checker = new Checker($input->getArgument('path'));
+        /** @var string[] $paths */
+        $paths = $input->getArgument('path');
 
-        foreach ($input->getOption('exclude') as $name) {
+        $checker = new Checker($paths);
+
+        /** @var string [] $excludes */
+        $excludes = $input->getOption('exclude');
+        foreach ($excludes as $name) {
             $checker->exclude($name);
         }
 
-        if ($input->getOption('skip-return-types')) {
+        /** @var bool $skipReturnTypes */
+        $skipReturnTypes = $input->getOption('skip-return-types');
+        if ($skipReturnTypes) {
             $checker->skipReturnTypes();
         }
 

@@ -1,0 +1,12 @@
+parameters:
+  level: max
+  autoload_files:
+    - ../vendor/autoload.php
+  paths:
+    - ../src
+  checkGenericClassInNonGenericObjectType: false
+  ignoreErrors:
+    - '#expects class-string<T of object>\|T of object, string given\.$#'
+
+includes:
+  - ./vendor/phpstan/phpstan-strict-rules/rules.neon

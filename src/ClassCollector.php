@@ -9,9 +9,12 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class ClassCollector
 {
-    /** @var array */
+    /** @var string[] */
     private $classes = [];
 
+    /**
+     * @param string[] $paths
+     */
     public function __construct(array $paths)
     {
         $files = [];
@@ -26,7 +29,7 @@ final class ClassCollector
                     \iterator_to_array(
                         (new Finder())
                             ->files()
-                            ->filter(static function (\SplFileInfo $file) {
+                            ->filter(static function (\SplFileInfo $file): bool {
                                 return $file->getExtension() === 'php';
                             })
                             ->in($realPath)
@@ -39,6 +42,7 @@ final class ClassCollector
 
         foreach ($files as $file) {
             if ($file instanceof SplFileInfo) {
+                /** @var string $file */
                 $file = $file->getRealPath();
             }
             foreach ($this->getClassesForFile($file) as $class) {
@@ -53,14 +57,23 @@ final class ClassCollector
         });
     }
 
+    /**
+     * @return string[]
+     */
     public function getClasses(): array
     {
         return \array_keys($this->classes);
     }
 
+    /**
+     * @return string[]
+     */
     private function getClassesForFile(string $path): array
     {
-        $tokens = \token_get_all(\file_get_contents($path));
+        /** @var string $content */
+        $content = \file_get_contents($path);
+
+        $tokens = \token_get_all($content);
 
         $classes = [];
 
