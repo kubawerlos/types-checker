@@ -13,9 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Check trailing whitespaces
-        run: ./check_trailing_whitespaces.sh
-
       - name: Install dependencies
         run: composer update --no-progress --no-suggest
 
@@ -27,14 +24,6 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         php-version: ['7.4']
-        include:
-          - os: ubuntu-latest
-            php-version: '7.2'
-            composer_flags: '--prefer-lowest'
-          - os: ubuntu-latest
-            php-version: '7.2'
-          - os: ubuntu-latest
-            php-version: '7.3'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
