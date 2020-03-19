@@ -11,33 +11,43 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-mbstring": "*",
+        "ext-tokenizer": "*",
         "symfony/console": "^3.4 || ^4.0 || ^5.0",
         "symfony/finder": "^3.4 || ^4.0 || ^5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5.2 || ^9.0.1"
     },
     "autoload": {
         "psr-4": {
             "TypesChecker\\": "./src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Stub\\": "./tests/_stubs/",
+            "Tests\\": "./tests"
+        }
+    },
     "bin": [
         "types-checker"
     ],
     "scripts": {
-        "post-update-cmd": "composer --working-dir=./dev-tools update",
         "analyse": [
-            "composer validate --strict",
-            "composer normalize --dry-run --working-dir=./dev-tools ./../composer.json",
-            "./dev-tools/vendor/bin/phpcs --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ./src ./tests",
-            "PHP_CS_FIXER_FUTURE_MODE=1 ./dev-tools/vendor/bin/php-cs-fixer fix --ansi --diff --dry-run --verbose",
-            "./types-checker src"
+            "@install-dev-tools",
+            "composer --working-dir=./dev-tools analyse",
+            "./types-checker ./src"
         ],
         "fix": [
-            "composer normalize --working-dir=./dev-tools ./../composer.json",
-            "PHP_CS_FIXER_FUTURE_MODE=1 ./dev-tools/vendor/bin/php-cs-fixer fix --ansi --verbose",
-            "./dev-tools/vendor/bin/phpcbf --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ./src ./tests"
+            "@install-dev-tools",
+            "composer --working-dir=./dev-tools fix"
+        ],
+        "install-dev-tools": [
+            "composer --working-dir=./dev-tools install"
         ],
         "test": [
-            "./dev-tools/vendor/bin/phpunit --configuration=tests/phpunit.xml"
+            "phpunit"
         ],
         "verify": [
             "@analyse",
