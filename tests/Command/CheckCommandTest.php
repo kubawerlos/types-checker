@@ -21,8 +21,6 @@ final class CheckCommandTest extends TestCase
 
     protected function setUp(): void
     {
-        require_once __DIR__ . '/../../dev-tools/vendor/autoload.php';
-
         $application = new Application();
         $application->setAutoExit(false);
         $application->setCatchExceptions(false);
