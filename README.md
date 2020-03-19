@@ -2,8 +2,8 @@
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/kubawerlos/types-checker.svg)](https://packagist.org/packages/kubawerlos/types-checker)
 [![PHP version](https://img.shields.io/packagist/php-v/kubawerlos/types-checker.svg)](https://php.net)
-[![License](https://img.shields.io/github/license/kubawerlos/types-checker.svg)](https://packagist.org/packages/kubawerlos/types-checker)
 [![CI Status](https://github.com/kubawerlos/types-checker/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/kubawerlos/types-checker/actions)
+[![Psalm type coverage](https://shepherd.dev/github/kubawerlos/types-checker/coverage.svg)](https://shepherd.dev/github/kubawerlos/types-checker)
 
 A tool to find missing type declarations in PHP 7 code.
 

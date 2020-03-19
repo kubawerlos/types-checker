@@ -45,6 +45,7 @@ final class Checker
 
     public function check(): Report
     {
+        /** @var class-string $class */
         foreach ($this->classCollector->getClasses() as $class) {
             if ($this->isClassToCheck($class)) {
                 $this->checkClass($class);
@@ -61,6 +62,9 @@ final class Checker
         })) === 0;
     }
 
+    /**
+     * @param class-string $class
+     */
     private function checkClass(string $class): void
     {
         $class = new \ReflectionClass($class);
