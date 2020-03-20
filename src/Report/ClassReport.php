@@ -28,16 +28,12 @@ final class ClassReport
 
     public function getName(): string
     {
-        switch (true) {
-            case $this->class->isInterface():
-                $type = 'Interface';
-                break;
-            case $this->class->isTrait():
-                $type = 'Trait';
-                break;
-            default:
-                $type = 'Class';
-                break;
+        if ($this->class->isInterface()) {
+            $type = 'Interface';
+        } elseif ($this->class->isTrait()) {
+            $type = 'Trait';
+        } else {
+            $type = 'Class';
         }
 
         return \sprintf('%s %s', $type, $this->class->getName());
