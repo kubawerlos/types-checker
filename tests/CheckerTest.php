@@ -35,8 +35,8 @@ final class CheckerTest extends TestCase
 
         $report = $checker->check();
 
-        static::assertFalse($report->hasIssues());
-        static::assertSame(1, $report->getNumberOfItems());
+        self::assertFalse($report->hasIssues());
+        self::assertSame(1, $report->getNumberOfItems());
     }
 
     public static function provideImproperFileCases(): iterable
@@ -62,8 +62,8 @@ final class CheckerTest extends TestCase
 
         $report = $checker->check();
 
-        static::assertTrue($report->hasIssues());
-        static::assertSame(1, $report->getNumberOfItems());
+        self::assertTrue($report->hasIssues());
+        self::assertSame(1, $report->getNumberOfItems());
     }
 
     public function testClassInTheSameFileWithTrait(): void
@@ -72,7 +72,7 @@ final class CheckerTest extends TestCase
 
         $report = $checker->check();
 
-        static::assertSame(3, $report->getNumberOfItems());
+        self::assertSame(3, $report->getNumberOfItems());
     }
 
     public function testSrcDirectory(): void
@@ -80,7 +80,7 @@ final class CheckerTest extends TestCase
         $checker = new Checker([__DIR__ . '/../src']);
         $checker->skipReturnTypes();
 
-        static::assertFalse($checker->check()->hasIssues());
+        self::assertFalse($checker->check()->hasIssues());
     }
 
     public function testExcludingNonExistentInstance(): void
@@ -109,7 +109,7 @@ final class CheckerTest extends TestCase
         $checker = new Checker([__DIR__ . '/_stubs/' . $class . '.php']);
         $checker->exclude('Tests\Stub\\' . $class);
 
-        static::assertSame(0, $checker->check()->getNumberOfItems());
+        self::assertSame(0, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingParentClass(): void
@@ -117,7 +117,7 @@ final class CheckerTest extends TestCase
         $checker = new Checker([__DIR__ . '/_stubs/ChildClass.php']);
         $checker->exclude('Tests\Stub\MissingParameterTypeClass');
 
-        static::assertSame(0, $checker->check()->getNumberOfItems());
+        self::assertSame(0, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingInterface(): void
@@ -125,7 +125,7 @@ final class CheckerTest extends TestCase
         $checker = new Checker([__DIR__ . '/_stubs/ProperClass.php']);
         $checker->exclude('Tests\Stub\ProperInterface');
 
-        static::assertSame(0, $checker->check()->getNumberOfItems());
+        self::assertSame(0, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingTrait(): void
@@ -133,7 +133,7 @@ final class CheckerTest extends TestCase
         $checker = new Checker([__DIR__ . '/_stubs/ProperClass.php', __DIR__ . '/_stubs/ProperTrait.php']);
         $checker->exclude('Tests\Stub\ProperTrait');
 
-        static::assertSame(1, $checker->check()->getNumberOfItems());
+        self::assertSame(1, $checker->check()->getNumberOfItems());
     }
 
     public function testExcludingTraitInTheSameFile(): void
@@ -142,7 +142,7 @@ final class CheckerTest extends TestCase
         $checker->exclude('Tests\Stub\ClassInTheSameFileWithTrait');
         $checker->exclude('Tests\Stub\AnotherTrait');
 
-        static::assertSame(1, $checker->check()->getNumberOfItems());
+        self::assertSame(1, $checker->check()->getNumberOfItems());
     }
 
     public function testSkippingReturnTypes(): void
@@ -156,8 +156,8 @@ final class CheckerTest extends TestCase
 
         $report = $checker->check();
 
-        static::assertFalse($report->hasIssues());
-        static::assertSame(3, $report->getNumberOfItems());
+        self::assertFalse($report->hasIssues());
+        self::assertSame(3, $report->getNumberOfItems());
     }
 
     /**
@@ -168,6 +168,6 @@ final class CheckerTest extends TestCase
     {
         $checker = new Checker([__DIR__ . '/_stubs/Php71Class.php']);
 
-        static::assertFalse($checker->check()->hasIssues());
+        self::assertFalse($checker->check()->hasIssues());
     }
 }

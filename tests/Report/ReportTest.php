@@ -24,10 +24,10 @@ final class ReportTest extends TestCase
         $report->addIssue(new \ReflectionMethod(ProperClass::class, 'test'), 'first issue');
         $report->addIssue(new \ReflectionMethod(ProperClass::class, 'test'), 'second issue');
 
-        static::assertCount(1, $report->getClasses());
-        static::assertSame(1, $report->getNumberOfItems());
-        static::assertSame(2, $report->getNumberOfIssues());
-        static::assertTrue($report->hasIssues());
+        self::assertCount(1, $report->getClasses());
+        self::assertSame(1, $report->getNumberOfItems());
+        self::assertSame(2, $report->getNumberOfIssues());
+        self::assertTrue($report->hasIssues());
     }
 
     public function testCountingClasses(): void
@@ -36,10 +36,10 @@ final class ReportTest extends TestCase
 
         $report->addClass(new \ReflectionClass(ProperClass::class));
 
-        static::assertSame(1, $report->getNumberOfClasses());
-        static::assertSame(0, $report->getNumberOfInterfaces());
-        static::assertSame(0, $report->getNumberOfTraits());
-        static::assertFalse($report->hasIssues());
+        self::assertSame(1, $report->getNumberOfClasses());
+        self::assertSame(0, $report->getNumberOfInterfaces());
+        self::assertSame(0, $report->getNumberOfTraits());
+        self::assertFalse($report->hasIssues());
     }
 
     public function testCountingInterfaces(): void
@@ -48,10 +48,10 @@ final class ReportTest extends TestCase
 
         $report->addClass(new \ReflectionClass(ProperInterface::class));
 
-        static::assertSame(0, $report->getNumberOfClasses());
-        static::assertSame(1, $report->getNumberOfInterfaces());
-        static::assertSame(0, $report->getNumberOfTraits());
-        static::assertFalse($report->hasIssues());
+        self::assertSame(0, $report->getNumberOfClasses());
+        self::assertSame(1, $report->getNumberOfInterfaces());
+        self::assertSame(0, $report->getNumberOfTraits());
+        self::assertFalse($report->hasIssues());
     }
 
     public function testCountingTraits(): void
@@ -60,9 +60,9 @@ final class ReportTest extends TestCase
 
         $report->addClass(new \ReflectionClass(ProperTrait::class));
 
-        static::assertSame(0, $report->getNumberOfClasses());
-        static::assertSame(0, $report->getNumberOfInterfaces());
-        static::assertSame(1, $report->getNumberOfTraits());
-        static::assertFalse($report->hasIssues());
+        self::assertSame(0, $report->getNumberOfClasses());
+        self::assertSame(0, $report->getNumberOfInterfaces());
+        self::assertSame(1, $report->getNumberOfTraits());
+        self::assertFalse($report->hasIssues());
     }
 }

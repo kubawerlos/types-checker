@@ -21,9 +21,9 @@ final class ClassReportTest extends TestCase
     {
         $report = new ClassReport(new \ReflectionClass(ProperClass::class));
 
-        static::assertCount(0, $report->getMethods());
-        static::assertSame(0, $report->getNumberOfIssues());
-        static::assertFalse($report->hasIssues());
+        self::assertCount(0, $report->getMethods());
+        self::assertSame(0, $report->getNumberOfIssues());
+        self::assertFalse($report->hasIssues());
     }
 
     public function testAddingIssue(): void
@@ -32,37 +32,37 @@ final class ClassReportTest extends TestCase
 
         $report->addIssue(new \ReflectionMethod(ProperClass::class, 'test'), 'an issue');
 
-        static::assertTrue($report->hasIssues());
-        static::assertSame(1, $report->getNumberOfIssues());
+        self::assertTrue($report->hasIssues());
+        self::assertSame(1, $report->getNumberOfIssues());
     }
 
     public function testBeingClasses(): void
     {
         $report = new ClassReport(new \ReflectionClass(ProperClass::class));
 
-        static::assertSame('Class Tests\Stub\ProperClass', $report->getName());
-        static::assertTrue($report->isClass());
-        static::assertFalse($report->isInterface());
-        static::assertFalse($report->isTrait());
+        self::assertSame('Class Tests\Stub\ProperClass', $report->getName());
+        self::assertTrue($report->isClass());
+        self::assertFalse($report->isInterface());
+        self::assertFalse($report->isTrait());
     }
 
     public function testBeingInterfaces(): void
     {
         $report = new ClassReport(new \ReflectionClass(ProperInterface::class));
 
-        static::assertSame('Interface Tests\Stub\ProperInterface', $report->getName());
-        static::assertFalse($report->isClass());
-        static::assertTrue($report->isInterface());
-        static::assertFalse($report->isTrait());
+        self::assertSame('Interface Tests\Stub\ProperInterface', $report->getName());
+        self::assertFalse($report->isClass());
+        self::assertTrue($report->isInterface());
+        self::assertFalse($report->isTrait());
     }
 
     public function testBeingTraits(): void
     {
         $report = new ClassReport(new \ReflectionClass(ProperTrait::class));
 
-        static::assertSame('Trait Tests\Stub\ProperTrait', $report->getName());
-        static::assertFalse($report->isClass());
-        static::assertFalse($report->isInterface());
-        static::assertTrue($report->isTrait());
+        self::assertSame('Trait Tests\Stub\ProperTrait', $report->getName());
+        self::assertFalse($report->isClass());
+        self::assertFalse($report->isInterface());
+        self::assertTrue($report->isTrait());
     }
 }

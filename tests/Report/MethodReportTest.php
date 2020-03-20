@@ -19,7 +19,7 @@ final class MethodReportTest extends TestCase
     {
         $report = new MethodReport(new \ReflectionMethod(ProperClass::class, 'test'));
 
-        static::assertSame('test', $report->getName());
+        self::assertSame('test', $report->getName());
     }
 
     public function testAddingIssue(): void
@@ -28,6 +28,6 @@ final class MethodReportTest extends TestCase
 
         $report->addIssue('an issue');
 
-        static::assertCount(1, $report->getIssues());
+        self::assertCount(1, $report->getIssues());
     }
 }
