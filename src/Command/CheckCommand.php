@@ -58,7 +58,7 @@ final class CheckCommand extends BaseCommand
         $output->writeln('');
 
         $whatWasChecked = $this->getWhatWasChecked($report);
-        if (\mb_strpos($whatWasChecked, 'item') !== false) {
+        if (\strpos($whatWasChecked, 'item') !== false) {
             $output->writeln(\sprintf('Types checker - %s checked:', $whatWasChecked));
             if ($report->getNumberOfClasses() > 0) {
                 $output->writeln(\sprintf(' - %s', $this->pluralize($report->getNumberOfClasses(), 'class')));
@@ -121,7 +121,7 @@ final class CheckCommand extends BaseCommand
     private function pluralize(int $count, string $name): string
     {
         if ($count !== 1) {
-            $name .= \mb_substr($name, -1) === 's' ? 'es' : 's';
+            $name .= \substr($name, -1) === 's' ? 'es' : 's';
         }
 
         return \sprintf('%d %s', $count, $name);
