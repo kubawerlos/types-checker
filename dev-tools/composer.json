@@ -4,9 +4,12 @@
         "friendsofphp/php-cs-fixer": "^2.16.1",
         "kubawerlos/php-cs-fixer-custom-fixers": "^2.1.0",
         "maglnet/composer-require-checker": "^2.1.0",
+        "mi-schi/phpmd-extension": "^4.3.0",
+        "phpmd/phpmd": "^2.8.2",
         "phpstan/phpstan": "^0.12.17",
         "phpstan/phpstan-strict-rules": "^0.12.2",
-        "squizlabs/php_codesniffer": "^3.5.4"
+        "squizlabs/php_codesniffer": "^3.5.4",
+        "vimeo/psalm": "^3.9.5"
     },
     "scripts": {
         "analyse": [
@@ -14,8 +17,10 @@
             "composer normalize --dry-run ../composer.json",
             "composer-require-checker check ../composer.json",
             "phpcs --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ../src ../tests",
+            "phpmd ../src text ./phpmd.xml",
             "php-cs-fixer fix --ansi --diff --dry-run --verbose",
-            "phpstan analyse --no-progress"
+            "phpstan analyse --no-progress",
+            "psalm --no-progress --shepherd"
         ],
         "fix": [
             "composer normalize --working-dir=..",

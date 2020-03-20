@@ -2,8 +2,9 @@
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/kubawerlos/types-checker.svg)](https://packagist.org/packages/kubawerlos/types-checker)
 [![PHP version](https://img.shields.io/packagist/php-v/kubawerlos/types-checker.svg)](https://php.net)
-[![License](https://img.shields.io/github/license/kubawerlos/types-checker.svg)](https://packagist.org/packages/kubawerlos/types-checker)
 [![CI Status](https://github.com/kubawerlos/types-checker/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/kubawerlos/types-checker/actions)
+[![Code coverage](https://img.shields.io/coveralls/github/kubawerlos/types-checker/master.svg)](https://coveralls.io/github/kubawerlos/types-checker?branch=master)
+[![Psalm type coverage](https://shepherd.dev/github/kubawerlos/types-checker/coverage.svg)](https://shepherd.dev/github/kubawerlos/types-checker)
 
 A tool to find missing type declarations in PHP 7 code.
 
@@ -23,9 +24,10 @@ vendor/bin/types-checker src tests
 
 ## Configuration
 
-| Flag                  | Description                                   |
+| Option                | Description                                   |
 | --------------------- | --------------------------------------------- |
-| `--exclude Foo`       | Exclude class, interface or trait from report |
+| `--autoloader`        | Add custom autoloader file                    |
+| `--exclude`           | Exclude class, interface or trait from report |
 | `--skip-return-types` | Do not report missing return types            |
 
 ## Example

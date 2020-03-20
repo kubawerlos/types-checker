@@ -19,22 +19,10 @@ final class CheckCommand extends BaseCommand
     protected function configure(): void
     {
         $this
-            ->addArgument(
-                'path',
-                InputArgument::IS_ARRAY
-            )
-            ->addOption(
-                'exclude',
-                'e',
-                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
-                'Exclude class or interface instances from report'
-            )
-            ->addOption(
-                'skip-return-types',
-                's',
-                InputOption::VALUE_NONE,
-                'Do not report missing return types'
-            );
+            ->addArgument('path', InputArgument::IS_ARRAY)
+            ->addOption('autoloader', 'a', InputOption::VALUE_REQUIRED, 'Add custom autoloader file')
+            ->addOption('exclude', 'e', InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Exclude class, interface or trait from report')
+            ->addOption('skip-return-types', 's', InputOption::VALUE_NONE, 'Do not report missing return types');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -42,9 +30,18 @@ final class CheckCommand extends BaseCommand
         /** @var string[] $paths */
         $paths = $input->getArgument('path');
 
+        /** @var null|string $autoloader */
+        $autoloader = $input->getOption('autoloader');
+        if ($autoloader !== null) {
+            if (!\file_exists($autoloader)) {
+                throw new \InvalidArgumentException(\sprintf('File "%s" does not exist.', $autoloader));
+            }
+            require_once $autoloader;
+        }
+
         $checker = new Checker($paths);
 
-        /** @var string [] $excludes */
+        /** @var string[] $excludes */
         $excludes = $input->getOption('exclude');
         foreach ($excludes as $name) {
             $checker->exclude($name);
@@ -61,7 +58,7 @@ final class CheckCommand extends BaseCommand
         $output->writeln('');
 
         $whatWasChecked = $this->getWhatWasChecked($report);
-        if (\mb_strpos($whatWasChecked, 'item') !== false) {
+        if (\strpos($whatWasChecked, 'item') !== false) {
             $output->writeln(\sprintf('Types checker - %s checked:', $whatWasChecked));
             if ($report->getNumberOfClasses() > 0) {
                 $output->writeln(\sprintf(' - %s', $this->pluralize($report->getNumberOfClasses(), 'class')));
@@ -124,7 +121,7 @@ final class CheckCommand extends BaseCommand
     private function pluralize(int $count, string $name): string
     {
         if ($count !== 1) {
-            $name .= \mb_substr($name, -1) === 's' ? 'es' : 's';
+            $name .= \substr($name, -1) === 's' ? 'es' : 's';
         }
 
         return \sprintf('%d %s', $count, $name);

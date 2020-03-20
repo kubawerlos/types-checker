@@ -34,13 +34,46 @@ final class CheckCommandTest extends TestCase
         $this->tester = new ApplicationTester($application);
     }
 
+    public function testRunWithInvalidAutoloader(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectErrorMessage('File "nowhere" does not exist.');
+
+        $this->tester->run([
+            'path' => ['src'],
+            '--autoloader' => 'nowhere',
+        ]);
+    }
+
+    /**
+     * @requires PHP 7.3
+     */
+    public function testRunWithUnknownClass(): void
+    {
+        $this->expectException(\Error::class);
+        $this->expectErrorMessage("Class 'HiddenPlace\UnknownClass' not found");
+
+        $this->tester->run([
+            'path' => [__DIR__ . '/../_stubs/ExtendingUnknownClass.php'],
+        ]);
+    }
+
+    public function testRunWithAutoloaderForUnknownClass(): void
+    {
+        $this->tester->run([
+            'path' => [__DIR__ . '/../_stubs/ExtendingUnknownClass.php'],
+            '--autoloader' => __DIR__ . '/../_stubs/.HiddenPlace/autoloader.php',
+        ]);
+        self::assertStringContainsString('1 class', $this->tester->getDisplay());
+    }
+
     public function testRun(): void
     {
         $this->tester->run([
             'path' => ['src'],
         ]);
 
-        static::assertStringNotContainsString('missing return type', $this->tester->getDisplay());
+        self::assertStringNotContainsString('missing return type', $this->tester->getDisplay());
     }
 
     public function testRunWithoutReturnTypes(): void
@@ -50,7 +83,7 @@ final class CheckCommandTest extends TestCase
             '--skip-return-types' => true,
         ]);
 
-        static::assertStringContainsString('No issues found', $this->tester->getDisplay());
+        self::assertStringContainsString('No issues found', $this->tester->getDisplay());
     }
 
     public function testRunWithExcludedClass(): void
@@ -60,7 +93,7 @@ final class CheckCommandTest extends TestCase
             '--exclude' => ['Tests\Stub\MissingParameterTypeClass'],
         ]);
 
-        static::assertStringContainsString('0 items checked', $this->tester->getDisplay());
+        self::assertStringContainsString('0 items checked', $this->tester->getDisplay());
     }
 
     public function testRunOnlyForOneClass(): void
@@ -69,11 +102,11 @@ final class CheckCommandTest extends TestCase
             'path' => [__DIR__ . '/../_stubs/ProperClass.php'],
         ]);
 
-        static::assertStringContainsString('1 class', $this->tester->getDisplay());
-        static::assertStringNotContainsString('item', $this->tester->getDisplay());
-        static::assertStringNotContainsString('classes', $this->tester->getDisplay());
-        static::assertStringNotContainsString('interface', $this->tester->getDisplay());
-        static::assertStringNotContainsString('trait', $this->tester->getDisplay());
+        self::assertStringContainsString('1 class', $this->tester->getDisplay());
+        self::assertStringNotContainsString('item', $this->tester->getDisplay());
+        self::assertStringNotContainsString('classes', $this->tester->getDisplay());
+        self::assertStringNotContainsString('interface', $this->tester->getDisplay());
+        self::assertStringNotContainsString('trait', $this->tester->getDisplay());
     }
 
     public function testRunOnlyForOneInterface(): void
@@ -82,11 +115,11 @@ final class CheckCommandTest extends TestCase
             'path' => [__DIR__ . '/../_stubs/ProperInterface.php'],
         ]);
 
-        static::assertStringContainsString('1 interface', $this->tester->getDisplay());
-        static::assertStringNotContainsString('item', $this->tester->getDisplay());
-        static::assertStringNotContainsString('interfaces', $this->tester->getDisplay());
-        static::assertStringNotContainsString('class', $this->tester->getDisplay());
-        static::assertStringNotContainsString('trait', $this->tester->getDisplay());
+        self::assertStringContainsString('1 interface', $this->tester->getDisplay());
+        self::assertStringNotContainsString('item', $this->tester->getDisplay());
+        self::assertStringNotContainsString('interfaces', $this->tester->getDisplay());
+        self::assertStringNotContainsString('class', $this->tester->getDisplay());
+        self::assertStringNotContainsString('trait', $this->tester->getDisplay());
     }
 
     public function testRunOnlyForOneTrait(): void
@@ -95,11 +128,11 @@ final class CheckCommandTest extends TestCase
             'path' => [__DIR__ . '/../_stubs/ProperTrait.php'],
         ]);
 
-        static::assertStringContainsString('1 trait', $this->tester->getDisplay());
-        static::assertStringNotContainsString('item', $this->tester->getDisplay());
-        static::assertStringNotContainsString('traits', $this->tester->getDisplay());
-        static::assertStringNotContainsString('classes', $this->tester->getDisplay());
-        static::assertStringNotContainsString('interface', $this->tester->getDisplay());
+        self::assertStringContainsString('1 trait', $this->tester->getDisplay());
+        self::assertStringNotContainsString('item', $this->tester->getDisplay());
+        self::assertStringNotContainsString('traits', $this->tester->getDisplay());
+        self::assertStringNotContainsString('classes', $this->tester->getDisplay());
+        self::assertStringNotContainsString('interface', $this->tester->getDisplay());
     }
 
     public function testRunOnlyForOneClassAndInterface(): void
@@ -108,12 +141,12 @@ final class CheckCommandTest extends TestCase
             'path' => [__DIR__ . '/../_stubs/ProperClass.php', __DIR__ . '/../_stubs/ProperInterface.php'],
         ]);
 
-        static::assertStringContainsString('2 items', $this->tester->getDisplay());
-        static::assertStringContainsString('1 class', $this->tester->getDisplay());
-        static::assertStringContainsString('1 interface', $this->tester->getDisplay());
-        static::assertStringNotContainsString('classes', $this->tester->getDisplay());
-        static::assertStringNotContainsString('interfaces', $this->tester->getDisplay());
-        static::assertStringNotContainsString('trait', $this->tester->getDisplay());
+        self::assertStringContainsString('2 items', $this->tester->getDisplay());
+        self::assertStringContainsString('1 class', $this->tester->getDisplay());
+        self::assertStringContainsString('1 interface', $this->tester->getDisplay());
+        self::assertStringNotContainsString('classes', $this->tester->getDisplay());
+        self::assertStringNotContainsString('interfaces', $this->tester->getDisplay());
+        self::assertStringNotContainsString('trait', $this->tester->getDisplay());
     }
 
     public function testRunWithMissingType(): void
@@ -122,6 +155,6 @@ final class CheckCommandTest extends TestCase
             'path' => [__DIR__ . '/../_stubs/MissingReturnTypeClass.php'],
         ]);
 
-        static::assertStringContainsString('missing return type', $this->tester->getDisplay());
+        self::assertStringContainsString('missing return type', $this->tester->getDisplay());
     }
 }

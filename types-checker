@@ -13,5 +13,8 @@ $command = new TypesChecker\Command\CheckCommand('check');
 
 $application->add($command);
 
-$application->setDefaultCommand($command->getName(), true);
+/** @var string $name */
+$name = $command->getName();
+
+$application->setDefaultCommand($name, true);
 $application->run();

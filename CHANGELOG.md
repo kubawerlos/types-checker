@@ -1,6 +1,7 @@
 # CHANGELOG for types checker
 
 ## v2.0.0 - [Unreleased]
+- Add option `--autoloader` for adding custom autoloader file
 - Drop PHP 7.1 support
 - Support macOS
 - Support Windows
