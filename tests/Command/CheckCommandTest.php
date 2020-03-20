@@ -34,6 +34,39 @@ final class CheckCommandTest extends TestCase
         $this->tester = new ApplicationTester($application);
     }
 
+    public function testRunWithInvalidAutoloader(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectErrorMessage('File "nowhere" does not exist.');
+
+        $this->tester->run([
+            'path' => ['src'],
+            '--autoloader' => 'nowhere',
+        ]);
+    }
+
+    /**
+     * @requires PHP 7.3
+     */
+    public function testRunWithUnknownClass(): void
+    {
+        $this->expectException(\Error::class);
+        $this->expectErrorMessage("Class 'HiddenPlace\UnknownClass' not found");
+
+        $this->tester->run([
+            'path' => [__DIR__ . '/../_stubs/ExtendingUnknownClass.php'],
+        ]);
+    }
+
+    public function testRunWithAutoloaderForUnknownClass(): void
+    {
+        $this->tester->run([
+            'path' => [__DIR__ . '/../_stubs/ExtendingUnknownClass.php'],
+            '--autoloader' => __DIR__ . '/../_stubs/.HiddenPlace/autoloader.php',
+        ]);
+        static::assertStringContainsString('1 class', $this->tester->getDisplay());
+    }
+
     public function testRun(): void
     {
         $this->tester->run([

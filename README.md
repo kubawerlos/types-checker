@@ -24,9 +24,10 @@ vendor/bin/types-checker src tests
 
 ## Configuration
 
-| Flag                  | Description                                   |
+| Option                | Description                                   |
 | --------------------- | --------------------------------------------- |
-| `--exclude Foo`       | Exclude class, interface or trait from report |
+| `--autoloader`        | Add custom autoloader file                    |
+| `--exclude`           | Exclude class, interface or trait from report |
 | `--skip-return-types` | Do not report missing return types            |
 
 ## Example
