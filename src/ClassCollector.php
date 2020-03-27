@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace TypesChecker;
 
@@ -89,9 +89,11 @@ final class ClassCollector
                     $i++;
                 }
             }
-            if (\in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
+            if (
+                \in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
                 && $tokens[$i + 1][0] === T_WHITESPACE
-                && $tokens[$i + 2][0] === T_STRING) {
+                && $tokens[$i + 2][0] === T_STRING
+            ) {
                 $classes[] = \sprintf('%s\\%s', $namespace, $tokens[$i + 2][1]);
             }
             $i++;

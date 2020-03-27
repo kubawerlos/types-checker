@@ -16,14 +16,15 @@
             "composer validate --strict --working-dir=..",
             "composer normalize --dry-run ../composer.json",
             "composer-require-checker check ../composer.json",
-            "phpcs --exclude=Generic.Files.LineLength --ignore=./tests/_stubs --report-full --standard=PSR2 ../src ../tests",
+            "phpcs",
             "phpmd ../src text ./phpmd.xml",
             "php-cs-fixer fix --ansi --diff --dry-run --verbose",
             "phpstan analyse --no-progress",
             "psalm --no-progress --shepherd"
         ],
         "fix": [
-            "composer normalize --working-dir=..",
+            "composer normalize ../composer.json",
+            "phpcbf || return 0",
             "php-cs-fixer fix --ansi --verbose || return 0"
         ]
     }
