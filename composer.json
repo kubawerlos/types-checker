@@ -35,7 +35,8 @@
     "scripts": {
         "analyse": [
             "@install-dev-tools",
-            "composer --working-dir=./dev-tools analyse"
+            "composer --working-dir=./dev-tools analyse",
+            "./types-checker ./src"
         ],
         "fix": [
             "@install-dev-tools",
