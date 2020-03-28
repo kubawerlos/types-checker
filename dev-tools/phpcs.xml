@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<ruleset name='kubawerlos/types-checker'
+         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+         xsi:noNamespaceSchemaLocation='./vendor/squizlabs/php_codesniffer/phpcs.xsd'
+>
+
+    <description>Ruleset used in the project</description>
+
+    <file>.php_cs</file>
+    <file>../src</file>
+    <file>../tests</file>
+    <file>../types-checker</file>
+    <exclude-pattern>./tests/_stubs</exclude-pattern>
+
+    <rule ref='PSR12'>
+        <exclude name='Generic.Files.LineLength' />
+    </rule>
+
+</ruleset>
