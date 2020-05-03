@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b38b3144a3c72e4a6c4f8b99fcc4fe20",
+    "content-hash": "b9190b95df8cd2d512021c7af93d1b1f",
     "packages": [],
     "packages-dev": [
         {
@@ -810,6 +810,47 @@
                 "schema"
             ],
             "time": "2019-09-25T14:49:45+00:00"
+        },
+        {
+            "name": "kubawerlos/php-cs-fixer-config",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kubawerlos/php-cs-fixer-config.git",
+                "reference": "0517d6e94cfd0709187255f6875acd4aefc57313"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-config/zipball/0517d6e94cfd0709187255f6875acd4aefc57313",
+                "reference": "0517d6e94cfd0709187255f6875acd4aefc57313",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp/php-cs-fixer": "^2.16.3",
+                "kubawerlos/php-cs-fixer-custom-fixers": "^2.2.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.4 || ^9.1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpCsFixerConfig\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kuba Werłos",
+                    "email": "werlos@gmail.com"
+                }
+            ],
+            "description": "Provides configuration for PHP CS Fixer",
+            "time": "2020-05-03T17:28:02+00:00"
         },
         {
             "name": "kubawerlos/php-cs-fixer-custom-fixers",

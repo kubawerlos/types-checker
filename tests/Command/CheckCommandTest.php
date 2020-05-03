@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Types checker.
+ *
+ * (c) 2016-2020 Kuba Werłos
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Tests\Command;
 
 use PHPUnit\Framework\TestCase;
@@ -51,7 +60,7 @@ final class CheckCommandTest extends TestCase
     public function testRunWithUnknownClass(): void
     {
         $this->expectException(\Error::class);
-        $this->expectErrorMessage("Class 'HiddenPlace\UnknownClass' not found");
+        $this->expectErrorMessage("Class 'HiddenPlace\\UnknownClass' not found");
 
         $this->tester->run([
             'path' => [__DIR__ . '/../_stubs/ExtendingUnknownClass.php'],
