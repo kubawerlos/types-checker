@@ -5,13 +5,13 @@ declare(strict_types=1);
 /*
  * This file is part of Types checker.
  *
- * (c) Kuba Werłos <werlos@gmail.com>
+ * (c) 2016-2020 Kuba Werłos
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
 
-return PhpCsFixerConfig\Factory::createForLibrary('Types checker')
+return PhpCsFixerConfig\Factory::createForLibrary('Types checker', 'Kuba Werłos', 2016)
     ->setUsingCache(false)
     ->setFinder(
         PhpCsFixer\Finder::create()
