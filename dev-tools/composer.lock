@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "058eadef3835105a7e86750874da28e9",
+    "content-hash": "3dadc93417238e3f9096dba8c07f994f",
     "packages": [],
     "packages-dev": [
         {
@@ -854,27 +854,27 @@
         },
         {
             "name": "kubawerlos/php-cs-fixer-custom-fixers",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers.git",
-                "reference": "5d9375f39f6d9ccbb52530bc9edefa53c6ba694d"
+                "reference": "e6c5a12f203916ee08c736501536ad25ecec0b2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/5d9375f39f6d9ccbb52530bc9edefa53c6ba694d",
-                "reference": "5d9375f39f6d9ccbb52530bc9edefa53c6ba694d",
+                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/e6c5a12f203916ee08c736501536ad25ecec0b2f",
+                "reference": "e6c5a12f203916ee08c736501536ad25ecec0b2f",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "friendsofphp/php-cs-fixer": "^2.16.1",
+                "friendsofphp/php-cs-fixer": "^2.16.2",
                 "php": "^7.2",
                 "symfony/finder": "^3.0 || ^4.0 || ^5.0"
             },
             "require-dev": {
                 "johnkary/phpunit-speedtrap": "^3.2.0",
-                "phpunit/phpunit": "^8.5.2 || ^9.0.1"
+                "phpunit/phpunit": "^8.5.3 || ^9.1.1"
             },
             "type": "library",
             "autoload": {
@@ -893,7 +893,7 @@
                 }
             ],
             "description": "A set of custom fixers for PHP CS Fixer",
-            "time": "2020-04-02T21:28:01+00:00"
+            "time": "2020-05-06T19:12:43+00:00"
         },
         {
             "name": "localheinz/diff",
@@ -2364,7 +2364,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v5.0.7",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
