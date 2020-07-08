@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42451d730407d3e38b6d15b2b759b767",
+    "content-hash": "225b597e4f95d12dc211afe2cf5b2af6",
     "packages": [],
     "packages-dev": [
         {
@@ -958,21 +958,21 @@
         },
         {
             "name": "kubawerlos/php-cs-fixer-custom-fixers",
-            "version": "v2.2.1",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers.git",
-                "reference": "e6c5a12f203916ee08c736501536ad25ecec0b2f"
+                "reference": "ba15f63415679a2f97a93d2da0b1788b95596d52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/e6c5a12f203916ee08c736501536ad25ecec0b2f",
-                "reference": "e6c5a12f203916ee08c736501536ad25ecec0b2f",
+                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/ba15f63415679a2f97a93d2da0b1788b95596d52",
+                "reference": "ba15f63415679a2f97a93d2da0b1788b95596d52",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "friendsofphp/php-cs-fixer": "^2.16.2",
+                "friendsofphp/php-cs-fixer": "^2.16.4",
                 "php": "^7.2",
                 "symfony/finder": "^3.0 || ^4.0 || ^5.0"
             },
@@ -997,7 +997,7 @@
                 }
             ],
             "description": "A set of custom fixers for PHP CS Fixer",
-            "time": "2020-05-06T19:12:43+00:00"
+            "time": "2020-07-07T21:00:32+00:00"
         },
         {
             "name": "localheinz/diff",
