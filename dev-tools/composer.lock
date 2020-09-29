@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4dd7be4093db7eb248b94b57f991c0e",
+    "content-hash": "e2701e15b21d67afd2d0422073a232bc",
     "packages": [],
     "packages-dev": [
         {
@@ -1774,16 +1774,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.45",
+            "version": "0.12.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "90c67259212ed891ee86604a9368ef7d7bead3a4"
+                "reference": "74325a6ae15378db0df71b969ded245378d2e058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/90c67259212ed891ee86604a9368ef7d7bead3a4",
-                "reference": "90c67259212ed891ee86604a9368ef7d7bead3a4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/74325a6ae15378db0df71b969ded245378d2e058",
+                "reference": "74325a6ae15378db0df71b969ded245378d2e058",
                 "shasum": ""
             },
             "require": {
@@ -1826,7 +1826,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-26T19:19:00+00:00"
+            "time": "2020-09-29T13:35:39+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
