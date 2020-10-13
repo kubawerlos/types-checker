@@ -9,7 +9,7 @@
         "phpstan/phpstan": "^0.12.49",
         "phpstan/phpstan-strict-rules": "^0.12.5",
         "squizlabs/php_codesniffer": "^3.5.6",
-        "vimeo/psalm": "^3.16",
+        "vimeo/psalm": "^3.17",
         "kubawerlos/php-cs-fixer-config": "^1.4.0"
     },
     "scripts": {
