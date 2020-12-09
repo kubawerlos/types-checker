@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d5d88bc5d64f469afdb71c7ec58ce6f",
+    "content-hash": "3a472b40affe95a9f99af34c75692bcc",
     "packages": [],
     "packages-dev": [
         {
@@ -1051,26 +1051,25 @@
         },
         {
             "name": "kubawerlos/php-cs-fixer-custom-fixers",
-            "version": "v2.3.0",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers.git",
-                "reference": "ba15f63415679a2f97a93d2da0b1788b95596d52"
+                "reference": "ba095fd0d3e113c42b5278e43a7d7c60ab87934b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/ba15f63415679a2f97a93d2da0b1788b95596d52",
-                "reference": "ba15f63415679a2f97a93d2da0b1788b95596d52",
+                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/ba095fd0d3e113c42b5278e43a7d7c60ab87934b",
+                "reference": "ba095fd0d3e113c42b5278e43a7d7c60ab87934b",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "friendsofphp/php-cs-fixer": "^2.16.4",
-                "php": "^7.2",
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "php": "^7.2 || ^8.0",
                 "symfony/finder": "^3.0 || ^4.0 || ^5.0"
             },
             "require-dev": {
-                "johnkary/phpunit-speedtrap": "^3.2.0",
                 "phpunit/phpunit": "^8.5.3 || ^9.1.1"
             },
             "type": "library",
@@ -1090,7 +1089,7 @@
                 }
             ],
             "description": "A set of custom fixers for PHP CS Fixer",
-            "time": "2020-07-07T21:00:32+00:00"
+            "time": "2020-12-08T18:09:51+00:00"
         },
         {
             "name": "localheinz/diff",
