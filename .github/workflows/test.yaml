@@ -1,0 +1,76 @@
+name: test
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        php-version: [ '7.4' ]
+        include:
+          - os: ubuntu-latest
+            php-version: '7.2'
+            composer_flags: '--prefer-lowest'
+          - os: ubuntu-latest
+            php-version: '7.2'
+          - os: ubuntu-latest
+            php-version: '7.3'
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get code coverage driver
+        uses: actions/github-script@v3.1
+        id: coverage-driver
+        with:
+          script: 'return "${{ matrix.os }}" == "ubuntu-latest" && "${{ matrix.php-version }}" == "7.4" ? "pcov" : "none"'
+          result-encoding: string
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          ini-values: pcov.directory=$GITHUB_WORKSPACE
+          coverage: ${{ steps.coverage-driver.outputs.result }}
+
+      - name: Get Composer data directory
+        id: composer-data
+        run: echo '::set-output name=dir::$(composer config data-dir)'
+
+      - name: Cache Composer data
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-data.outputs.dir }}
+          key: ${{ runner.os }}-composer-data-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-data-
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo '::set-output name=dir::$(composer config cache-files-dir)'
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-cache-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-cache-
+
+      - name: Install dependencies
+        run: composer update --no-progress ${{ matrix.composer_flags }}
+
+      - name: Run tests
+        run: composer test -- --coverage-clover=./build/logs/clover.xml
+
+      - name: Upload coverage results to Coveralls
+        if: steps.coverage-driver.outputs.result != 'none'
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          composer require --dev php-coveralls/php-coveralls --quiet
+          ./vendor/bin/php-coveralls --verbose
