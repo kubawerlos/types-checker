@@ -4,7 +4,8 @@ set -eu
 files_with_wrong_permissions=$(
     git ls-files --stage . \
         ':!*.sh' \
-    | grep '100755 ' \
+        ':!types-checker' \
+    | grep '^100755 ' \
     | sort -fh
 )
 
