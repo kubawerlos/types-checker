@@ -3,7 +3,7 @@
 /*
  * This file is part of Types checker.
  *
- * (c) 2016-2020 Kuba Werłos
+ * (c) 2016 Kuba Werłos
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
