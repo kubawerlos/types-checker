@@ -1,7 +1,7 @@
 {
     "require-dev": {
         "ergebnis/composer-normalize": "^2.13.2",
-        "friendsofphp/php-cs-fixer": "^2.18.0",
+        "friendsofphp/php-cs-fixer": "^2.18.1",
         "kubawerlos/php-cs-fixer-config": "^1.8.0",
         "kubawerlos/php-cs-fixer-custom-fixers": "^2.4.0",
         "maglnet/composer-require-checker": "^2.1.0",
