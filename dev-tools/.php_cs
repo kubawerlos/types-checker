@@ -26,6 +26,7 @@ $config = PhpCsFixerConfig\Factory::createForLibrary('Types checker', 'Kuba WerÅ
 
 $rules = $config->getRules();
 
+unset($rules['phpdoc_tag_type']); // TODO: remove after bug is fixed: https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/5395
 unset($rules['use_arrow_functions']); // TODO: remove when dropping support to PHP <7.4
 
 return $config->setRules($rules);
