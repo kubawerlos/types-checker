@@ -111,6 +111,9 @@ final class ClassCollector
         return $classes;
     }
 
+    /**
+     * @return array<int, string|array{0: int, 1: string, 2?: int}>
+     */
     private function getTokens(string $content): array
     {
         $tokens = [];
