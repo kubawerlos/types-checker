@@ -78,7 +78,7 @@ final class ClassCollector
         /** @var string $content */
         $content = \file_get_contents($path);
 
-        $tokens = \token_get_all($content);
+        $tokens = $this->getTokens($content);
 
         $classes = [];
 
@@ -109,5 +109,34 @@ final class ClassCollector
         }
 
         return $classes;
+    }
+
+    private function getTokens(string $content): array
+    {
+        $tokens = [];
+
+        foreach (\token_get_all($content) as $token) {
+            if (\defined('T_NAME_QUALIFIED') && \is_array($token) && \in_array($token[0], [T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED], true)) {
+                $parts = \explode('\\', $token[1]);
+
+                if ($parts[0] === '') {
+                    $tokens[] = [T_NS_SEPARATOR, '\\'];
+                    \array_shift($parts);
+                }
+
+                foreach ($parts as $part) {
+                    $tokens[] = [T_STRING, $part];
+                    $tokens[] = [T_NS_SEPARATOR, '\\'];
+                }
+
+                \array_pop($tokens);
+
+                continue;
+            }
+
+            $tokens[] = $token;
+        }
+
+        return $tokens;
     }
 }

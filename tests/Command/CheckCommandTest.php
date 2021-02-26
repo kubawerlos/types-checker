@@ -55,7 +55,7 @@ final class CheckCommandTest extends TestCase
     }
 
     /**
-     * @requires PHP 7.3
+     * @requires PHP ^7.3
      */
     public function testRunWithUnknownClass(): void
     {
