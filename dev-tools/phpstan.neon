@@ -1,7 +1,5 @@
 parameters:
   level: max
-  autoload_files:
-    - ../vendor/autoload.php
   paths:
     - ../src
     - ../types-checker
