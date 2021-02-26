@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "996b73045ef2b72ee2720b210cfefa56",
+    "content-hash": "ec07224ad88e2a03aa057d79163f8ea3",
     "packages": [],
     "packages-dev": [
         {
@@ -1148,32 +1148,35 @@
         },
         {
             "name": "maglnet/composer-require-checker",
-            "version": "2.1.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maglnet/ComposerRequireChecker.git",
-                "reference": "0c66698d487fcb5c66cf07108e2180c818fb2e72"
+                "reference": "b3cd6d30e2335997c5eabb19e3f01d699bc06caa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/0c66698d487fcb5c66cf07108e2180c818fb2e72",
-                "reference": "0c66698d487fcb5c66cf07108e2180c818fb2e72",
+                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/b3cd6d30e2335997c5eabb19e3f01d699bc06caa",
+                "reference": "b3cd6d30e2335997c5eabb19e3f01d699bc06caa",
                 "shasum": ""
             },
             "require": {
+                "composer-runtime-api": "^2.0.0",
                 "ext-json": "*",
                 "ext-phar": "*",
-                "nikic/php-parser": "^4.3",
-                "ocramius/package-versions": "^1.4.2",
-                "php": "^7.2",
-                "symfony/console": "^5.0",
-                "webmozart/glob": "^4.1"
+                "nikic/php-parser": "^4.10.2",
+                "php": "^7.4 || ^8.0",
+                "symfony/console": "^5.1.8",
+                "webmozart/assert": "^1.9.1",
+                "webmozart/glob": "^4.2.0"
             },
             "require-dev": {
+                "doctrine/coding-standard": "^8.2.0",
                 "ext-zend-opcache": "*",
-                "mikey179/vfsstream": "^1.6",
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^8.4.3"
+                "mikey179/vfsstream": "^1.6.8",
+                "phpstan/phpstan": "^0.12.64",
+                "phpunit/phpunit": "^9.5.0",
+                "vimeo/psalm": "^4.3.2"
             },
             "bin": [
                 "bin/composer-require-checker"
@@ -1216,7 +1219,11 @@
                 "require",
                 "requirements"
             ],
-            "time": "2019-12-28T13:49:20+00:00"
+            "support": {
+                "issues": "https://github.com/maglnet/ComposerRequireChecker/issues",
+                "source": "https://github.com/maglnet/ComposerRequireChecker/tree/3.1.0"
+            },
+            "time": "2021-01-18T21:38:15+00:00"
         },
         {
             "name": "mi-schi/phpmd-extension",
@@ -1363,6 +1370,10 @@
                 "parser",
                 "php"
             ],
+            "support": {
+                "issues": "https://github.com/nikic/PHP-Parser/issues",
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.10.4"
+            },
             "time": "2020-12-20T10:01:03+00:00"
         },
         {
@@ -1892,6 +1903,10 @@
                 "container-interop",
                 "psr"
             ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/master"
+            },
             "time": "2017-02-14T16:28:37+00:00"
         },
         {
@@ -1938,6 +1953,10 @@
                 "psr",
                 "psr-14"
             ],
+            "support": {
+                "issues": "https://github.com/php-fig/event-dispatcher/issues",
+                "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
+            },
             "time": "2019-01-08T18:20:26+00:00"
         },
         {
@@ -1985,6 +2004,9 @@
                 "psr",
                 "psr-3"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/1.1.3"
+            },
             "time": "2020-03-23T09:12:05+00:00"
         },
         {
@@ -2258,6 +2280,9 @@
                 "console",
                 "terminal"
             ],
+            "support": {
+                "source": "https://github.com/symfony/console/tree/v5.2.3"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2569,6 +2594,9 @@
                 "interoperability",
                 "standards"
             ],
+            "support": {
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v2.2.0"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2828,6 +2856,9 @@
                 "polyfill",
                 "portable"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2906,6 +2937,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.22.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2987,6 +3021,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.22.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3064,6 +3101,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3278,6 +3318,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.22.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3358,6 +3401,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3493,6 +3539,9 @@
                 "interoperability",
                 "standards"
             ],
+            "support": {
+                "source": "https://github.com/symfony/service-contracts/tree/master"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3632,6 +3681,9 @@
                 "utf-8",
                 "utf8"
             ],
+            "support": {
+                "source": "https://github.com/symfony/string/tree/v5.2.3"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3796,30 +3848,33 @@
                 "check",
                 "validate"
             ],
+            "support": {
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.9.1"
+            },
             "time": "2020-07-08T17:02:28+00:00"
         },
         {
             "name": "webmozart/glob",
-            "version": "4.1.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/glob.git",
-                "reference": "3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe"
+                "reference": "06358fafde0f32edb4513f4fd88fe113a40c90ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/glob/zipball/3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe",
-                "reference": "3cbf63d4973cf9d780b93d2da8eec7e4a9e63bbe",
+                "url": "https://api.github.com/repos/webmozarts/glob/zipball/06358fafde0f32edb4513f4fd88fe113a40c90ee",
+                "reference": "06358fafde0f32edb4513f4fd88fe113a40c90ee",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3|^7.0",
+                "php": "^7.3 || ^8.0.0",
                 "webmozart/path-util": "^2.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.6",
-                "sebastian/version": "^1.0.1",
-                "symfony/filesystem": "^2.5"
+                "phpunit/phpunit": "^8.0",
+                "symfony/filesystem": "^5.1"
             },
             "type": "library",
             "extra": {
@@ -3843,7 +3898,11 @@
                 }
             ],
             "description": "A PHP implementation of Ant's glob.",
-            "time": "2015-12-29T11:14:33+00:00"
+            "support": {
+                "issues": "https://github.com/webmozarts/glob/issues",
+                "source": "https://github.com/webmozarts/glob/tree/4.3.0"
+            },
+            "time": "2021-01-21T06:17:15+00:00"
         },
         {
             "name": "webmozart/path-util",
@@ -3889,6 +3948,10 @@
                 }
             ],
             "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
+            "support": {
+                "issues": "https://github.com/webmozart/path-util/issues",
+                "source": "https://github.com/webmozart/path-util/tree/2.3.0"
+            },
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
@@ -3899,5 +3962,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
