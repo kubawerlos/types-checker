@@ -3,7 +3,7 @@
         "ergebnis/composer-normalize": "^2.13.2",
         "friendsofphp/php-cs-fixer": "^2.18.2",
         "kubawerlos/php-cs-fixer-config": "^1.9.0",
-        "kubawerlos/php-cs-fixer-custom-fixers": "^2.4.0",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^2.4.1",
         "maglnet/composer-require-checker": "^3.1.0",
         "mi-schi/phpmd-extension": "^4.3.0",
         "phpmd/phpmd": "^2.9.1",
