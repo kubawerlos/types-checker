@@ -66,7 +66,7 @@ final class Report
 
     public function getNumberOfIssues(): int
     {
-        return (int) \array_sum(\array_map(static function (ClassReport $class): int {
+        return \array_sum(\array_map(static function (ClassReport $class): int {
             return $class->getNumberOfIssues();
         }, $this->classes));
     }
