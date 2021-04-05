@@ -58,7 +58,7 @@ final class ClassReport
 
     public function getNumberOfIssues(): int
     {
-        return (int) \array_sum(\array_map(static function (MethodReport $method): int {
+        return \array_sum(\array_map(static function (MethodReport $method): int {
             return \count($method->getIssues());
         }, $this->methods));
     }
