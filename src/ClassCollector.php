@@ -119,7 +119,7 @@ final class ClassCollector
         $tokens = [];
 
         foreach (\token_get_all($content) as $token) {
-            if (\defined('T_NAME_QUALIFIED') && \is_array($token) && \in_array($token[0], [T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED], true)) {
+            if (\defined('T_NAME_QUALIFIED') && \is_array($token) && \in_array($token[0], [\T_NAME_QUALIFIED, \T_NAME_FULLY_QUALIFIED], true)) {
                 $parts = \explode('\\', $token[1]);
 
                 if ($parts[0] === '') {
