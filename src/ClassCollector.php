@@ -89,19 +89,19 @@ final class ClassCollector
         $i = 1;
 
         while ($i < $count) {
-            if ($tokens[$i][0] === T_NAMESPACE) {
+            if ($tokens[$i][0] === \T_NAMESPACE) {
                 $i += 2;
                 while (isset($tokens[$i]) && \is_array($tokens[$i])) {
-                    if (\in_array($tokens[$i][0], [T_NS_SEPARATOR, T_STRING], true)) {
+                    if (\in_array($tokens[$i][0], [\T_NS_SEPARATOR, \T_STRING], true)) {
                         $namespace .= $tokens[$i][1];
                     }
                     $i++;
                 }
             }
             if (
-                \in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_TRAIT], true)
-                && $tokens[$i + 1][0] === T_WHITESPACE
-                && $tokens[$i + 2][0] === T_STRING
+                \in_array($tokens[$i][0], [\T_CLASS, \T_INTERFACE, \T_TRAIT], true)
+                && $tokens[$i + 1][0] === \T_WHITESPACE
+                && $tokens[$i + 2][0] === \T_STRING
             ) {
                 $classes[] = \sprintf('%s\\%s', $namespace, $tokens[$i + 2][1]);
             }
@@ -119,17 +119,17 @@ final class ClassCollector
         $tokens = [];
 
         foreach (\token_get_all($content) as $token) {
-            if (\defined('T_NAME_QUALIFIED') && \is_array($token) && \in_array($token[0], [T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED], true)) {
+            if (\defined('T_NAME_QUALIFIED') && \is_array($token) && \in_array($token[0], [\T_NAME_QUALIFIED, \T_NAME_FULLY_QUALIFIED], true)) {
                 $parts = \explode('\\', $token[1]);
 
                 if ($parts[0] === '') {
-                    $tokens[] = [T_NS_SEPARATOR, '\\'];
+                    $tokens[] = [\T_NS_SEPARATOR, '\\'];
                     \array_shift($parts);
                 }
 
                 foreach ($parts as $part) {
-                    $tokens[] = [T_STRING, $part];
-                    $tokens[] = [T_NS_SEPARATOR, '\\'];
+                    $tokens[] = [\T_STRING, $part];
+                    $tokens[] = [\T_NS_SEPARATOR, '\\'];
                 }
 
                 \array_pop($tokens);
