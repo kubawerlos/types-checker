@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bd176ccf3e7bf99f129378bb70ce661",
+    "content-hash": "22b528e9fa4624cda142acdf7d874d31",
     "packages": [],
     "packages-dev": [
         {
@@ -1124,21 +1124,21 @@
         },
         {
             "name": "kubawerlos/php-cs-fixer-custom-fixers",
-            "version": "v2.4.1",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers.git",
-                "reference": "748c0bbb4237b177a05af5a99936eb74cc88dec5"
+                "reference": "d34e979bbe958240933619929f6b3c26229f75d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/748c0bbb4237b177a05af5a99936eb74cc88dec5",
-                "reference": "748c0bbb4237b177a05af5a99936eb74cc88dec5",
+                "url": "https://api.github.com/repos/kubawerlos/php-cs-fixer-custom-fixers/zipball/d34e979bbe958240933619929f6b3c26229f75d4",
+                "reference": "d34e979bbe958240933619929f6b3c26229f75d4",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "friendsofphp/php-cs-fixer": "^2.17",
+                "friendsofphp/php-cs-fixer": "^2.17 || ^3.0.0",
                 "php": "^7.2 || ^8.0",
                 "symfony/finder": "^3.0 || ^4.0 || ^5.0"
             },
@@ -1164,9 +1164,9 @@
             "description": "A set of custom fixers for PHP CS Fixer",
             "support": {
                 "issues": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers/issues",
-                "source": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers/tree/v2.4.1"
+                "source": "https://github.com/kubawerlos/php-cs-fixer-custom-fixers/tree/v2.5.0"
             },
-            "time": "2021-02-28T11:32:39+00:00"
+            "time": "2021-05-04T00:57:26+00:00"
         },
         {
             "name": "localheinz/diff",
