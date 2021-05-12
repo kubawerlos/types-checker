@@ -6,7 +6,7 @@
 
     <description>Ruleset used in the project</description>
 
-    <file>.php_cs</file>
+    <file>.php-cs-fixer.php</file>
     <file>../src</file>
     <file>../tests</file>
     <file>../types-checker</file>
