@@ -1,7 +1,7 @@
 {
     "require": {
         "php": "^8.0",
-        "ergebnis/composer-normalize": "^2.14.0",
+        "ergebnis/composer-normalize": "^2.15.0",
         "friendsofphp/php-cs-fixer": "^3.0.0",
         "kubawerlos/composer-smaller-lock": "^0.1.1",
         "kubawerlos/php-cs-fixer-config": "^2.0.0",
