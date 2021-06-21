@@ -1,18 +1,6 @@
 {
     "require": {
-        "php": "^8.0",
-        "ergebnis/composer-normalize": "^2.14.0",
-        "friendsofphp/php-cs-fixer": "^3.0.0",
-        "kubawerlos/composer-smaller-lock": "^0.1.1",
-        "kubawerlos/php-cs-fixer-config": "^2.0.0",
-        "kubawerlos/php-cs-fixer-custom-fixers": "^2.5.0",
-        "maglnet/composer-require-checker": "^3.3.0",
-        "mi-schi/phpmd-extension": "^4.3.0",
-        "phpmd/phpmd": "^2.10.1",
-        "phpstan/phpstan": "^0.12.89",
-        "phpstan/phpstan-strict-rules": "^0.12.9",
-        "squizlabs/php_codesniffer": "^3.6.0",
-        "vimeo/psalm": "^4.7.3"
+        "php": "^8.0"
     },
     "scripts": {
         "analyse": [
@@ -30,5 +18,19 @@
             "phpcbf || return 0",
             "php-cs-fixer fix --ansi --verbose || return 0"
         ]
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.15.0",
+        "friendsofphp/php-cs-fixer": "^3.0.0",
+        "kubawerlos/composer-smaller-lock": "^0.1.4",
+        "kubawerlos/php-cs-fixer-config": "^2.0.0",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^2.5.0",
+        "maglnet/composer-require-checker": "^3.3.0",
+        "mi-schi/phpmd-extension": "^4.3.0",
+        "phpmd/phpmd": "^2.10.1",
+        "phpstan/phpstan": "^0.12.90",
+        "phpstan/phpstan-strict-rules": "^0.12.9",
+        "squizlabs/php_codesniffer": "^3.6.0",
+        "vimeo/psalm": "^4.8.1"
     }
 }
