@@ -4,9 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a153d69b48605b7a3c42f3caf0a8e031",
-    "packages": [],
-    "packages-dev": [
+    "content-hash": "0b454a197e606211fd1d2f7758cc82e2",
+    "packages": [
         {
             "name": "amphp/amp",
             "version": "v2.5.2",
@@ -2192,6 +2191,7 @@
             "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths."
         }
     ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
