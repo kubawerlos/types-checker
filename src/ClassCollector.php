@@ -112,7 +112,7 @@ final class ClassCollector
     }
 
     /**
-     * @return array<int, string|array{0: int, 1: string, 2?: int}>
+     * @return array<int, array{0: int, 1: string, 2?: int}|string>
      */
     private function getTokens(string $content): array
     {
