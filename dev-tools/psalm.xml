@@ -17,6 +17,7 @@
     </projectFiles>
 
     <issueHandlers>
+        <ArgumentTypeCoercion errorLevel='suppress' />
         <RedundantCastGivenDocblockType errorLevel='suppress' />
         <UnresolvableInclude errorLevel='suppress' />
     </issueHandlers>

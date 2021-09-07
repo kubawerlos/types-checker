@@ -34,7 +34,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ macos-latest, ubuntu-latest, windows-latest ]
-        php-version: [ '7.4', '8.0' ]
+        php-version: [ '8.0' ]
         include:
           - os: ubuntu-latest
             php-version: '7.2'
@@ -43,6 +43,9 @@ jobs:
             php-version: '7.2'
           - os: ubuntu-latest
             php-version: '7.3'
+          - os: ubuntu-latest
+            php-version: '8.1'
+            composer_flags: '--ignore-platform-reqs'
 
     runs-on: ${{ matrix.os }}
 
