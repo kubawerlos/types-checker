@@ -20,13 +20,13 @@
     },
     "autoload": {
         "psr-4": {
-            "TypesChecker\\": "./src/"
+            "TypesChecker\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Stub\\": "./tests/_stubs/",
-            "Tests\\": "./tests"
+            "Tests\\Stub\\": "tests/_stubs/",
+            "Tests\\": "tests"
         }
     },
     "bin": [
@@ -35,15 +35,15 @@
     "scripts": {
         "analyse": [
             "@install-dev-tools",
-            "composer --working-dir=./dev-tools analyse",
-            "./types-checker ./src"
+            "composer --working-dir=.dev-tools analyse",
+            "./types-checker src"
         ],
         "fix": [
             "@install-dev-tools",
-            "composer --working-dir=./dev-tools fix"
+            "composer --working-dir=.dev-tools fix"
         ],
         "install-dev-tools": [
-            "composer --working-dir=./dev-tools install"
+            "composer --working-dir=.dev-tools install"
         ],
         "test": [
             "phpunit"

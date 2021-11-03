@@ -17,7 +17,7 @@ use TypesChecker\Report\Report;
 
 final class Checker
 {
-    /** @var string[] */
+    /** @var array<string> */
     private $excluded = [];
 
     /** @var bool */
@@ -30,7 +30,7 @@ final class Checker
     private $report;
 
     /**
-     * @param string[] $paths
+     * @param array<string> $paths
      */
     public function __construct(array $paths)
     {

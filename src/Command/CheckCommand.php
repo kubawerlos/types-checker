@@ -36,7 +36,7 @@ final class CheckCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var string[] $paths */
+        /** @var array<string> $paths */
         $paths = $input->getArgument('path');
 
         /** @var null|string $autoloader */
@@ -50,7 +50,7 @@ final class CheckCommand extends BaseCommand
 
         $checker = new Checker($paths);
 
-        /** @var string[] $excludes */
+        /** @var array<string> $excludes */
         $excludes = $input->getOption('exclude');
         foreach ($excludes as $name) {
             $checker->exclude($name);

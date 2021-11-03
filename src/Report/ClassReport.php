@@ -18,7 +18,7 @@ final class ClassReport
     /** @var \ReflectionClass */
     private $class;
 
-    /** @var MethodReport[] */
+    /** @var array<MethodReport> */
     private $methods = [];
 
     public function __construct(\ReflectionClass $class)
@@ -49,7 +49,7 @@ final class ClassReport
     }
 
     /**
-     * @return MethodReport[]
+     * @return array<MethodReport>
      */
     public function getMethods(): array
     {
