@@ -28,5 +28,7 @@ $rules = $config->getRules();
 
 unset($rules['phpdoc_tag_type']); // TODO: remove after bug is fixed: https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/5395
 unset($rules['use_arrow_functions']); // TODO: remove when dropping support to PHP <7.4
+unset($rules['modernize_strpos']); // TODO: remove when dropping support to PHP <8.0
+unset($rules[PhpCsFixerCustomFixers\Fixer\PromotedConstructorPropertyFixer::name()]); // TODO: remove when dropping support to PHP <8.0
 
 return $config->setRules($rules);

@@ -22,11 +22,11 @@ final class ClassCollector
     private $classes = [];
 
     /**
-     * @param string[] $paths
+     * @param array<string> $paths
      */
     public function __construct(array $paths)
     {
-        /** @var string[] $files */
+        /** @var array<string> $files */
         $files = [];
         foreach ($paths as $path) {
             $realPath = \realpath($path);
@@ -63,7 +63,7 @@ final class ClassCollector
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getClasses(): array
     {
@@ -71,7 +71,7 @@ final class ClassCollector
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     private function getClassesForFile(string $path): array
     {

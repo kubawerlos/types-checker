@@ -15,7 +15,7 @@ namespace TypesChecker\Report;
 
 final class Report
 {
-    /** @var ClassReport[] */
+    /** @var array<ClassReport> */
     private $classes = [];
 
     public function addClass(\ReflectionClass $class): void
@@ -29,7 +29,7 @@ final class Report
     }
 
     /**
-     * @return ClassReport[]
+     * @return array<ClassReport>
      */
     public function getClasses(): array
     {

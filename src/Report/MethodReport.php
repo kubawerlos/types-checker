@@ -18,7 +18,7 @@ final class MethodReport
     /** @var \ReflectionMethod */
     private $method;
 
-    /** @var string[] */
+    /** @var array<string> */
     private $issues = [];
 
     public function __construct(\ReflectionMethod $method)
@@ -39,7 +39,7 @@ final class MethodReport
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function getIssues(): array
     {
