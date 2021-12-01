@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Types checker.
@@ -9,12 +9,9 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-declare(strict_types=1);
-
 namespace TypesChecker;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 final class ClassCollector
 {
@@ -38,7 +35,6 @@ final class ClassCollector
                     ->files()
                     ->name('*.php')
                     ->in($realPath);
-                /** @var SplFileInfo $file */
                 foreach ($finder as $file) {
                     /** @var string $path */
                     $path = $file->getRealPath();
