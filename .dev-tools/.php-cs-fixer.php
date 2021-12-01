@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Types checker.
@@ -9,7 +9,6 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-declare(strict_types=1);
 $config = PhpCsFixerConfig\Factory::createForLibrary('Types checker', 'Kuba Werłos', 2016)
     ->setUsingCache(false)
     ->setFinder(
@@ -30,5 +29,6 @@ unset($rules['phpdoc_tag_type']); // TODO: remove after bug is fixed: https://gi
 unset($rules['use_arrow_functions']); // TODO: remove when dropping support to PHP <7.4
 unset($rules['modernize_strpos']); // TODO: remove when dropping support to PHP <8.0
 unset($rules[PhpCsFixerCustomFixers\Fixer\PromotedConstructorPropertyFixer::name()]); // TODO: remove when dropping support to PHP <8.0
+$rules['trailing_comma_in_multiline'] = true; // TODO: remove when dropping support to PHP <8.0
 
 return $config->setRules($rules);
