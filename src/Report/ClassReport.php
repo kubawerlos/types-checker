@@ -26,7 +26,7 @@ final class ClassReport
 
     public function addIssue(\ReflectionMethod $method, string $issue): void
     {
-        if (!isset($this->methods[$method->getName()])) {
+        if (!\array_key_exists($method->getName(), $this->methods)) {
             $this->methods[$method->getName()] = new MethodReport($method);
         }
 

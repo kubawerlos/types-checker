@@ -37,8 +37,8 @@ final class CheckCommand extends BaseCommand
         /** @var array<string> $paths */
         $paths = $input->getArgument('path');
 
-        /** @var null|string $autoloader */
         $autoloader = $input->getOption('autoloader');
+        \assert($autoloader === null || \is_string($autoloader));
         if ($autoloader !== null) {
             if (!\file_exists($autoloader)) {
                 throw new \InvalidArgumentException(\sprintf('File "%s" does not exist.', $autoloader));
@@ -54,8 +54,8 @@ final class CheckCommand extends BaseCommand
             $checker->exclude($name);
         }
 
-        /** @var bool $skipReturnTypes */
         $skipReturnTypes = $input->getOption('skip-return-types');
+        \assert(\is_bool($skipReturnTypes));
         if ($skipReturnTypes) {
             $checker->skipReturnTypes();
         }

@@ -12,6 +12,7 @@
 namespace TypesChecker;
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class ClassCollector
 {
@@ -23,7 +24,6 @@ final class ClassCollector
      */
     public function __construct(array $paths)
     {
-        /** @var array<string> $files */
         $files = [];
         foreach ($paths as $path) {
             $realPath = \realpath($path);
@@ -35,9 +35,10 @@ final class ClassCollector
                     ->files()
                     ->name('*.php')
                     ->in($realPath);
+                /** @var SplFileInfo $file */
                 foreach ($finder as $file) {
-                    /** @var string $path */
                     $path = $file->getRealPath();
+                    \assert(\is_string($path));
                     $files[] = $path;
                 }
             } else {
@@ -52,7 +53,7 @@ final class ClassCollector
         }
 
         \spl_autoload_register(function (string $class): void {
-            if (isset($this->classes[$class])) {
+            if (\array_key_exists($class, $this->classes)) {
                 require_once $this->classes[$class];
             }
         });
@@ -71,8 +72,8 @@ final class ClassCollector
      */
     private function getClassesForFile(string $path): array
     {
-        /** @var string $content */
         $content = \file_get_contents($path);
+        \assert(\is_string($content));
 
         $tokens = $this->getTokens($content);
 
@@ -87,7 +88,7 @@ final class ClassCollector
         while ($i < $count) {
             if ($tokens[$i][0] === \T_NAMESPACE) {
                 $i += 2;
-                while (isset($tokens[$i]) && \is_array($tokens[$i])) {
+                while (\array_key_exists($i, $tokens) && \is_array($tokens[$i])) {
                     if (\in_array($tokens[$i][0], [\T_NS_SEPARATOR, \T_STRING], true)) {
                         $namespace .= $tokens[$i][1];
                     }
