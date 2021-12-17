@@ -1,8 +1,8 @@
 {
     "name": "kubawerlos/types-checker",
-    "type": "library",
     "description": "A tool to find missing type declarations in PHP 7 code",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Kuba Werłos",

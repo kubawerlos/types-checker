@@ -82,7 +82,7 @@ final class Report
 
     private function getClass(\ReflectionClass $class): ClassReport
     {
-        if (!isset($this->classes[$class->getName()])) {
+        if (!\array_key_exists($class->getName(), $this->classes)) {
             $this->classes[$class->getName()] = new ClassReport($class);
         }
 
