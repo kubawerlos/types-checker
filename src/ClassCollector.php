@@ -12,7 +12,6 @@
 namespace TypesChecker;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 final class ClassCollector
 {
@@ -35,7 +34,7 @@ final class ClassCollector
                     ->files()
                     ->name('*.php')
                     ->in($realPath);
-                /** @var SplFileInfo $file */
+
                 foreach ($finder as $file) {
                     $path = $file->getRealPath();
                     \assert(\is_string($path));
