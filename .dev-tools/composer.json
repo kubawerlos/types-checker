@@ -1,7 +1,7 @@
 {
     "require": {
         "php": "^8.0",
-        "ergebnis/composer-normalize": "^2.25.1",
+        "ergebnis/composer-normalize": "^2.25.2",
         "kubawerlos/composer-smaller-lock": "^1.0.0",
         "kubawerlos/php-cs-fixer-config": "^3.8.0",
         "maglnet/composer-require-checker": "^4.0.0",
