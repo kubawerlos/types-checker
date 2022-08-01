@@ -21,7 +21,7 @@ jobs:
         run: composer update --no-progress
 
       - name: Analyse
-        run: composer analyse
+        run: composer self-update --preview; composer analyse
 
   test:
     strategy:
