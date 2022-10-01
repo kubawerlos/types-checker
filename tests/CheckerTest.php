@@ -169,6 +169,7 @@ final class CheckerTest extends TestCase
 
     /**
      * @coversNothing
+     *
      * @requires PHP 7.1
      */
     public function testPhp71Features(): void
