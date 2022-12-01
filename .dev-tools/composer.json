@@ -2,7 +2,7 @@
     "type": "project",
     "require": {
         "php": "^8.0",
-        "ergebnis/composer-normalize": "^2.28.3",
+        "ergebnis/composer-normalize": "^2.29.0",
         "kubawerlos/composer-smaller-lock": "^1.0.1",
         "kubawerlos/php-cs-fixer-config": "^3.14",
         "maglnet/composer-require-checker": "^4.2.0",
