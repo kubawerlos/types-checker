@@ -86,7 +86,7 @@ jobs:
         run: composer update --no-progress ${{ matrix.composer_flags }}
 
       - name: Run tests
-      - run: ./vendor/bin/phpunit ${{ matrix.phpunit-flags }}
+        run: ./vendor/bin/phpunit ${{ matrix.phpunit-flags }}
 
       - name: Upload coverage results to Coveralls
         if: ${{ matrix.calculate-coverage }}
