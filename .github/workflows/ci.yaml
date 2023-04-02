@@ -18,6 +18,7 @@ jobs:
       - run: composer analyse
 
   test:
+    name: PHP ${{ matrix.php-version }} ${{ matrix.description }}
     strategy:
       fail-fast: false
       matrix:
@@ -35,6 +36,7 @@ jobs:
           - os: ubuntu-latest
             php-version: '8.1'
           - os: ubuntu-latest
+            description: 'with calculating code coverage'
             php-version: '8.2'
             calculate-coverage: true
             phpunit-flags: '--coverage-clover=./build/logs/clover.xml'
