@@ -4,8 +4,7 @@
          xsi:noNamespaceSchemaLocation='./vendor/phpunit/phpunit/phpunit.xsd'
          cacheResult='false'
          colors='true'
-         forceCoversAnnotation='true'
-         verbose='true'
+         requireCoverageMetadata='true'
 >
 
     <php>
@@ -21,14 +20,10 @@
         </testsuite>
     </testsuites>
 
-    <logging>
-        <log type='coverage-text' target='php://stdout' showOnlySummary='true' />
-    </logging>
-
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <directory>./src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 
 </phpunit>

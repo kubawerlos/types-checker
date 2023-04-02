@@ -44,7 +44,7 @@ final class CheckCommandTest extends TestCase
     public function testRunWithInvalidAutoloader(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('File "nowhere" does not exist.');
+        $this->expectExceptionMessage('File "nowhere" does not exist.');
 
         $this->tester->run([
             'path' => ['src'],

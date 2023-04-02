@@ -18,13 +18,13 @@ jobs:
       - run: composer analyse
 
   test:
+    name: PHP ${{ matrix.php-version }} ${{ matrix.description }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
-        php-version: [ '8.2' ]
         include:
           - os: ubuntu-latest
+            description: 'with lowest dependencies'
             php-version: '7.2'
             composer_flags: '--prefer-lowest'
           - os: ubuntu-latest
@@ -36,6 +36,17 @@ jobs:
           - os: ubuntu-latest
             php-version: '8.1'
           - os: ubuntu-latest
+            description: 'with calculating code coverage'
+            php-version: '8.2'
+            calculate-coverage: true
+            phpunit-flags: '--coverage-clover=./build/logs/clover.xml'
+          - os: macos-latest
+            description: 'on macOS'
+            php-version: '8.2'
+          - os: windows-latest
+            description: 'on Windows'
+            php-version: '8.2'
+          - os: ubuntu-latest
             php-version: '8.3'
 
     runs-on: ${{ matrix.os }}
@@ -44,19 +55,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Get code coverage driver
-        uses: actions/github-script@v3.1
-        id: coverage-driver
-        with:
-          script: 'return "${{ matrix.os }}" == "ubuntu-latest" && "${{ matrix.php-version }}" == "8.0" ? "pcov" : "none"'
-          result-encoding: string
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
           ini-values: pcov.directory=$GITHUB_WORKSPACE
-          coverage: ${{ steps.coverage-driver.outputs.result }}
+          coverage: ${{ (matrix.calculate-coverage && 'pcov') || 'none' }}
 
       - name: Get Composer data directory
         id: composer-data
@@ -84,10 +88,10 @@ jobs:
         run: composer update --no-progress ${{ matrix.composer_flags }}
 
       - name: Run tests
-        run: composer test -- --coverage-clover=./build/logs/clover.xml
+        run: ./vendor/bin/phpunit ${{ matrix.phpunit-flags }}
 
       - name: Upload coverage results to Coveralls
-        if: steps.coverage-driver.outputs.result != 'none'
+        if: ${{ matrix.calculate-coverage }}
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
