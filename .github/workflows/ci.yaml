@@ -8,8 +8,6 @@ jobs:
   analyse:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      PHP_CS_FIXER_IGNORE_ENV: 1
     steps:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
@@ -24,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ macos-latest, ubuntu-latest, windows-latest ]
-        php-version: [ '8.0' ]
+        php-version: [ '8.2' ]
         include:
           - os: ubuntu-latest
             php-version: '7.2'
@@ -34,8 +32,11 @@ jobs:
           - os: ubuntu-latest
             php-version: '7.3'
           - os: ubuntu-latest
+            php-version: '8.0'
+          - os: ubuntu-latest
             php-version: '8.1'
-            composer_flags: '--ignore-platform-reqs'
+          - os: ubuntu-latest
+            php-version: '8.3'
 
     runs-on: ${{ matrix.os }}
 
