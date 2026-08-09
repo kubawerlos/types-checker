@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.5'
+          php-version: '8.2'
           coverage: none
       - run: composer update --no-progress
       - run: composer analyse
