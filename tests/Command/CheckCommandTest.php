@@ -156,6 +156,25 @@ final class CheckCommandTest extends TestCase
         self::assertStringNotContainsString('trait', $this->tester->getDisplay());
     }
 
+    public function testRunOnlyForOneClassAndInterfaceAndTrait(): void
+    {
+        $this->tester->run([
+            'path' => [
+                __DIR__ . '/../_stubs/ProperClass.php',
+                __DIR__ . '/../_stubs/ProperInterface.php',
+                __DIR__ . '/../_stubs/ProperTrait.php',
+            ],
+        ]);
+
+        self::assertStringContainsString('3 items', $this->tester->getDisplay());
+        self::assertStringContainsString('1 class', $this->tester->getDisplay());
+        self::assertStringContainsString('1 interface', $this->tester->getDisplay());
+        self::assertStringContainsString('1 trait', $this->tester->getDisplay());
+        self::assertStringNotContainsString('classes', $this->tester->getDisplay());
+        self::assertStringNotContainsString('interfaces', $this->tester->getDisplay());
+        self::assertStringNotContainsString('traits', $this->tester->getDisplay());
+    }
+
     public function testRunWithMissingType(): void
     {
         $this->tester->run([
