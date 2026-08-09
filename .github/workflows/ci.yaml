@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.5'
           coverage: none
       - run: composer update --no-progress
       - run: composer analyse
@@ -32,6 +32,8 @@ jobs:
           - os: ubuntu-latest
             php-version: '7.3'
           - os: ubuntu-latest
+            php-version: '7.4'
+          - os: ubuntu-latest
             php-version: '8.0'
           - os: ubuntu-latest
             php-version: '8.1'
@@ -48,41 +50,23 @@ jobs:
             php-version: '8.2'
           - os: ubuntu-latest
             php-version: '8.3'
+          - os: ubuntu-latest
+            php-version: '8.4'
+          - os: ubuntu-latest
+            php-version: '8.5'
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          ini-values: pcov.directory=$GITHUB_WORKSPACE
+          ini-values: pcov.directory=${{ github.workspace }}/src
           coverage: ${{ (matrix.calculate-coverage && 'pcov') || 'none' }}
-
-      - name: Get Composer data directory
-        id: composer-data
-        run: echo '::set-output name=dir::$(composer config data-dir)'
-
-      - name: Cache Composer data
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-data.outputs.dir }}
-          key: ${{ runner.os }}-composer-data-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-data-
-
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: echo '::set-output name=dir::$(composer config cache-files-dir)'
-
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-cache-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-cache-
 
       - name: Install dependencies
         run: composer update --no-progress ${{ matrix.composer_flags }}
